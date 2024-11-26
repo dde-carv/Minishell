@@ -1,0 +1,8 @@
+.vscode/
+obj/
+*.o
+*.a
+*.swo
+*.swp
+.dist/
+minishell
