@@ -6,7 +6,7 @@
 #    By: dde-carv <dde-carv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/26 10:12:31 by dde-carv          #+#    #+#              #
-#    Updated: 2024/11/26 10:24:09 by dde-carv         ###   ########.fr        #
+#    Updated: 2024/11/27 14:24:37 by dde-carv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ SRC_DIR		=	src/
 OBJ_DIR		=	obj/
 
 CC		=	@cc
-CFLAGS	=	-Wall -Werror -Wextra -g -I
+CFLAGS	=	-Wall -Werror -Wextra
 RM		=	@rm -f
 
 MSL_UTILS_DIR	=	$(SRC_DIR)minishell_utils/
