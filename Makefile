@@ -6,7 +6,7 @@
 #    By: dde-carv <dde-carv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/26 10:12:31 by dde-carv          #+#    #+#              #
-#    Updated: 2024/11/27 14:24:37 by dde-carv         ###   ########.fr        #
+#    Updated: 2024/12/04 21:56:03 by dde-carv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,12 +21,12 @@ CC		=	@cc
 CFLAGS	=	-Wall -Werror -Wextra
 RM		=	@rm -f
 
-MSL_UTILS_DIR	=	$(SRC_DIR)minishell_utils/
+#MSL_UTILS_DIR	=	$(SRC_DIR)minishell_utils/
 
 MAIN_MSL_DIR	=	$(SRC_DIR)main_msl/main.c
 
-SRCS	=	$(MSL_UTILS_DIR) $(MAIN_MSL_DIR)
-
+SRCS	=	 $(MAIN_MSL_DIR)
+#$(MSL_UTILS_DIR)
 OBJS	=	$(patsubst $(SRC_DIR)%.c,$(OBJ_DIR)%.o,$(SRCS))
 
 all:	$(NAME)

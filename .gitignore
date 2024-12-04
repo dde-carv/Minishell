@@ -6,3 +6,5 @@ obj/
 *.swp
 .dist/
 minishell
+a.out
+
