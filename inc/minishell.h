@@ -6,7 +6,7 @@
 /*   By: dde-carv <dde-carv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 10:12:35 by dde-carv          #+#    #+#             */
-/*   Updated: 2024/11/27 09:50:27 by dde-carv         ###   ########.fr       */
+/*   Updated: 2024/12/05 13:50:17 by dde-carv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,6 @@
 # include <sys/wait.h>
 # include <fcntl.h>
 
-
+char	*ft_getprompt(char **env);
 
 #endif
