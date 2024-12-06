@@ -6,7 +6,7 @@
 /*   By: dde-carv <dde-carv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 14:09:07 by dde-carv          #+#    #+#             */
-/*   Updated: 2024/12/05 17:51:30 by dde-carv         ###   ########.fr       */
+/*   Updated: 2024/12/06 12:01:42 by dde-carv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ static char	*ft_getprompt(char **env) //function to get the prompt using env var
 	return (promp[i - 1]);
 }
 
-static void	init_pipex(char *line, char **env) //function to initialize pipex
+static void	start_pipex(char *line, char **env) //function to initialize pipex
 {
-	//code to initialize pipex
+	char	**cmd
 }
 
 int	main(int ac, char **av, char **env)
@@ -55,11 +55,12 @@ int	main(int ac, char **av, char **env)
 				write(1, "exit\n", 5);
 				break;
 			}
-			init_minishell(line, env); //function to initialize minishell(not implemented)
+			start_minishell(line, env); //function to initialize minishell(not implemented)
 			ft_printf("%s", line);
 			free (line);
+
 		}
-		free(line);
+		//free(line);
 	}
 	return (0);
 }
