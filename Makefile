@@ -6,7 +6,7 @@
 #    By: dde-carv <dde-carv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/26 10:12:31 by dde-carv          #+#    #+#              #
-#    Updated: 2024/12/06 10:42:08 by dde-carv         ###   ########.fr        #
+#    Updated: 2024/12/09 11:36:16 by dde-carv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,7 @@ all:	$(NAME)
 
 $(NAME):	$(OBJS) $(LIBFT)
 		@echo "\033[1;32mMake .o and executable.\033[0m"
-		@$(CC) $(CFLAGS) -I$(INC) $(OBJS) $(LIBFT) -o $(NAME)
+		@$(CC) $(CFLAGS) -I$(INC) $(OBJS) $(LIBFT) -o $(NAME) -lreadline
 
 $(LIBFT):
 		@make -s -C ./libft
