@@ -6,7 +6,7 @@
 /*   By: dde-carv <dde-carv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 14:09:07 by dde-carv          #+#    #+#             */
-/*   Updated: 2024/12/09 13:48:13 by dde-carv         ###   ########.fr       */
+/*   Updated: 2024/12/09 14:36:23 by dde-carv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static char	*ft_getprompt(char **env)
 	return (last);
 }
 
-/* static void	start_pipex(char *line, char **env) //function to initialize pipex
+/* static void	start_minishell(char *line, char **env) //function to initialize pipex
 {
 	char	**line_split;
 	int		i;
@@ -62,9 +62,9 @@ int	main(int ac, char **av, char **env)
 	{
 		while (1)
 		{
-			ft_printf("\033[1;96m");
+			ft_printf("\033[1;92m➜  \033[1;96m");
 			promp = ft_getprompt(env);
-			full_promp = ft_strjoin(promp, "\033[1;33m ✗ \033[0m");
+			full_promp = ft_strjoin(promp, "\033[1;33m $ \033[0m");
 			free(promp);
 			line = readline(full_promp);
 			if (!line)
@@ -72,9 +72,10 @@ int	main(int ac, char **av, char **env)
 			if (*line)
 				add_history(line);
 			//line = get_next_line(0);
-			if (!ft_strncmp(line, "exit", 4) && (ft_strlen(line) - 1) == 4)
+			if (!ft_strncmp(line, "exit", 4) && (ft_strlen(line)) == 4)
 			{
 				write(1, "exit\n", 5);
+				//ft_exitminishell(...); //function to exit minishell(not implemented)
 				break;
 			}
 			// start_minishell(line, env); //function to initialize minishell(not implemented)
