@@ -6,32 +6,38 @@
 /*   By: dde-carv <dde-carv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 14:09:07 by dde-carv          #+#    #+#             */
-/*   Updated: 2024/12/06 14:20:34 by dde-carv         ###   ########.fr       */
+/*   Updated: 2024/12/09 11:10:33 by dde-carv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
-
-static char	*ft_getprompt(char **env) //function to get the prompt using env variable
+//function to get the prompt using env variable
+static char	*ft_getprompt(char **env)
 {
 	int		i;
 	char	**promp;
+	char	*last;
 
 	i = 0;
 	promp = NULL;
 	while (env[i])
 	{
 		if (ft_strncmp(env[i], "PWD=", 4) == 0)
-		{
 			promp = ft_split(env[i], '/');
-			break ;
-		}
 		i++;
 	}
 	i = 0;
 	while (promp[i])
 		i++;
-	return (promp[i - 1]);
+	last = ft_strdup(promp[i - 1]);
+	i = 0;
+	while (promp[i])
+	{
+		free(promp[i]);
+		i++;
+	}
+	free(promp);
+	return (last);
 }
 
 /* static void	start_pipex(char *line, char **env) //function to initialize pipex
@@ -49,11 +55,11 @@ int	main(int ac, char **av, char **env)
 	char	*line;
 	char	*promp;
 
-	promp = ft_getprompt(env);
 	if (ac == 1)
 	{
 		while (1)
 		{
+			promp = ft_getprompt(env);
 			ft_printf("%s > ", promp);
 			line = get_next_line(0);
 			if (!ft_strncmp(line, "exit", 4) && (ft_strlen(line) - 1) == 4)
@@ -63,8 +69,8 @@ int	main(int ac, char **av, char **env)
 			}
 			// start_minishell(line, env); //function to initialize minishell(not implemented)
 			ft_printf("%s", line);
-			free (line);
 			free (promp);
+			free (line);
 		}
 		free(line);
 		free(promp);
