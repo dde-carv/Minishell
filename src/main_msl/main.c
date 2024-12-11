@@ -6,7 +6,7 @@
 /*   By: dde-carv <dde-carv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 14:09:07 by dde-carv          #+#    #+#             */
-/*   Updated: 2024/12/09 15:09:10 by dde-carv         ###   ########.fr       */
+/*   Updated: 2024/12/11 10:55:27 by dde-carv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ int	main(int ac, char **av, char **env)
 			full_promp = ft_strjoin(promp, "\033[1;33m $ \033[0m");
 			free(promp);
 			line = readline(full_promp);
+			free (full_promp);
 			if (!line)
 				break;
 			if (*line)
@@ -80,12 +81,12 @@ int	main(int ac, char **av, char **env)
 			}
 			// start_minishell(line, env); //function to initialize minishell(not implemented)
 			ft_printf("%s\n", line);
-			free (full_promp);
-			//free (promp);
 			free (line);
+			//free (promp);
 		}
+		rl_clear_history();
 		free(line);
-		free (full_promp);
+		//free (full_promp);
 		//free (promp);
 	}
 	return (0);
