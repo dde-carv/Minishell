@@ -6,13 +6,12 @@
 /*   By: dde-carv <dde-carv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 14:09:07 by dde-carv          #+#    #+#             */
-/*   Updated: 2024/12/11 13:04:17 by dde-carv         ###   ########.fr       */
+/*   Updated: 2024/12/12 10:40:55 by dde-carv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
-#include <readline/readline.h>
-#include <readline/history.h>
+
 //function to get the prompt using env variable
 static char	*ft_getprompt(char **env)
 {
