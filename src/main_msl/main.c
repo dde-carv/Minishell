@@ -6,7 +6,7 @@
 /*   By: dde-carv <dde-carv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 14:09:07 by dde-carv          #+#    #+#             */
-/*   Updated: 2024/12/11 10:55:27 by dde-carv         ###   ########.fr       */
+/*   Updated: 2024/12/11 13:04:17 by dde-carv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	main(int ac, char **av, char **env)
 			free (line);
 			//free (promp);
 		}
-		rl_clear_history();
+		clear_history();
 		free(line);
 		//free (full_promp);
 		//free (promp);
