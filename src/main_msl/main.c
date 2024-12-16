@@ -6,27 +6,25 @@
 /*   By: dde-carv <dde-carv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 14:09:07 by dde-carv          #+#    #+#             */
-/*   Updated: 2024/12/12 10:40:55 by dde-carv         ###   ########.fr       */
+/*   Updated: 2024/12/13 11:40:00 by dde-carv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
 //function to get the prompt using env variable
-static char	*ft_getprompt(char **env)
+static char	*ft_getprompt(void)
 {
 	int		i;
 	char	**promp;
+	char	*cwd;
 	char	*last;
 
 	i = 0;
 	promp = NULL;
-	while (env[i])
-	{
-		if (ft_strncmp(env[i], "PWD=", 4) == 0)
-			promp = ft_split(env[i], '/');
-		i++;
-	}
+	cwd = NULL;
+	cwd = getcwd(cwd, 0);
+	promp = ft_split(cwd, '/');
 	i = 0;
 	while (promp[i])
 		i++;
@@ -52,21 +50,18 @@ static char	*ft_getprompt(char **env)
 
 int	main(int ac, char **av, char **env)
 {
-	(void)av;
+	((void)av, (void)env);
 	char	*line;
 	char	*promp;
-	char	*full_promp;
 
 	if (ac == 1)
 	{
 		while (1)
 		{
 			ft_printf("\033[1;92m➜  \033[1;96m");
-			promp = ft_getprompt(env);
-			full_promp = ft_strjoin(promp, "\033[1;33m $ \033[0m");
+			promp = ft_getprompt();
+			line = readline(ft_strjoin(promp, "\033[1;33m $ \033[0m"));
 			free(promp);
-			line = readline(full_promp);
-			free (full_promp);
 			if (!line)
 				break;
 			if (*line)
@@ -83,7 +78,7 @@ int	main(int ac, char **av, char **env)
 			free (line);
 			//free (promp);
 		}
-		clear_history();
+		rl_clear_history();
 		free(line);
 		//free (full_promp);
 		//free (promp);
