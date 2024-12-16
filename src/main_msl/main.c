@@ -6,7 +6,7 @@
 /*   By: dde-carv <dde-carv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 14:09:07 by dde-carv          #+#    #+#             */
-/*   Updated: 2024/12/13 11:40:00 by dde-carv         ###   ########.fr       */
+/*   Updated: 2024/12/16 12:04:17 by dde-carv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ static char	*ft_getprompt(void)
 	cwd = NULL;
 	cwd = getcwd(cwd, 0);
 	promp = ft_split(cwd, '/');
+	free(cwd);
 	i = 0;
 	while (promp[i])
 		i++;
@@ -53,6 +54,7 @@ int	main(int ac, char **av, char **env)
 	((void)av, (void)env);
 	char	*line;
 	char	*promp;
+	char	*full_promp;
 
 	if (ac == 1)
 	{
@@ -60,8 +62,10 @@ int	main(int ac, char **av, char **env)
 		{
 			ft_printf("\033[1;92m➜  \033[1;96m");
 			promp = ft_getprompt();
-			line = readline(ft_strjoin(promp, "\033[1;33m $ \033[0m"));
+			full_promp = ft_strjoin(promp, "\033[1;33m $ \033[0m");
 			free(promp);
+			line = readline(full_promp);
+			free(full_promp);
 			if (!line)
 				break;
 			if (*line)
