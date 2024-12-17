@@ -88,7 +88,7 @@ ${NAME}: ${OBJ}
 
 $(OBJ_DIR)%.o:	$(SRC_DIR)%.c
 	@mkdir -p $(@D)
-	@$(CC) $(CFLAGS) $(INC) -c $< -o $@
+	@$(CC) $(CFLAGS) -I$(INC) -c $< -o $@
 
 clean:
 	${RM} -r ${OBJ_DIR}

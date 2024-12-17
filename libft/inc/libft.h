@@ -17,7 +17,8 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
-# include "printf.h"
+# include "ft_printf.h"
+# include "get_next_line.h"
 
 //String Prototypes
 int		ft_isalnum(int c);
