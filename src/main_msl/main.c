@@ -13,6 +13,7 @@ static char	*ft_getprompt(void)
 	promp = NULL;
 	cwd = NULL;
 	cwd = getcwd(cwd, 0);
+	//ft_printf("PWD=%s\n", cwd);
 	promp = ft_split(cwd, '/');
 	free(cwd);
 	i = 0;
@@ -71,7 +72,7 @@ int	main(int ac, char **av, char **env)
 			ft_printf("%s\n", ms.line);
 			free (ms.line);
 		}
-		rl_clear_history();
+		//rl_clear_history();
 		free(ms.line);
 	}
 	return (0);
