@@ -19,4 +19,17 @@ typedef struct s_minishell
 	t_node	*cmds;
 }				t_minishell;
 
+////////////////////////// clean //////////////////////////
+
+//Cleans the environment variables from our array
+void	ft_clean_envvars(char **vars, int size);
+
+
+////////////////////////// env //////////////////////////
+
+//Duplicates the environment variables so we can modify them
+void	env_dup(t_minishell *ms, char **env);
+//Creates the environment variables if they don't exist
+void	env_create(t_minishell *ms);
+
 #endif
