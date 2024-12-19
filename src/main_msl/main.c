@@ -48,9 +48,9 @@ int	main(int ac, char **av, char **env)
 	{
 		ms.my_env = NULL;
 		if (*env)
-			env_dup(&ms, env); //function to duplicate env variable (not implemented)
+			env_dup(&ms, env); //function to duplicate env variable
 		else
-			env_create(&ms); //function to create env variable (not implemented)
+			env_create(&ms); //function to create env variable (not complete)
 		while (1)
 		{
 			ms.promp = ft_getprompt();
