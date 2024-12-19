@@ -26,18 +26,10 @@ static void	shlvl_create(char **env, char *cwd)
 	ft_strlcpy(env[1], "SHLVL=1", 8);
 }
 
-static void	under_create(char **env, char *cwd)
+/* static void	under_create(char **env, char *cwd)
 {
-/* 	env[2] = ft_calloc(sizeof(char), ft_strlen(cwd) + 8);
-	if (!env[2])
-	{
-		ft_clean_envvars(env, 3);
-		free(cwd);
-		exit(1);
-	}
-	ft_strlcpy(env[2], "_=", 2);
-	ft_strlcat(env[2], cwd, ft_strlen(cwd) + 8); */
-}
+
+} */
 
 static void	old_pwd_create(char **env, t_minishell *ms) //we still can't implement this function
 {
