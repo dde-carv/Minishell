@@ -14,6 +14,7 @@ typedef struct s_minishell
 	char	*promp;
 	char	*full_promp;
 	char	*line;
+	char	*old_pwd;
 	char	**my_env;
 	t_hash	*ht;
 	t_node	*cmds;

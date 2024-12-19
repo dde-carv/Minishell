@@ -30,6 +30,15 @@ static char	*ft_getprompt(void)
 	return (last);
 }
 
+/* static void set_env(t_minishell *ms, char **env)
+{
+	ms->my_env = NULL;
+	if (*env)
+		env_dup(ms, env); //function to duplicate env variable
+	else
+		env_create(ms); //function to create env variable (not complete)
+} */
+
 /* static void	start_minishell(char *line, char **env) //function to initialize pipex
 {
 	char	**line_split;
@@ -46,11 +55,12 @@ int	main(int ac, char **av, char **env)
 
 	if (ac == 1)
 	{
+		//set_env(&ms, env);
 		ms.my_env = NULL;
 		if (*env)
-			env_dup(&ms, env); //function to duplicate env variable (not implemented)
+			env_dup(&ms, env); //function to duplicate env variable
 		else
-			env_create(&ms); //function to create env variable (not implemented)
+			env_create(&ms); //function to create env variable (not complete)
 		while (1)
 		{
 			ms.promp = ft_getprompt();
