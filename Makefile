@@ -6,7 +6,7 @@
 #    By: dde-carv <dde-carv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/26 10:12:31 by dde-carv          #+#    #+#              #
-#    Updated: 2024/12/09 11:36:16 by dde-carv         ###   ########.fr        #
+#    Updated: 2024/12/18 17:03:57 by dde-carv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,12 +21,14 @@ CC		=	@cc
 CFLAGS	=	-Wall -Werror -Wextra
 RM		=	@rm -f
 
-# MSL_UTILS_DIR	=	$(SRC_DIR)msl_utils/
+MSL_UTILS_DIR	=	$(SRC_DIR)minishell_utils/env_dup.c \
+					$(SRC_DIR)minishell_utils/env_create.c \
+					$(SRC_DIR)minishell_utils/cleanup.c
 
 MAIN_MSL_DIR	=	$(SRC_DIR)main_msl/main.c
 
-SRCS	=	 $(MAIN_MSL_DIR)
-# $(MSL_UTILS_DIR)
+SRCS	=	 $(MAIN_MSL_DIR) $(MSL_UTILS_DIR)
+
 OBJS	=	$(patsubst $(SRC_DIR)%.c,$(OBJ_DIR)%.o,$(SRCS))
 
 all:	$(NAME)

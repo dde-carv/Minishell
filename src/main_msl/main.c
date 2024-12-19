@@ -1,5 +1,5 @@
 
-#include "../../inc/minishell.h"
+#include "minishell.h"
 
 //function to get the prompt using env variable
 static char	*ft_getprompt(void)
@@ -13,6 +13,7 @@ static char	*ft_getprompt(void)
 	promp = NULL;
 	cwd = NULL;
 	cwd = getcwd(cwd, 0);
+	//ft_printf("PWD=%s\n", cwd);
 	promp = ft_split(cwd, '/');
 	free(cwd);
 	i = 0;
@@ -40,41 +41,39 @@ static char	*ft_getprompt(void)
 
 int	main(int ac, char **av, char **env)
 {
-	((void)av, (void)env);
-	char	*line;
-	char	*promp;
-	char	*full_promp;
+	(void)av;
+	t_minishell	ms;
 
 	if (ac == 1)
 	{
+		ms.my_env = NULL;
+		if (*env)
+			env_dup(&ms, env); //function to duplicate env variable (not implemented)
+		else
+			env_create(&ms); //function to create env variable (not implemented)
 		while (1)
 		{
-			ft_printf("\033[1;92m➜  \033[1;96m");
-			promp = ft_getprompt();
-			full_promp = ft_strjoin(promp, "\033[1;33m $ \033[0m");
-			free(promp);
-			line = readline(full_promp);
-			free(full_promp);
-			if (!line)
+			ms.promp = ft_getprompt();
+			ms.full_promp = ft_strjoin(ms.promp, "\033[1;33m $ \033[0m");
+			free(ms.promp);
+			ms.line = readline(ms.full_promp);
+			free(ms.full_promp);
+			if (!ms.line)
 				break;
-			if (*line)
-				add_history(line);
-			//line = get_next_line(0);
-			if (!ft_strncmp(line, "exit", 4) && (ft_strlen(line)) == 4)
+			if (ms.line)
+				add_history(ms.line);
+			if (!ft_strncmp(ms.line, "exit", 4) && (ft_strlen(ms.line)) == 4)
 			{
 				write(1, "exit\n", 5);
 				//ft_exitminishell(...); //function to exit minishell(not implemented)
 				break;
 			}
-			// start_minishell(line, env); //function to initialize minishell(not implemented)
-			ft_printf("%s\n", line);
-			free (line);
-			//free (promp);
+			// start_minishell(...); //function to initialize minishell(not implemented)
+			ft_printf("%s\n", ms.line);
+			free (ms.line);
 		}
-		rl_clear_history();
-		free(line);
-		//free (full_promp);
-		//free (promp);
+		//rl_clear_history();
+		free(ms.line);
 	}
 	return (0);
 }
