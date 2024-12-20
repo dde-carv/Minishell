@@ -6,7 +6,7 @@
 #    By: dde-carv <dde-carv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/26 10:12:31 by dde-carv          #+#    #+#              #
-#    Updated: 2024/12/18 17:03:57 by dde-carv         ###   ########.fr        #
+#    Updated: 2024/12/20 14:41:01 by dde-carv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ SRC_DIR		=	src/
 OBJ_DIR		=	obj/
 
 CC		=	@cc
-CFLAGS	=	-Wall -Werror -Wextra
+CFLAGS	=	-Wall -Werror -Wextra -g
 RM		=	@rm -f
 
 MSL_UTILS_DIR	=	$(SRC_DIR)minishell_utils/env_dup.c \

@@ -12,6 +12,11 @@ static int	var_count(char **vars)
 	return (i);
 }
 
+static void	ft_shlvlup(char *my_env)
+{
+	
+}
+
 void	env_dup(t_minishell *ms, char **env)
 {
 	int	i;
@@ -26,6 +31,11 @@ void	env_dup(t_minishell *ms, char **env)
 	while (env[i])
 	{
 		ms->my_env[i] = ft_strdup(env[i]);
+		if (!ft_strncmp(env[i], "SHLVL=", 6))
+		{
+			ft_shlvlup(ms->my_env[i]);
+			ft_printf("%s\n", ms->my_env[i]);
+		}
 		if (!ms->my_env[i])
 		{
 			ft_clean_envvars(ms->my_env, i);

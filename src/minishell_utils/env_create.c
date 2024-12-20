@@ -10,11 +10,11 @@ static void	pwd_create(char **env, char *cwd)
 		free(cwd);
 		exit(1);
 	}
-	ft_strlcpy(env[0], "PWD=", 5);
-	ft_strlcat(env[0], cwd, ft_strlen(cwd) + 5);
+	ft_strcpy(env[0], "PWD=");
+	ft_strcat(env[0], cwd);
 }
 
-static void	shlvl_create(char **env, char *cwd)
+static void	shlvl_create(char **env, char *cwd) //this is wrong
 {
 	env[1] = ft_calloc(sizeof(char), 8);
 	if (!env[1])
@@ -23,16 +23,26 @@ static void	shlvl_create(char **env, char *cwd)
 		free(cwd);
 		exit(1);
 	}
-	ft_strlcpy(env[1], "SHLVL=1", 8);
+	ft_strcpy(env[1], "SHLVL=1");
 }
 
-/* static void	under_create(char **env, char *cwd)
+static void	under_create(char **env, char *cwd)
 {
-
-} */
+	env[2] = ft_calloc(sizeof(char), ft_strlen(cwd) + 16);
+	if (!env[2])
+	{
+		ft_clean_envvars(env, 3);
+		free(cwd);
+		exit(1);
+	}
+	ft_strcpy(env[2], "_=");
+	ft_strcat(env[2], cwd);
+	ft_strcat(env[2], "/./minishell");
+}
 
 static void	old_pwd_create(char **env, t_minishell *ms) //we still can't implement this function
 {
+	ms->old_pwd = NULL; //temporary
 	if (!ms->old_pwd)
 		return ;
 	env[3] = ft_calloc(sizeof(char), ft_strlen(ms->old_pwd) + 8);
@@ -42,8 +52,8 @@ static void	old_pwd_create(char **env, t_minishell *ms) //we still can't impleme
 		free(ms->old_pwd);
 		exit(1);
 	}
-	ft_strlcpy(env[3], "OLDPWD=", 8);
-	ft_strlcat(env[3], ms->old_pwd, ft_strlen(ms->old_pwd) + 8);
+	ft_strcpy(env[3], "OLDPWD=");
+	ft_strcat(env[3], ms->old_pwd);
 }
 
 void	env_create(t_minishell *ms)
@@ -61,12 +71,9 @@ void	env_create(t_minishell *ms)
 			exit(1);
 		}
 		pwd_create(ms->my_env, cwd);
-		ft_printf("%s\n", ms->my_env[0]);
 		shlvl_create(ms->my_env, cwd);
-		ft_printf("%s\n", ms->my_env[1]);
-		//under_create(ms->my_env, cwd); //we still can't implement this function
+		under_create(ms->my_env, cwd);
 		old_pwd_create(ms->my_env, ms);
-		ft_printf("%s\n", ms->my_env[3]);
 		free(cwd);
 		ms->my_env[4] = NULL;
 	}
