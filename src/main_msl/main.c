@@ -13,7 +13,7 @@ static char	*ft_getprompt(void)
 	promp = NULL;
 	cwd = NULL;
 	cwd = getcwd(cwd, 0);
-	//ft_printf("PWD=%s\n", cwd);
+	//ft_printf("PWD=%s\n", cwd);,
 	promp = ft_split(cwd, '/');
 	free(cwd);
 	i = 0;
@@ -53,29 +53,28 @@ int	main(int ac, char **av, char **env)
 	(void)av;
 	t_minishell	ms;
 
-	if (ac == 1)
+	if (ac > 1)
+		return (0);
+	set_env(&ms, env);
+	while (1)
 	{
-		set_env(&ms, env);
-		while (1)
-		{
-			ms.promp = ft_getprompt();
-			ms.full_promp = ft_strjoin(ms.promp, "\033[1;33m $ \033[0m");
-			free(ms.promp);
-			ms.line = readline(ms.full_promp);
-			free(ms.full_promp);
-			if (!ms.line)
-				break;
-			if (ms.line)
-				add_history(ms.line);
-			if (!ft_strcmp(ms.line, "exit") && (ft_strlen(ms.line)) == 4)
-				break;
-			// start_minishell(...); //function to initialize minishell(not implemented)
-			ft_printf("%s\n", ms.line);
-			free (ms.line);
-		}
-		//ft_exitminishell(...); //function to exit minishell(not implemented)
-		rl_clear_history();
-		free(ms.line);
+		ms.promp = ft_getprompt();
+		ms.full_promp = ft_strjoin(ms.promp, "\033[1;33m $ \033[0m");
+		free(ms.promp);
+		ms.line = readline(ms.full_promp);
+		free(ms.full_promp);
+		if (!ms.line)
+			break;
+		if (ms.line)
+			add_history(ms.line);
+		if (!ft_strcmp(ms.line, "exit") && (ft_strlen(ms.line)) == 4)
+			break;
+		// start_minishell(...); //function to initialize minishell(not implemented)
+		ft_printf("%s\n", ms.line);
+		free (ms.line);
 	}
+	//ft_exitminishell(...); //function to exit minishell(not implemented)
+	//rl_clear_history();
+	free(ms.line);
 	return (0);
 }

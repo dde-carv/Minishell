@@ -1,7 +1,7 @@
 
 #include "minishell.h"
 
-void	ft_clean_envvars(char **vars, int size)
+/* void	ft_clean_envvars(char **vars, int size)
 {
 	int i;
 
@@ -12,4 +12,4 @@ void	ft_clean_envvars(char **vars, int size)
 		i++;
 	}
 	free(vars);
-}
+} */

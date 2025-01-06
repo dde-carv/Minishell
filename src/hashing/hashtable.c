@@ -49,7 +49,7 @@ unsigned int hash(char *entry)
     int i = 0;
     int len = strnlen(entry, MAX_ENTRY_SIZE);
     unsigned int hash_value = 0;
-    
+
     while (i < len)
     {
         hash_value = hash_value + entry[i];
@@ -119,7 +119,7 @@ int main()
         ft_printf("Not found!\n");
     else
         ft_printf("Found! %s.\n", tmp->key);
-    
+
     // lookup for a key entry that we know is NOT in the table
     tmp = hash_table_lookup("Luis");
     ft_printf("Looking for Luis\n");
@@ -131,7 +131,7 @@ int main()
     // delete a key entry that we know is in the table
     ft_printf("Now we'll delete cd from table\n");
     hash_table_delete("cd");
-    
+
     print_table();
 
     /* ft_printf("echo => %u\n", hash("echo"));
@@ -141,3 +141,5 @@ int main()
     ft_printf("env => %u\n", hash("env")); */
     return (0);
 }
+
+// cc -Wall -Werror -Wextra hashtable.c ../../libft/libft.a

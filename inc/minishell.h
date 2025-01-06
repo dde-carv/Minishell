@@ -9,13 +9,24 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
+# define YES_MALL 1
+# define NY_MALL 0
+# define NO_MALL 42
+
+typedef struct s_env
+{
+	char	*var_n;
+	char	*var_v;
+	struct s_env	*next;
+}				t_env;
+
 typedef struct s_minishell
 {
 	char	*promp;
 	char	*full_promp;
 	char	*line;
 	char	*old_pwd;
-	char	**my_env;
+	t_env	*my_env;
 	t_hash	*ht;
 	t_node	*cmds;
 }				t_minishell;

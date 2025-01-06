@@ -1,7 +1,7 @@
 
 #include "minishell.h"
 
-static void	pwd_create(char **env, char *cwd)
+/* static void	pwd_create(char **env, char *cwd)
 {
 	env[0] = ft_calloc(sizeof(char), ft_strlen(cwd) + 5);
 	if (!env[0])
@@ -71,10 +71,14 @@ void	env_create(t_minishell *ms)
 			exit(1);
 		}
 		pwd_create(ms->my_env, cwd);
+		ft_printf("%s\n", ms->my_env[0]);
 		shlvl_create(ms->my_env, cwd);
+		ft_printf("%s\n", ms->my_env[1]);
 		under_create(ms->my_env, cwd);
+		ft_printf("%s\n", ms->my_env[2]);
 		old_pwd_create(ms->my_env, ms);
+		ft_printf("%s\n", ms->my_env[3]);
 		free(cwd);
 		ms->my_env[4] = NULL;
 	}
-}
+} */
