@@ -37,7 +37,7 @@ void    print_table()
             ft_printf("\t%i\t---\n", i);
         else
         {
-            ft_printf("\t%i\t%s\n", i, hash_table[i]->key);
+            ft_printf("\t%i\t%s -> %s\n", i, hash_table[i]->key, hash_table[i]->value);
         }
         i++;
     }
@@ -52,7 +52,7 @@ unsigned int hash(char *entry)
 
     while (i < len)
     {
-        hash_value = hash_value + entry[i];
+        hash_value += entry[i];
         hash_value = (hash_value * entry[i]) % HASH_TABLE_SIZE;
         i++;
     }
@@ -102,7 +102,7 @@ int main()
    // print_table();
 
     t_entry2 cd = {.key="cd", .value= ".."};
-    t_entry2 echo = {.key="echo"};
+    t_entry2 echo = {.key="echo", .value= "hello"};
     t_entry2 pwd = {.key="pwd"};
     t_entry2 ls = {.key="ls"};
 
@@ -130,7 +130,7 @@ int main()
 
     // delete a key entry that we know is in the table
     ft_printf("Now we'll delete cd from table\n");
-    hash_table_delete("cd");
+   // hash_table_delete("cd");
 
     print_table();
 
