@@ -32,10 +32,20 @@ static char	*ft_getprompt(void)
 
 static void set_env(char **env)
 {
+	t_env	*tmp;
+
+
 	if (*env)
 		env_dup(env); //function to duplicate env variable
 	else
 		env_create(); //function to create env variable
+
+	tmp = my_env();
+	while (tmp->next)
+	{
+		ft_printf("%s=%s\n", tmp->var_n, tmp->var_v);
+		tmp = tmp->next;
+	}
 }
 
 /* static void	start_minishell(char *line, char **env) //function to initialize pipex

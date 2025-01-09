@@ -2,10 +2,11 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "../libft/inc/libft.h"
 # include "ft_search.h"
-# include <sys/wait.h>
+# include "pipex.h"
+# include "../libft/inc/libft.h"
 # include <fcntl.h>
+# include <sys/wait.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 
@@ -20,6 +21,12 @@ typedef struct s_env
 	char	*var_v;
 	struct s_env	*next;
 }				t_env;
+
+typedef struct s_
+{
+	t_env *env;
+	t_hash *hast;
+};
 
 typedef struct s_minishell
 {
@@ -48,6 +55,7 @@ void	env_create(void);
 void	create_var(char *var_n, char *var_v, int flag_mall);
 //Frees variables if malloc alocation fails
 void	env_fail(int flag, char *var_n, char *var_v, int flag_mall);
+
 
 ////////////////////////// data //////////////////////////
 

@@ -4,6 +4,8 @@ t_env	*my_env(void)
 {
 	static t_env	data;
 
+	if (!data.var_n)
+		ft_bzero(&data, sizeof(data));
 	return (&data);
 }
 
