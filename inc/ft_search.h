@@ -20,11 +20,11 @@ struct s_node
 	struct s_node	*next;
 };
 
-struct s_hash
+/* struct s_hash
 {
 	t_node		**array;
 	size_t		size;
-};
+}; */
 
 
 

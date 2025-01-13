@@ -6,7 +6,7 @@
 #    By: dde-carv <dde-carv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/26 10:12:31 by dde-carv          #+#    #+#              #
-#    Updated: 2024/12/31 11:35:43 by dde-carv         ###   ########.fr        #
+#    Updated: 2025/01/07 16:14:24 by dde-carv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,8 @@ RM		=	@rm -f
 MSL_UTILS_DIR	=	$(SRC_DIR)minishell_utils/env_dup.c \
 					$(SRC_DIR)minishell_utils/env_create.c \
 					$(SRC_DIR)minishell_utils/env_utils.c \
-					$(SRC_DIR)minishell_utils/error_mag.c
+					$(SRC_DIR)minishell_utils/error.c \
+					$(SRC_DIR)minishell_utils/data.c
 
 MAIN_MSL_DIR	=	$(SRC_DIR)main_msl/main.c
 

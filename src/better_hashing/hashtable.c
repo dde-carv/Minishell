@@ -85,7 +85,7 @@ bool hash_table_insert(hash_table *ht, const char *key, void *obj)
 	if (key == NULL || obj == NULL || ht == NULL)
 		return (false);
 	size_t index = hash_table_index(ht, key);
-	
+
 	if (hash_table_lookup(ht, key) != NULL)
 	return (false);
 
