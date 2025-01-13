@@ -1,12 +1,16 @@
 
 #include "minishell.h"
 
-/* void	free_env(void)
+void	free_env(void)
 {
 	t_env	*temp;
 	t_env	*temp2;
 
-	temp = minishell()->my_env;
+	if (minishell()->my_env->var_n)
+		free(minishell()->my_env->var_n);
+	if (minishell()->my_env->var_v)
+		free(minishell()->my_env->var_v);
+	temp = minishell()->my_env->next;
 	while (temp)
 	{
 		temp2 = temp;
@@ -15,31 +19,9 @@
 			free(temp2->var_n);
 		if (temp2->var_v)
 			free(temp2->var_v);
+		free(temp2);
 	}
-} */
-
-// src/minishell_utils/error.c
-void	free_env(void)
-{
-    t_env	*temp;
-    t_env	*temp2;
-
-    if (minishell()->my_env->var_n)
-        free(minishell()->my_env->var_n);
-    if (minishell()->my_env->var_v)
-        free(minishell()->my_env->var_v);
-    temp = minishell()->my_env->next; // Start from the node after 'data'
-    while (temp)
-    {
-        temp2 = temp;
-        temp = temp->next;
-        if (temp2->var_n)
-            free(temp2->var_n);
-        if (temp2->var_v)
-            free(temp2->var_v);
-        free(temp2); // Now safe, since these nodes are dynamically allocated
-    }
-    minishell()->my_env->next = NULL; // Reset the list
+	minishell()->my_env->next = NULL;
 }
 
 void	exit_minishell(int flag)
