@@ -6,16 +6,16 @@
 #    By: dde-carv <dde-carv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/26 10:12:31 by dde-carv          #+#    #+#              #
-#    Updated: 2025/01/07 16:14:24 by dde-carv         ###   ########.fr        #
+#    Updated: 2025/01/13 12:02:34 by dde-carv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=	minishell
 
 LIBFT		=	./libft/libft.a
-INC			=	inc/
-SRC_DIR		=	src/
-OBJ_DIR		=	obj/
+INC			=	includes/
+SRC_DIR		=	sources/
+OBJ_DIR		=	objects/
 
 CC		=	@cc
 CFLAGS	=	-Wall -Werror -Wextra -g
