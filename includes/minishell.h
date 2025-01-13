@@ -57,12 +57,8 @@ void	env_fail(int flag, char *var_n, char *var_v, int flag_mall);
 
 ////////////////////////// data //////////////////////////
 
-// Function that calls env struct
-t_env	*my_env(void);
-// Function that calls minishell struct
-t_minishell	*ms(void);
 // Function that calls "global" struct
-t_global	*minishell(void);
+t_global	*minis(void);
 
 void	free_env(void);
 void	exit_minishell(int flag);

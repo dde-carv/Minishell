@@ -1,20 +1,6 @@
 #include "minishell.h"
 
-t_env	*my_env(void)
-{
-	static t_env	data;
-
-	return (&data);
-}
-
-/* t_minishell	*ms(void)
-{
-	static t_minishell	data;
-
-	return (&data);
-} */
-
-t_global	*minishell(void)
+t_global	*minis(void)
 {
 	static t_global	data;
 

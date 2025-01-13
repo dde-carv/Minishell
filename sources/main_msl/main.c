@@ -39,7 +39,7 @@ static void set_env(char **env)
 	else
 		env_create(); //function to create env variable
 
-/* 	tmp = minishell()->my_env;
+/* 	tmp = minis()->my_env;
 	while (tmp->next)
 	{
 		ft_printf("%s=%s\n", tmp->var_n, tmp->var_v);
@@ -65,23 +65,23 @@ int	main(int ac, char **av, char **env)
 	set_env(env);
 	while (1)
 	{
-		minishell()->ms->promp = ft_getprompt();
-		minishell()->ms->full_promp = ft_strjoin(minishell()->ms->promp, "\033[1;33m $ \033[0m");
-		free(minishell()->ms->promp);
-		minishell()->ms->line = readline(minishell()->ms->full_promp);
-		free(minishell()->ms->full_promp);
-		if (!minishell()->ms->line)
+		minis()->ms->promp = ft_getprompt();
+		minis()->ms->full_promp = ft_strjoin(minis()->ms->promp, "\033[1;33m $ \033[0m");
+		free(minis()->ms->promp);
+		minis()->ms->line = readline(minis()->ms->full_promp);
+		free(minis()->ms->full_promp);
+		if (!minis()->ms->line)
 			break;
-		if (minishell()->ms->line)
-			add_history(minishell()->ms->line);
-		if (!ft_strcmp(minishell()->ms->line, "exit") && (ft_strlen(minishell()->ms->line)) == 4)
+		if (minis()->ms->line)
+			add_history(minis()->ms->line);
+		if (!ft_strcmp(minis()->ms->line, "exit") && (ft_strlen(minis()->ms->line)) == 4)
 			break;
 		// start_minishell(...); //function to initialize minishell(not implemented)
-		ft_printf("%s\n", minishell()->ms->line);
-		free (minishell()->ms->line);
+		ft_printf("%s\n", minis()->ms->line);
+		free (minis()->ms->line);
 	}
 	exit_minishell(0); //function to exit minishell(not implemented)
 	//rl_clear_history();
-	free(minishell()->ms->line);
+	free(minis()->ms->line);
 	return (0);
 }

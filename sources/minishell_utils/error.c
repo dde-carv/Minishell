@@ -6,11 +6,11 @@ void	free_env(void)
 	t_env	*temp;
 	t_env	*temp2;
 
-	if (minishell()->my_env->var_n)
-		free(minishell()->my_env->var_n);
-	if (minishell()->my_env->var_v)
-		free(minishell()->my_env->var_v);
-	temp = minishell()->my_env->next;
+	if (minis()->my_env->var_n)
+		free(minis()->my_env->var_n);
+	if (minis()->my_env->var_v)
+		free(minis()->my_env->var_v);
+	temp = minis()->my_env->next;
 	while (temp)
 	{
 		temp2 = temp;
@@ -21,20 +21,20 @@ void	free_env(void)
 			free(temp2->var_v);
 		free(temp2);
 	}
-	minishell()->my_env->next = NULL;
+	minis()->my_env->next = NULL;
 }
 
 void	exit_minishell(int flag)
 {
 	free_env();
-	if (minishell()->ms->line)
-		free(minishell()->ms->line);
-	if (minishell()->my_env)
-		free(minishell()->my_env);
-	if (minishell()->ms)
-		free(minishell()->ms);
-	if (minishell()->hash)
-		free(minishell()->hash);
+	if (minis()->ms->line)
+		free(minis()->ms->line);
+	if (minis()->my_env)
+		free(minis()->my_env);
+	if (minis()->ms)
+		free(minis()->ms);
+	if (minis()->hash)
+		free(minis()->hash);
 	exit(flag);
 }
 
