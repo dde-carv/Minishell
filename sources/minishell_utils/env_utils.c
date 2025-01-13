@@ -22,7 +22,7 @@ void	env_fail(int flag, char *var_n, char *var_v, int flag_mall)
 	new_var = malloc(sizeof(t_env));
 	if (!new_var)
 		env_fail(MALL_ERROR, var_n, var_v, flag_mall);
-	tmp = my_env();
+	tmp = minishell()->my_env;
 	if (!tmp->var_n && !tmp->var_v)
 	{
 		tmp->var_n = ft_strdup(var_n);
@@ -48,7 +48,7 @@ void	create_var(char *var_n, char *var_v, int flag_mall)
 	new_var = malloc(sizeof(t_env));
 	if (!new_var)
 		env_fail(MALL_ERROR, var_n, var_v, flag_mall);
-	tmp = my_env();
+	tmp = minishell()->my_env;
 	if (!tmp->var_n && !tmp->var_v)
 	{
 		tmp->var_n = ft_strdup(var_n);

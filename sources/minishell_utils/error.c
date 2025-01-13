@@ -6,7 +6,7 @@
 	t_env	*temp;
 	t_env	*temp2;
 
-	temp = my_env();
+	temp = minishell()->my_env;
 	while (temp)
 	{
 		temp2 = temp;
@@ -24,11 +24,11 @@ void	free_env(void)
     t_env	*temp;
     t_env	*temp2;
 
-    if (my_env()->var_n)
-        free(my_env()->var_n);
-    if (my_env()->var_v)
-        free(my_env()->var_v);
-    temp = my_env()->next; // Start from the node after 'data'
+    if (minishell()->my_env->var_n)
+        free(minishell()->my_env->var_n);
+    if (minishell()->my_env->var_v)
+        free(minishell()->my_env->var_v);
+    temp = minishell()->my_env->next; // Start from the node after 'data'
     while (temp)
     {
         temp2 = temp;
@@ -39,14 +39,20 @@ void	free_env(void)
             free(temp2->var_v);
         free(temp2); // Now safe, since these nodes are dynamically allocated
     }
-    my_env()->next = NULL; // Reset the list
+    minishell()->my_env->next = NULL; // Reset the list
 }
 
 void	exit_minishell(int flag)
 {
 	free_env();
-	if (ms()->line)
-		free(ms()->line);
+	if (minishell()->ms->line)
+		free(minishell()->ms->line);
+	if (minishell()->my_env)
+		free(minishell()->my_env);
+	if (minishell()->ms)
+		free(minishell()->ms);
+	if (minishell()->hash)
+		free(minishell()->hash);
 	exit(flag);
 }
 

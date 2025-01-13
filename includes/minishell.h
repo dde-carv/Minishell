@@ -22,20 +22,20 @@ typedef struct s_env
 	struct s_env	*next;
 }				t_env;
 
-/* typedef struct s_global
-{
-	t_env *env;
-	t_hash *hast;
-}; */
-
 typedef struct s_minishell
 {
 	char	*promp;
 	char	*full_promp;
 	char	*line;
 	char	*old_pwd;
-	t_env	*first_env;
 }				t_minishell;
+
+typedef struct s_global
+{
+	t_env	*my_env;
+	t_hashmap	*hash;
+	t_minishell	*ms;
+}				t_global;
 
 ////////////////////////// clean //////////////////////////
 
@@ -61,8 +61,8 @@ void	env_fail(int flag, char *var_n, char *var_v, int flag_mall);
 t_env	*my_env(void);
 // Function that calls minishell struct
 t_minishell	*ms(void);
-
-
+// Function that calls "global" struct
+t_global	*minishell(void);
 
 void	free_env(void);
 void	exit_minishell(int flag);

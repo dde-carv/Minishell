@@ -13,7 +13,6 @@ static char	*ft_getprompt(void)
 	promp = NULL;
 	cwd = NULL;
 	cwd = getcwd(cwd, 0);
-	//ft_printf("PWD=%s\n", cwd);,
 	promp = ft_split(cwd, '/');
 	free(cwd);
 	i = 0;
@@ -32,7 +31,7 @@ static char	*ft_getprompt(void)
 
 static void set_env(char **env)
 {
-	t_env	*tmp;
+//	t_env	*tmp;
 
 
 	if (*env)
@@ -40,12 +39,12 @@ static void set_env(char **env)
 	else
 		env_create(); //function to create env variable
 
-	tmp = my_env();
+/* 	tmp = minishell()->my_env;
 	while (tmp->next)
 	{
 		ft_printf("%s=%s\n", tmp->var_n, tmp->var_v);
 		tmp = tmp->next;
-	}
+	} */
 }
 
 /* static void	start_minishell(char *line, char **env) //function to initialize pipex
@@ -66,23 +65,23 @@ int	main(int ac, char **av, char **env)
 	set_env(env);
 	while (1)
 	{
-		ms()->promp = ft_getprompt();
-		ms()->full_promp = ft_strjoin(ms()->promp, "\033[1;33m $ \033[0m");
-		free(ms()->promp);
-		ms()->line = readline(ms()->full_promp);
-		free(ms()->full_promp);
-		if (!ms()->line)
+		minishell()->ms->promp = ft_getprompt();
+		minishell()->ms->full_promp = ft_strjoin(minishell()->ms->promp, "\033[1;33m $ \033[0m");
+		free(minishell()->ms->promp);
+		minishell()->ms->line = readline(minishell()->ms->full_promp);
+		free(minishell()->ms->full_promp);
+		if (!minishell()->ms->line)
 			break;
-		if (ms()->line)
-			add_history(ms()->line);
-		if (!ft_strcmp(ms()->line, "exit") && (ft_strlen(ms()->line)) == 4)
+		if (minishell()->ms->line)
+			add_history(minishell()->ms->line);
+		if (!ft_strcmp(minishell()->ms->line, "exit") && (ft_strlen(minishell()->ms->line)) == 4)
 			break;
 		// start_minishell(...); //function to initialize minishell(not implemented)
-		ft_printf("%s\n", ms()->line);
-		free (ms()->line);
+		ft_printf("%s\n", minishell()->ms->line);
+		free (minishell()->ms->line);
 	}
 	exit_minishell(0); //function to exit minishell(not implemented)
 	//rl_clear_history();
-	free(ms()->line);
+	free(minishell()->ms->line);
 	return (0);
 }
