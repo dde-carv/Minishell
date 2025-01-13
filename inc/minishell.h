@@ -22,7 +22,7 @@ typedef struct s_env
 	struct s_env	*next;
 }				t_env;
 
-typedef struct s_
+typedef struct s_global
 {
 	t_env *env;
 	t_hash *hast;

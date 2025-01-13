@@ -5,6 +5,7 @@ obj/
 *.swo
 *.swp
 .dist/
+.DS_Store
 minishell
 a.out
 
