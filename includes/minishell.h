@@ -2,7 +2,7 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "ft_search.h"
+# include "hashmap.h"
 # include "pipex.h"
 # include "../libft/inc/libft.h"
 # include <fcntl.h>
@@ -35,8 +35,6 @@ typedef struct s_minishell
 	char	*line;
 	char	*old_pwd;
 	t_env	*first_env;
-	t_hash	*ht;
-	t_node	*cmds;
 }				t_minishell;
 
 ////////////////////////// clean //////////////////////////
