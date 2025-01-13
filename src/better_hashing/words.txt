@@ -1,7 +1,0 @@
-cd
-echo
-ls
-pwd
-env
-unset
-set
