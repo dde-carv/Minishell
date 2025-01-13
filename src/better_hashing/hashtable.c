@@ -9,7 +9,7 @@ typedef struct entry
 
 typedef struct _hash_table
 {
-	uint32_t size;
+	size_t size;
 	hashfunction *hash;
 	entry **elements;
 }   hash_table;
@@ -20,7 +20,7 @@ static size_t hash_table_index(hash_table *ht, const char *key)
 	return (result);
 }
 
-hash_table *hash_table_create(uint32_t size, hashfunction *hf)
+hash_table *hash_table_create(hashfunction *hf, size_t size)
 {
 	hash_table *ht = malloc(sizeof(*ht));
 	ht->size = size;
@@ -32,7 +32,24 @@ hash_table *hash_table_create(uint32_t size, hashfunction *hf)
 
 void hash_table_destroy(hash_table *ht)
 {
-	//what to do about individual elements
+	size_t i;
+
+	i = 0;
+	if (ht == NULL)
+		return ;
+	
+	while(i < ht->size)
+	{
+		entry *current = ht->elements[i];
+		while (current != NULL)
+		{
+			entry *next = current->next;
+			free(current->key);
+			free(current->object);
+			free(current);
+			current = next;
+		}
+	}
 	free(ht->elements);
 	free(ht);
 }
@@ -40,16 +57,16 @@ void hash_table_destroy(hash_table *ht)
 void hash_table_print(hash_table *ht)
 {
 	printf("\n_______ Start Table _______\n\n");
-	uint32_t i = 0;
+	size_t i = 0;
 	while (i < ht->size)
 	{
 		if (ht->elements[i] == NULL)
 		{
-			printf("\t%i\t---\n", i);
+			printf("\t%zu\t---\n", i);
 		}
 		else
 		{
-			printf("\t%i\t", i);
+			printf("\t%zu\t", i);
 			entry *tmp = ht->elements[i];
 			while (tmp != NULL)
 			{
@@ -87,7 +104,7 @@ bool hash_table_insert(hash_table *ht, const char *key, void *obj)
 void *hash_table_lookup(hash_table *ht, const char *key)
 {
 	if (key == NULL || ht == NULL)
-        return (false);
+        return (NULL);
 	size_t index = hash_table_index(ht, key);
 
 	entry *tmp = ht->elements[index];
