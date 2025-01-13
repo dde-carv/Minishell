@@ -1,4 +1,4 @@
-#include "../../includes/hashmap.h"
+#include "../../includes/minishell.h"
 
 unsigned long hash_function(const char *key, unsigned int size)
 {

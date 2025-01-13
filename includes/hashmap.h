@@ -1,8 +1,6 @@
 #ifndef HASHMAP_H
 # define HASHMAP_H
 
-#include "minishell.h"
-
 typedef struct s_entry
 {
     char *key;

@@ -1,4 +1,4 @@
-#include "../../includes/hashmap.h"
+#include "../../includes/minishell.h"
 
 t_entry *create_entry(char *key, char *value)
 {
