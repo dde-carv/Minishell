@@ -16,7 +16,7 @@ void	free_table(t_hashmap *table)
 	i = 0;
 	while (i < table->size)
 	{
-		current = table->entry[i];
+		current = table->entries[i];
 		while (current != NULL)
 		{
 			tmp = current->next;
@@ -25,6 +25,6 @@ void	free_table(t_hashmap *table)
 		}
 		i++;
 	}
-	free(table->entry);
+	free(table->entries);
 	free(table);
 }

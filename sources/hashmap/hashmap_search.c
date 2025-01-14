@@ -6,7 +6,7 @@ char	*hashmap_search(t_hashmap *table, char *key)
 	t_entry			*current;
 
 	index = hash_function(key, table->size);
-	current = table->entry[index];
+	current = table->entries[index];
 	while (current != NULL)
 	{
 		if (ft_strncmp(current->key, key, ft_strlen(key) + 1) == 0)

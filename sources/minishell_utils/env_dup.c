@@ -1,9 +1,9 @@
 
 #include "minishell.h"
 
-char	*get_varv(char *env, int start, int len)
+static char	*get_varv(char *env, int start, int len)
 {
-		char	*val;
+	char	*val;
 
 	val = malloc(sizeof(char) * len + 1);
 	if (!val)
@@ -12,7 +12,7 @@ char	*get_varv(char *env, int start, int len)
 	return (val);
 }
 
-char	*get_varn(char *env, int len)
+static char	*get_varn(char *env, int len)
 {
 	char	*name;
 

@@ -1,6 +1,21 @@
 
 #include "minishell.h"
 
+char	*get_var(char *varn)
+{
+	t_env	*tmp;
+
+	tmp = minis()->my_env;
+	while (tmp->next)
+	{
+		if (ft_strcmp(varn, tmp->var_n))
+			break ;
+		tmp = tmp->next;
+	}
+	ft_printf("%s=%s\n", tmp->var_n, tmp->var_v); //For test purpose
+	return (tmp->var_v);
+}
+
 void	env_fail(int flag, char *var_n, char *var_v, int flag_mall)
 {
 	(void)flag;
@@ -59,8 +74,8 @@ void	create_var(char *var_n, char *var_v, int flag_mall)
 		if (flag_mall == NY_MALL || flag_mall == YES_MALL)
 		{
 			if (flag_mall == YES_MALL)
-				free(var_n); // Free the original var_n
-			free(var_v); // Free the original var_v
+				free(var_n);
+			free(var_v);
 		}
 		return ;
 	}
@@ -75,7 +90,7 @@ void	create_var(char *var_n, char *var_v, int flag_mall)
 	if (flag_mall == NY_MALL || flag_mall == YES_MALL)
 	{
 		if (flag_mall == YES_MALL)
-			free(var_n); // Free the original var_n
-		free(var_v); // Free the original var_v
+			free(var_n);
+		free(var_v);
 	}
 }

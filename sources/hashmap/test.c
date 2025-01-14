@@ -12,7 +12,7 @@ int main()
 	{
 		unsigned long hash = hash_function(keys[i], size);
 		t_entry *entry = create_entry((char *)keys[i], (char *)values[i]);
-		table->entry[hash] = entry;
+		table->entries[hash] = entry;
 		printf("Inserted key %s:\t %s at index %lu\n", keys[i], values[i], hash);
 		i++;
 	}

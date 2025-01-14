@@ -1,0 +1,55 @@
+
+#include "minishell.h"
+
+static void	ft_chdir_path(char *path)
+{
+	char	*pwd;
+}
+
+static void	ft_chdir_oldpwd(char *path)
+{
+	ft_printf("%s\n");
+	ft_chdir_path(path);
+}
+
+static void	ft_chdir_home(void)
+{
+	char	*path;
+
+	path = ft_strdup(get_var("HOME"));
+	if (!path)
+	{
+		//error_mess(...)
+		free(path);
+		return ;
+	}
+	ft_chdir_path(path);
+	free(path);
+}
+
+void	ft_cd(char *path)
+{
+	char	*current_path;
+
+	if ((!path) || (ft_strcmp(path, "~") == 0))
+	{
+		ft_chdir_home();
+		return ;
+	}
+	else if (ft_strcmp(path, "-"))
+	{
+		current_path = ft_strdup(get_var("OLDPWD"));
+		if (!current_path)
+		{
+			//error_mess(...)
+			return ;
+		}
+		ft_chdir_oldpwd(current_path);
+	}
+	else
+	{
+		current_path = ft_strdup(path);
+		ft_chdir_path(current_path);
+	}
+	free(current_path);
+}

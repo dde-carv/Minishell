@@ -9,15 +9,15 @@ void	hashmap_print_table(t_hashmap *table)
 	i = 0;
 	while (i < table->size)
 	{
-		current = table->entry[i];
+		current = table->entries[i];
 		while (current != NULL)
 		{
 			tmp = current->next;
 			ft_putendl_fd("----------------------------", 1);
-			ft_putstr("| ");
-			ft_putstr(current->key);
-			ft_putstr(" | = | ");
-			ft_putstr(current->value);
+			ft_putstr_fd("| ", 1);
+			ft_putstr_fd(current->key, 1);
+			ft_putstr_fd(" | = | ", 1);
+			ft_putstr_fd(current->value, 1);
 			ft_putendl_fd(" |", 1);
 			current = tmp;
 		}

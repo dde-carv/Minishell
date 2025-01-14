@@ -8,10 +8,10 @@ void	insert_in_table(char *key, char *value, t_hashmap *table)
 
 	index = hash_function(key, table->size);
 	new_entry = create_entry(key, value);
-	current = table->entry[index];
+	current = table->entries[index];
 	if (current == NULL)
 	{
-		table->entry[index] = new_entry;
+		table->entries[index] = new_entry;
 		table->count += 1;
 	}
 	else

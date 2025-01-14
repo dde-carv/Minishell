@@ -51,6 +51,8 @@ void	env_dup(char **env);
 void	env_create(void);
 //Creates the variables to be put in the env
 void	create_var(char *var_n, char *var_v, int flag_mall);
+//Returns the value of the var that is given
+char	*get_var(char *varn);
 //Frees variables if malloc alocation fails
 void	env_fail(int flag, char *var_n, char *var_v, int flag_mall);
 
