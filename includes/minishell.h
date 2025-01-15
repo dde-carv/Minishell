@@ -3,6 +3,8 @@
 # define MINISHELL_H
 
 # include "hashmap.h"
+# include "input.h"
+# include "tokens.h"
 # include "pipex.h"
 # include "../libft/inc/libft.h"
 # include <fcntl.h>
@@ -17,8 +19,8 @@
 
 typedef struct s_env
 {
-	char	*var_n;
-	char	*var_v;
+	char			*var_n;
+	char			*var_v;
 	struct s_env	*next;
 }				t_env;
 
@@ -34,19 +36,23 @@ typedef struct s_global
 {
 	t_hashmap	*env;
 	t_hashmap	*sesion_vars;
+	int			error_status;
 
-	t_env	*my_env;
+	t_env		*my_env;
 	t_hashmap	*hash;
 	t_minishell	*ms;
 }				t_global;
 
 ////////////////////////// clean //////////////////////////
 
-//Cleans the environment variables from our array
-void	ft_clean_envvars(char **vars, int size);
 
 
 ////////////////////////// env //////////////////////////
+
+//Duplicates env variables and put them in a hash table
+t_hashmap	*hash_env(char **env);
+
+
 
 //Duplicates the environment variables so we can modify them
 void	env_dup(char **env);
@@ -59,11 +65,22 @@ char	*get_var(char *varn);
 //Frees variables if malloc alocation fails
 void	env_fail(int flag, char *var_n, char *var_v, int flag_mall);
 
-
 ////////////////////////// data //////////////////////////
 
-// Function that calls "global" struct
+//Function that calls "global" struct
 t_global	*minis(void);
+
+////////////////////////// error //////////////////////////
+
+# define NOT_FOUND "command not found."
+# define NO_OLDPWD "OLDPWD not set."
+# define NO_HOME "HOME not set."
+# define NO_FILE_OR_DIR "no such file or directory."
+# define SYNTAX_ERROR "syntax error."
+# define NUM_ARG_REQUIRED "numeric argument required."
+
+//Display error message in stderror
+void	error_mess(char *input, char *message, int status);
 
 void	free_env(void);
 void	exit_minishell(int flag);

@@ -19,7 +19,7 @@ static void	ft_chdir_home(void)
 	path = ft_strdup(get_var("HOME"));
 	if (!path)
 	{
-		//error_mess(...)
+		error_mess("cd", NO_HOME, 1);
 		free(path);
 		return ;
 	}
@@ -31,6 +31,7 @@ void	ft_cd(char *path)
 {
 	char	*current_path;
 
+	minis()->error_status = 0;
 	if ((!path) || (ft_strcmp(path, "~") == 0))
 	{
 		ft_chdir_home();
@@ -41,7 +42,7 @@ void	ft_cd(char *path)
 		current_path = ft_strdup(get_var("OLDPWD"));
 		if (!current_path)
 		{
-			//error_mess(...)
+			error_mess("cd", NO_OLDPWD, 1);
 			return ;
 		}
 		ft_chdir_oldpwd(current_path);

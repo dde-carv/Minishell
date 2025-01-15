@@ -35,9 +35,10 @@ static void set_env(char **env)
 
 
 	if (*env)
-		env_dup(env); //function to duplicate env variable
+		minis()->env = hash_env(env); //function to duplicate env variable
 	else
-		env_create(); //function to create env variable
+		minis()->env = create_hash_env();; //function to create env variable
+	minis()->sesion_vars = create_table(50);
 
 /* 	tmp = minis()->my_env;
 	while (tmp->next)
