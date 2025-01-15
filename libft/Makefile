@@ -24,6 +24,7 @@ LIBC	=	@ar -rcs
 FTIS_DIR		=	$(SRC_DIR)ft_is/ft_isalnum.c \
 					$(SRC_DIR)ft_is/ft_isalpha.c \
 					$(SRC_DIR)ft_is/ft_isascii.c \
+					$(SRC_DIR)ft_is/ft_isblank.c \
 					$(SRC_DIR)ft_is/ft_isdigit.c \
 					$(SRC_DIR)ft_is/ft_isprint.c
 
