@@ -1,27 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   ft_strjoin_var.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dde-carv <dde-carv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/20 15:12:34 by dde-carv          #+#    #+#             */
-/*   Updated: 2025/01/15 11:36:03 by dde-carv         ###   ########.fr       */
+/*   Created: 2025/01/15 10:54:11 by dde-carv          #+#    #+#             */
+/*   Updated: 2025/01/15 11:35:55 by dde-carv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/libft.h"
 
-int	ft_strcmp(const char *s1, const char *s2)
+char	*ft_strjoin_var(unsigned int arg_n, ...)
 {
-	size_t			len;
-	unsigned char	*str1;
-	unsigned char	*str2;
+	char			*arg_buff;
+	char			*tmp;
+	char			*result;
+	va_list			arg_list;
+	unsigned int	i;
 
-	len = 0;
-	str1 = (unsigned char *)s1;
-	str2 = (unsigned char *)s2;
-	while (str1[len] && str2[len] && str1[len] == str2[len])
-		len++;
-	return (str1[len] - str2[len]);
+	va_start(arg_list, arg_n);
+	i = 0;
+	result = NULL;
+	while (i < arg_n)
+	{
+		arg_buff = va_arg(arg_list, char *);
+		if(!result)
+			result = ft_strdup(arg_buff);
+		else
+		{
+			tmp = ft_strjoin(result, arg_buff);
+			free(result);
+			result = tmp;
+		}
+		i++;
+	}
+	va_end(arg_list);
+	return (result);
 }

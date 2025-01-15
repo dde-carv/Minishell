@@ -32,6 +32,9 @@ typedef struct s_minishell
 
 typedef struct s_global
 {
+	t_hashmap	*env;
+	t_hashmap	*sesion_vars;
+
 	t_env	*my_env;
 	t_hashmap	*hash;
 	t_minishell	*ms;

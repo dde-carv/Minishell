@@ -6,7 +6,7 @@
 #    By: dde-carv <dde-carv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/26 10:12:31 by dde-carv          #+#    #+#              #
-#    Updated: 2025/01/14 18:07:17 by dde-carv         ###   ########.fr        #
+#    Updated: 2025/01/15 11:32:28 by dde-carv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,7 @@ MSL_UTILS_DIR	=	$(SRC_DIR)minishell_utils/env_dup.c \
 
 MAIN_MSL_DIR	=	$(SRC_DIR)main_msl/main.c
 
-SRCS	=	 $(MAIN_MSL_DIR) $(MSL_UTILS_DIR) $(HASHMAP)
+SRCS	=	$(MAIN_MSL_DIR) $(MSL_UTILS_DIR) $(HASHMAP)
 
 OBJS	=	$(patsubst $(SRC_DIR)%.c,$(OBJ_DIR)%.o,$(SRCS))
 
