@@ -6,7 +6,7 @@
 #    By: dde-carv <dde-carv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/26 10:12:31 by dde-carv          #+#    #+#              #
-#    Updated: 2025/01/15 11:32:28 by dde-carv         ###   ########.fr        #
+#    Updated: 2025/01/16 14:58:14 by dde-carv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,10 @@ CC		=	@cc
 CFLAGS	=	-Wall -Werror -Wextra -g
 RM		=	@rm -f
 
-HASHMAP			=	$(SRC_DIR)hashmap/hash.c \
+BUILTINS_DIR	=	$(SRC_DIR)builtins/cd.c \
+					$(SRC_DIR)builtins/env.c
+
+HASHMAP_DIR		=	$(SRC_DIR)hashmap/hash.c \
 					$(SRC_DIR)hashmap/hashmap_create_entry.c \
 					$(SRC_DIR)hashmap/hashmap_create_table.c \
 					$(SRC_DIR)hashmap/hashmap_delete.c \
@@ -31,15 +34,14 @@ HASHMAP			=	$(SRC_DIR)hashmap/hash.c \
 					$(SRC_DIR)hashmap/hashmap_print_table.c \
 					$(SRC_DIR)hashmap/hashmap_search.c
 
-MSL_UTILS_DIR	=	$(SRC_DIR)minishell_utils/env_dup.c \
-					$(SRC_DIR)minishell_utils/env_create.c \
-					$(SRC_DIR)minishell_utils/env_utils.c \
-					$(SRC_DIR)minishell_utils/error.c \
-					$(SRC_DIR)minishell_utils/data.c
+MSL_UTILS_DIR	=	$(SRC_DIR)minishell_utils/data.c \
+					$(SRC_DIR)minishell_utils/error.c
 
-MAIN_MSL_DIR	=	$(SRC_DIR)main_msl/main.c
+SYS_MSL_DIR		=	$(SRC_DIR)system/main.c \
+					$(SRC_DIR)system/prompt.c
 
-SRCS	=	$(MAIN_MSL_DIR) $(MSL_UTILS_DIR) $(HASHMAP)
+
+SRCS	=	$(SYS_MSL_DIR) $(MSL_UTILS_DIR) $(HASHMAP_DIR) $(BUILTINS_DIR)
 
 OBJS	=	$(patsubst $(SRC_DIR)%.c,$(OBJ_DIR)%.o,$(SRCS))
 
