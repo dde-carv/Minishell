@@ -27,7 +27,6 @@ int	main(int ac, char **av, char **env)
 		// start_minishell(...); //function to initialize minishell(not implemented)
 		ft_printf("%s\n", minis()->ms->line);
 		free (minis()->ms->line);
-		ft_cd("..");
 	}
 	exit_minishell(0); //function to exit minishell(not implemented)
 	//rl_clear_history();

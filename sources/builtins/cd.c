@@ -8,7 +8,7 @@ static void	ft_chdir_path(char *path)
 
 	pwd = NULL;
 	pwd = getcwd(pwd, 0);
-	insert_in_table("OLDPWD", pwd, minis()->env);
+	insert_in_table("OLDPWD", pwd, minis()->env); //This is not 100% correct(note to self)
 	free(pwd);
 	if (chdir(path) != 0 && ft_strchr(path, '>') == NULL)
 	{
@@ -19,7 +19,6 @@ static void	ft_chdir_path(char *path)
 	}
 	pwd = NULL;
 	pwd = getcwd(pwd, 0);
-	//ft_printf("%s\n", pwd);
 	insert_in_table("PWD", pwd, minis()->env);
 	free(pwd);
 }
