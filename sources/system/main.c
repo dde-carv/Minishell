@@ -1,7 +1,7 @@
 
 #include "minishell.h"
 
-/* static void	start_minishell(char *line, char **env) //function to initialize pipex
+/* static void	start_minishell(char *line, char **env) // TODO: this is to innitialize and start important things
 {
 	char	**line_split;
 	int		i;
@@ -24,11 +24,11 @@ int	main(int ac, char **av, char **env)
 			break;
 		if (!ft_strcmp(minis()->ms->line, "exit") && (ft_strlen(minis()->ms->line)) == 4)
 			break;
-		// start_minishell(...); //function to initialize minishell(not implemented)
+		// start_minishell(...); // TODO: this is to innitialize and start important things
 		ft_printf("%s\n", minis()->ms->line);
-		free (minis()->ms->line);
+		free(minis()->ms->line);
 	}
-	exit_minishell(0); //function to exit minishell(not implemented)
+	exit_minishell(minis()->error_status); // * this still need some work(not final)
 	//rl_clear_history();
 	free(minis()->ms->line);
 	return (0);

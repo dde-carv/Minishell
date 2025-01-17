@@ -59,18 +59,18 @@ t_hashmap	*create_hash_env(void)
 	char		*pwd;
 	t_hashmap	*table;
 
-	pwd = NULL;
-	pwd = getcwd(pwd, 0);
+	pwd = getcwd(NULL, 0);
 	table = create_table(200);
 	insert_in_table("PWD", pwd, table);
 	insert_in_table("SHLVL", "1", table);
 	insert_in_table("_", "/usr/bin/env", table);
 	free(pwd);
-	return(table);
+	return (table);
 }
 
 void	set_env(char **env)
 {
+	(void)env;
 	if (*env)
 		minis()->env = hash_env(env);
 	else

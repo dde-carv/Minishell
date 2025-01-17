@@ -16,15 +16,25 @@ typedef struct s_hashmap
 	t_entry			**entries;
 }				t_hashmap;
 
+// Main function for hashing where we find the index
 unsigned long	hash_function(const char *key, unsigned int size);
+// Create the hashtable and allocates memory for it
 t_hashmap		*create_table(unsigned int size);
+// Creates a pointer to a new Hashmap entry
 t_entry			*create_entry(char *key, char *value);
+// Inserts the key and value into the table
 void			insert_in_table(char *key, char *value, t_hashmap *table);
+// Searches the key in the table and returns its value
 char			*hashmap_search(t_hashmap *table, char *key);
+//? If collision is detected it creates a node in an index of the table
 void			handle_collision(t_hashmap *table, unsigned long index, t_entry *new_entry);
+// Searches the key in the table and deletes that key and value
 void			hashmap_delete(t_hashmap *table, char *key);
+//? What does this do?
 void			free_entry(t_entry *entry);
+// Frees every memory related to the table
 void			free_table(t_hashmap *table);
+// Prints the table
 void			hashmap_print_table(t_hashmap *table);
 
 #endif

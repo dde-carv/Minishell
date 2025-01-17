@@ -1,7 +1,7 @@
 
 #include "minishell.h"
 
-//function to get the prompt using env variable
+//Function to get the prompt via cwd (current working directory)
 static char	*ft_getprompt(void)
 {
 	int		i;

@@ -2,7 +2,6 @@
 
 t_entry	*create_entry(char *key, char *value)
 {
-	// Creates a pointer to a new Hashmap entry
 	t_entry *new_entry;
 
 	new_entry = (t_entry *)ft_calloc(sizeof(t_entry), 1);

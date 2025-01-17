@@ -6,7 +6,7 @@
 #    By: dde-carv <dde-carv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/26 10:12:31 by dde-carv          #+#    #+#              #
-#    Updated: 2025/01/16 14:58:14 by dde-carv         ###   ########.fr        #
+#    Updated: 2025/01/17 13:58:53 by dde-carv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,8 @@ CFLAGS	=	-Wall -Werror -Wextra -g
 RM		=	@rm -f
 
 BUILTINS_DIR	=	$(SRC_DIR)builtins/cd.c \
-					$(SRC_DIR)builtins/env.c
+					$(SRC_DIR)builtins/env.c \
+					$(SRC_DIR)builtins/pwd.c
 
 HASHMAP_DIR		=	$(SRC_DIR)hashmap/hash.c \
 					$(SRC_DIR)hashmap/hashmap_create_entry.c \
