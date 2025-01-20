@@ -3,13 +3,22 @@
 # define MINISHELL_H
 
 # include "hashmap.h"
-# include "input.h"
+# include "colors.h"
 # include "tokens.h"
 # include "pipex.h"
 # include "../libft/inc/libft.h"
 # include <sys/wait.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+
+typedef struct s_input
+{
+	char			*cmd;
+	char			*arg;
+	char			**args;
+	struct s_input	*next;
+}				t_input;
+
 
 typedef struct s_minishell
 {
@@ -46,12 +55,14 @@ t_global	*minis(void);
 
 /************************* builtin *************************/
 
-// Function that replcates cd (change directory)
+// Function that replicates cd (change directory)
 void	ft_cd(char *path);
-//Function that replcates pwd (print working directory)
+//Function that replicates pwd (print working directory)
 void	ft_pwd(void);
 // Function that creates a prompt, reads a line and add it to the history
 void	set_input(void);
+// Function that re
+void	ft_unset(char **args);
 
 /************************** error **************************/
 

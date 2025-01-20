@@ -26,11 +26,11 @@ t_entry			*create_entry(char *key, char *value);
 void			insert_in_table(char *key, char *value, t_hashmap *table);
 // Searches the key in the table and returns its value
 char			*hashmap_search(t_hashmap *table, char *key);
-//? If collision is detected it creates a node in an index of the table
+// If collision is detected it creates a node in an index of the table
 void			handle_collision(t_hashmap *table, unsigned long index, t_entry *new_entry);
 // Searches the key in the table and deletes that key and value
 void			hashmap_delete(t_hashmap *table, char *key);
-//? What does this do?
+// Frees individual keys, values and the nodes (the whole table)
 void			free_entry(t_entry *entry);
 // Frees every memory related to the table
 void			free_table(t_hashmap *table);

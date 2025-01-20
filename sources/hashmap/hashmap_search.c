@@ -13,5 +13,5 @@ char	*hashmap_search(t_hashmap *table, char *key)
 			return (current->value);
 		current = current->next;
 	}
-	return (""); //! Not what we want but need this fix for now ("cd -" gets a conditional jump if OLDPWD is not set)
+	return (""); //? Not what we want but need this fix for now ("cd -" gets a conditional jump if OLDPWD is not set)
 }
