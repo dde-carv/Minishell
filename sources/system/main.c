@@ -13,7 +13,6 @@
 int	main(int ac, char **av, char **env)
 {
 	(void)av;
-	char **args = ft_split("OLDPWD     PWD   	   PATH SHLVL", ' ');
 
 	if (ac > 1)
 		return (0);
@@ -27,14 +26,6 @@ int	main(int ac, char **av, char **env)
 			break;
 		// start_minishell(...); // TODO: this is to innitialize and start important things
 		ft_printf("%s\n", minis()->ms->line);
-		hashmap_print_table(minis()->env);
-		ft_unset(args);
-		while (*args)
-		{
-			ft_printf("Removed: %s", *args);
-			args++;
-		}
-		hashmap_print_table(minis()->env);
 		free(minis()->ms->line);
 	}
 	exit_minishell(minis()->error_status); // * this still need some work(not final)

@@ -19,7 +19,6 @@ typedef struct s_input
 	struct s_input	*next;
 }				t_input;
 
-
 typedef struct s_minishell
 {
 	char	*promp;
@@ -29,6 +28,7 @@ typedef struct s_minishell
 typedef struct s_global
 {
 	int			error_status;
+	t_input		*input;
 	t_hashmap	*env;
 	t_hashmap	*sesion_vars;
 	t_minishell	*ms;
