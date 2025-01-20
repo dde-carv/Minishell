@@ -6,7 +6,7 @@
 #    By: dde-carv <dde-carv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/26 10:12:31 by dde-carv          #+#    #+#              #
-#    Updated: 2025/01/17 13:58:53 by dde-carv         ###   ########.fr        #
+#    Updated: 2025/01/20 12:01:05 by dde-carv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,8 @@ RM		=	@rm -f
 
 BUILTINS_DIR	=	$(SRC_DIR)builtins/cd.c \
 					$(SRC_DIR)builtins/env.c \
-					$(SRC_DIR)builtins/pwd.c
+					$(SRC_DIR)builtins/pwd.c \
+					$(SRC_DIR)builtins/unset.c
 
 HASHMAP_DIR		=	$(SRC_DIR)hashmap/hash.c \
 					$(SRC_DIR)hashmap/hashmap_create_entry.c \

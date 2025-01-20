@@ -1,6 +1,6 @@
 
-#ifndef INPUT_H
-# define INPUT_H
+#ifndef COLORS_H
+# define COLORS_H
 
 # include <readline/readline.h>
 # include <readline/history.h>
