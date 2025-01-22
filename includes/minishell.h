@@ -57,12 +57,14 @@ t_global	*minis(void);
 
 // Function that replicates cd (change directory)
 void	ft_cd(char *path);
-//Function that replicates pwd (print working directory)
+// Function that replicates pwd (print working directory)
 void	ft_pwd(void);
-// Function that creates a prompt, reads a line and add it to the history
-void	set_input(void);
+// Function that replicates echo (prints to stdout the arguments given)
+void	ft_echo(char **args);
 // Function that replicates unset (removes variables from env)
 void	ft_unset(char **args);
+// Function that creates a prompt, reads a line and add it to the history
+void	set_input(void);
 // Function that will print env variables
 void	print_env(int fd);
 // Prints any char type array given and prints it to any file discriptor
