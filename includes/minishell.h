@@ -61,8 +61,14 @@ void	ft_cd(char *path);
 void	ft_pwd(void);
 // Function that creates a prompt, reads a line and add it to the history
 void	set_input(void);
-// Function that re
+// Function that replicates unset (removes variables from env)
 void	ft_unset(char **args);
+// Function that will print env variables
+void	print_env(int fd);
+// Prints any char type array given and prints it to any file discriptor
+void	print_array_fd(char **array, int fd);
+// Frees any char type array given
+void	free_array(char **array);
 
 /************************** error **************************/
 
