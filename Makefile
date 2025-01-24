@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dde-carv <dde-carv@student.42.fr>          +#+  +:+       +#+         #
+#    By: lyrikk <lyrikk@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/26 10:12:31 by dde-carv          #+#    #+#              #
-#    Updated: 2025/01/20 12:01:05 by dde-carv         ###   ########.fr        #
+#    Updated: 2025/01/24 11:52:22 by lyrikk           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,8 +42,10 @@ MSL_UTILS_DIR	=	$(SRC_DIR)minishell_utils/data.c \
 SYS_MSL_DIR		=	$(SRC_DIR)system/main.c \
 					$(SRC_DIR)system/prompt.c
 
+PARSING_DIR		=	$(SRC_DIR)parsing/parsing.c \
 
-SRCS	=	$(SYS_MSL_DIR) $(MSL_UTILS_DIR) $(HASHMAP_DIR) $(BUILTINS_DIR)
+
+SRCS	=	$(SYS_MSL_DIR) $(MSL_UTILS_DIR) $(HASHMAP_DIR) $(BUILTINS_DIR) $(PARSING_DIR)
 
 OBJS	=	$(patsubst $(SRC_DIR)%.c,$(OBJ_DIR)%.o,$(SRCS))
 
