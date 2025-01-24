@@ -1,5 +1,7 @@
 #include "minishell.h"
 
+void	ft_strjoin_to_array(char *str, char **array);
+
 void	print_array_fd(char **array, int fd)
 {
 	int	i;

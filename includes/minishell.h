@@ -2,7 +2,9 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# include <stddef.h>
 # include "hashmap.h"
+# include "parsing.h"
 # include "colors.h"
 # include "tokens.h"
 # include "pipex.h"
@@ -29,6 +31,7 @@ typedef struct s_global
 {
 	int			error_status;
 	t_input		*input;
+	t_hashmap	*table;
 	t_hashmap	*env;
 	t_hashmap	*sesion_vars;
 	t_minishell	*ms;
@@ -69,6 +72,10 @@ void	set_input(void);
 void	print_env(int fd);
 // Prints any char type array given and prints it to any file discriptor
 void	print_array_fd(char **array, int fd);
+// Puts env and session vars hashmaps into an array
+char	**hashmap_quotes_array_and_sesh_vars(void);
+// Puts env variables into an array
+char	**hashmap_to_array(void);
 // Frees any char type array given
 void	free_array(char **array);
 

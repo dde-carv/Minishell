@@ -1,0 +1,84 @@
+
+#include "minishell.h"
+
+static void	sesh_var_array(char **array, int *j)
+{
+	unsigned int	i;
+	t_entry			*current;
+	t_entry			*tmp;
+
+	i = 0;
+	while (i < minis()->sesion_vars->size && *j < minis()->sesion_vars->count)
+	{
+		current = minis()->sesion_vars->entries[i];
+		while (current)
+		{
+			tmp = current->next;
+			array[*j] = ft_strjoin_var(1, current->key);
+			current = tmp;
+			(*j)++;
+		}
+		i++;
+	}
+}
+
+static void	env_with_quotes_array(char **array, int *j)
+{
+	unsigned int	i;
+	t_entry			*current;
+	t_entry			*tmp;
+
+	i = 0;
+	while (i < minis()->env->size && *j < minis()->env->count)
+	{
+		current = minis()->env->entries[i];
+		while (current)
+		{
+			tmp = current->next;
+			array[*j] = ft_strjoin_var(5, current->key, "=", "\"",current->value, "\"");
+			current = tmp;
+			(*j)++;
+		}
+		i++;
+	}
+}
+
+char	**hashmap_quotes_array_and_sesh_vars(void)
+{
+	unsigned int	i;
+	unsigned int	j;
+	char			**array;
+
+	i = 0;
+	j = 0;
+	array = (char **)ft_calloc(sizeof (char *), minis()->env->count + minis()->sesion_vars->count + 1);
+	env_with_quotes_array(array, &j);
+	sesh_var_array(array, &j);
+	return(array);
+}
+
+char	**hashmap_to_array(void)
+{
+	unsigned int	i;
+	unsigned int	j;
+	t_entry			*current;
+	t_entry			*tmp;
+	char			**env;
+
+	i = 0;
+	j = 0;
+	env = (char **)ft_calloc(sizeof (char *), minis()->env->count + 1);
+	while (i < minis()->env->size && j < minis()->env->count)
+	{
+		current = minis()->env->entries[i];
+		while (current)
+		{
+			tmp = current->next;
+			env[j] = ft_strjoin_var(3, current->key, "=", current->value);
+			current = tmp;
+			j++;
+		}
+		i++;
+	}
+	return(env);
+}
