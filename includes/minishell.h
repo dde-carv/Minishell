@@ -70,12 +70,14 @@ void	ft_unset(char **args);
 void	set_input(void);
 // Function that will print env variables
 void	print_env(int fd);
-// Prints any char type array given and prints it to any file discriptor
-void	print_array_fd(char **array, int fd);
 // Puts env and session vars hashmaps into an array
 char	**hashmap_quotes_array_and_sesh_vars(void);
 // Puts env variables into an array
 char	**hashmap_to_array(void);
+// Takes a string and aplies that string to every position in the array
+void	ft_strjoin_to_array(char *str, char **array);
+// Prints any char type array given and prints it to any file discriptor
+void	print_array_fd(char **array, int fd);
 // Frees any char type array given
 void	free_array(char **array);
 

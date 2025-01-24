@@ -15,7 +15,9 @@ BUILTINS_DIR	=	$(SRC_DIR)builtins/cd.c \
 					$(SRC_DIR)builtins/unset.c \
 					$(SRC_DIR)builtins/print_env.c \
 					$(SRC_DIR)builtins/array_utils.c \
-					$(SRC_DIR)builtins/echo.c
+					$(SRC_DIR)builtins/echo.c \
+					$(SRC_DIR)builtins/export.c \
+					$(SRC_DIR)builtins/hashmap_to_array.c
 
 HASHMAP_DIR		=	$(SRC_DIR)hashmap/hash.c \
 					$(SRC_DIR)hashmap/hashmap_create_entry.c \

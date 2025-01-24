@@ -1,6 +1,19 @@
 #include "minishell.h"
 
-void	ft_strjoin_to_array(char *str, char **array);
+void	ft_strjoin_to_array(char *str, char **array)
+{
+	int		i;
+	char	*tmp;
+
+	i = 0;
+	while (array[i])
+	{
+		tmp = ft_strjoin(str, array[i]);
+		free(array[i]);
+		array[i] = tmp;
+		i++;
+	}
+}
 
 void	print_array_fd(char **array, int fd)
 {
