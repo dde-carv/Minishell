@@ -1,6 +1,6 @@
 #include "../../includes/minishell.h"
 
-unsigned long	hash_function(const char *key, unsigned int size)
+unsigned long	hash_function(const char *key, size_t size)
 {
 	unsigned long	hash_value;
 	unsigned int	i;

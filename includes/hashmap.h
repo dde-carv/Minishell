@@ -1,6 +1,12 @@
 #ifndef HASHMAP_H
 # define HASHMAP_H
 
+typedef enum s_action
+{
+	ENTER,
+	FIND,
+}						t_action;
+
 typedef struct s_entry
 {
 	char			*key;
@@ -17,7 +23,7 @@ typedef struct s_hashmap
 }				t_hashmap;
 
 // Main function for hashing where we find the index
-unsigned long	hash_function(const char *key, unsigned int size);
+unsigned long	hash_function(const char *key, size_t size);
 // Create the hashtable and allocates memory for it
 t_hashmap		*create_table(unsigned int size);
 // Creates a pointer to a new Hashmap entry
@@ -36,5 +42,7 @@ void			free_entry(t_entry *entry);
 void			free_table(t_hashmap *table);
 // Prints the table
 void			hashmap_print_table(t_hashmap *table);
+// Function that acts depending on the action provided
+t_entry	*hash_action(t_hashmap *table, t_entry entry, t_action action);
 
 #endif
