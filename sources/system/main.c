@@ -22,6 +22,7 @@ int	main(int ac, char **av, char **env)
 		set_input();
 		if (!minis()->ms->line)
 			break;
+		parse_input();
 		if (!ft_strcmp(minis()->ms->line, "exit") && (ft_strlen(minis()->ms->line)) == 4)
 			break;
 		// start_minishell(...); // TODO: this is to innitialize and start important things

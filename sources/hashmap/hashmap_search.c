@@ -15,3 +15,23 @@ char	*hashmap_search(t_hashmap *table, char *key)
 	}
 	return (""); //? Not what we want but need this fix for now ("cd -" gets a conditional jump if OLDPWD is not set)
 }
+
+t_entry	*hash_action(t_hashmap *table, t_entry entry, t_action action)
+{
+	entry = (t_entry){.key = entry.key, .value = entry.value, .next = NULL};
+	char	*value = NULL;
+
+	if (!entry.key || (action != FIND && action != ENTER) || !table)
+		return (NULL);
+		
+	if (action == ENTER)
+	{
+		insert_in_table(entry.key, entry.value, table);
+		return (create_entry(entry.key, entry.value));
+	}
+	if (action == FIND)
+		value = hashmap_search(table, entry.key);
+		if (value)
+			return (create_entry(entry.key, value));
+	return (NULL);
+}
