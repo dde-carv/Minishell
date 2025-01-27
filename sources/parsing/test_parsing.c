@@ -20,15 +20,10 @@ t_global *minis(void)
 
 int main()
 {
-	// Setup test input
-	minis()->ms->line = "echo 'Hello World' | grep Hello | sort | uniq | wc -l | cat";
-
-	// Initialize the hash table
+	minis()->ms->line = "infile ls | pwd | whoami | date | hostname | uname -a |";
 	minis()->table = create_table(100);
-
-	// Call parse_input
 	parse_input();
-	// Verify the input list
+	
 	t_input *current_input = minis()->input;
 	if (current_input)
 	{
@@ -42,13 +37,25 @@ int main()
 	else
 		printf("Input line is empty.\n");
 
-	// Additional assertions can be added here to verify the hash table entries
+	/* // Additional assertions can be added here to verify the hash table entries
 	// For example:
 	t_entry *entry = hash_action(minis()->table, (t_entry){ "echo", "Hello World", NULL }, ENTER);
 	if (entry)
 		printf("Hash Entry - Command: %s, Argument: %s\n", entry->key, entry->value);
 	else
 		printf("Hash entry creation failed.\n");
+	
+	// Print all hash entries
+	printf("All Hash Entries:\n");
+	for (unsigned int i = 0; i < minis()->table->size; i++)
+	{
+		t_entry *current = minis()->table->entries[i];
+		while (current)
+		{
+			printf("Key: %s, Value: %s\n", current->key, current->value);
+			current = current->next;
+		}
+	} */
 	return 0;
 }
 
@@ -62,5 +69,4 @@ test_parsing.c \
 ../hashmap/hash.c \
 ../hashmap/hashmap_insert.c \
 ../../libft/libft.a \
--I../../includes && ./test_parsing */
-
+-I../../includes && ./test_parsing && rm test_parsing*/

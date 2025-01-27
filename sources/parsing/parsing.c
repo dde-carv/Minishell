@@ -43,7 +43,7 @@ void	input_to_lst(char *cmd, char *arg)
 	else
 	{
 		current = minis()->input;
-		while (current->next != NULL)
+		while (current->next)
 			current = current->next;
 		current->next = new_input;
 	}
@@ -78,15 +78,15 @@ static char	*extract_arg(char *input, int *i)
 	if (start == *i)
 		return (ft_strdup(""));
 	arg = ft_substr(input, start, *i - start);
-
-	// Remove surrounding quotes if present
+	
+	/* // Remove surrounding quotes if present
 	if ((arg[0] == '\'' && arg[ft_strlen(arg) - 1] == '\'') ||
 		(arg[0] == '"' && arg[ft_strlen(arg) - 1] == '"'))
 	{
 		char *temp = ft_substr(arg, 1, ft_strlen(arg) - 2);
 		free(arg);
 		arg = temp;
-	}
+	} */
 	return (arg);
 }
 /**
@@ -133,8 +133,8 @@ void	parse_input(void)
 		cmd = extract_cmd(minis()->ms->line, &i);
 		arg = extract_arg(minis()->ms->line, &i);
 
-		ft_printf("DEBUG: Extracted Command: '%s', Argument: '%s'\n", cmd, arg);
-		ft_printf("DEBUG: Current Index: %d\n", i);
+		//ft_printf("DEBUG: Extracted Command: '%s', Argument: '%s'\n", cmd, arg);
+		//ft_printf("DEBUG: Current Index: %d\n", i);
 
 		entry = hash_action(minis()->table, (t_entry){cmd, arg, NULL}, ENTER);
 		if (!entry)
