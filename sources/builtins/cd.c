@@ -56,13 +56,12 @@ void	ft_cd(char *path)
 	}
 	else if (!ft_strcmp(path, "-"))
 	{
-		current_path = ft_strdup(hashmap_search(minis()->env, "OLDPWD"));
-		if (!*current_path)
+		if (!hashmap_search(minis()->env, "OLDPWD"))
 		{
 			error_mess("cd", NO_OLDPWD, 1);
-			free(current_path);
 			return ;
 		}
+		current_path = ft_strdup(hashmap_search(minis()->env, "OLDPWD"));
 		ft_chdir_oldpwd(current_path);
 	}
 	else

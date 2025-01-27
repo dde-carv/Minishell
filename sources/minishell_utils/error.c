@@ -7,6 +7,8 @@ void	exit_minishell(int flag)
 		free(minis()->ms->line);
 	if (minis()->ms)
 		free(minis()->ms);
+	if (minis()->input)
+		free(minis()->input);
 	if (minis()->env)
 	{
 		free_table(minis()->env);
