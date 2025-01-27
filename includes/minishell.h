@@ -66,6 +66,8 @@ void	ft_pwd(void);
 void	ft_echo(char **args);
 // Function that replicates unset (removes variables from env)
 void	ft_unset(char **args);
+
+int		ft_export(char **args);
 // Function that creates a prompt, reads a line and add it to the history
 void	set_input(void);
 // Function that will print env variables

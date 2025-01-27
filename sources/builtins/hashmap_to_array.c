@@ -1,14 +1,14 @@
 
 #include "minishell.h"
 
-static void	sesh_var_array(char **array, int *j)
+static void	sesh_var_array(char **array, unsigned int *j)
 {
 	unsigned int	i;
 	t_entry			*current;
 	t_entry			*tmp;
 
 	i = 0;
-	while (i < minis()->sesion_vars->size && *j < minis()->sesion_vars->count)
+	while (i < minis()->sesion_vars->size && *j < (minis()->sesion_vars->count + minis()->env->count))
 	{
 		current = minis()->sesion_vars->entries[i];
 		while (current)
@@ -22,7 +22,7 @@ static void	sesh_var_array(char **array, int *j)
 	}
 }
 
-static void	env_with_quotes_array(char **array, int *j)
+static void	env_with_quotes_array(char **array, unsigned int *j)
 {
 	unsigned int	i;
 	t_entry			*current;

@@ -1,20 +1,34 @@
 
 #include "minishell.h"
 
+char	**split_into2(char *arg, char c)
+{
+	char	**splited;
+	char	*c_p;
+
+	splited = (char **)malloc(3 * sizeof(char *));
+	c_p = ft_strchr(arg, c);
+	splited[0] = ft_substr(arg, 0, (c_p - arg));
+	splited[1] = ft_substr((c_p + 1), 0, (ft_strlen(c_p)));
+	splited[2] = NULL;
+	return(splited);
+}
+
 static int	print_export(void)
 {
 	char	**export;
 
 	export = hashmap_quotes_array_and_sesh_vars();
-	//quick_sort_array(export, 0, ft_arraylen(export));
-	ft_strjoin_to_array("declare -x", export);
+	//quick_sort_array(export, 0, ft_arraylen(export)); // ! not done
+	ft_strjoin_to_array("declare -x ", export);
 	print_array_fd(export, 1);
 	free_array(export);
+	return(0);
 }
 
 static void	add_to_sesh_vars(char *arg)
 {
-	if (hashmap_search(minis()->env, arg))
+	if (hashmap_search(minis()->env, arg) != NULL)
 		return ;
 	if (hashmap_search(minis()->sesion_vars, arg))
 		hashmap_delete(minis()->sesion_vars, arg);
