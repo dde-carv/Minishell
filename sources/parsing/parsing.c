@@ -1,21 +1,5 @@
 #include "../../includes/minishell.h"
 
-/* void	input_to_lst(char *cmd, char *arg)
-{
-	minis()->input->cmd = ft_strdup(cmd);
-	if (!minis()->input->cmd)
-	{
-		free(minis()->input);
-		exit(0);
-	}
-	minis()->input->arg = ft_strdup(arg);
-	if (!minis()->input->arg)
-	{
-		free(minis()->input);
-		exit(0);
-	}
-} */
-
 void	input_to_lst(char *cmd, char *arg)
 {
 	t_input *new_input;
@@ -23,19 +7,15 @@ void	input_to_lst(char *cmd, char *arg)
 
 	new_input = malloc(sizeof(t_input));
 	if (!new_input)
-		exit(EXIT_FAILURE);
+		exit(1);
 	new_input->cmd = ft_strdup(cmd);
-	if (!new_input->cmd)
-	{
-		free(new_input);
-		exit(EXIT_FAILURE);
-	}
 	new_input->arg = ft_strdup(arg);
-	if (!new_input->arg)
+	if (!new_input->cmd || !new_input->arg)
 	{
 		free(new_input->cmd);
+		free(new_input->arg);
 		free(new_input);
-		exit(EXIT_FAILURE);
+		exit(1);
 	}
 	new_input->next = NULL;
 	if (minis()->input == NULL)
@@ -59,11 +39,9 @@ static char	*extract_arg(char *input, int *i)
 	int	in_quotes;
 
 	in_quotes = 0;
-	// Skip leading spaces
 	while (input[*i] == ' ')
 		(*i)++;
 	start = *i;
-
 	if (input[*i] == '|' || input[*i] == '\0')
 		return (ft_strdup(""));
 	// Extract until space or pipe outside quotes
@@ -132,10 +110,6 @@ void	parse_input(void)
 	{
 		cmd = extract_cmd(minis()->ms->line, &i);
 		arg = extract_arg(minis()->ms->line, &i);
-
-		//ft_printf("DEBUG: Extracted Command: '%s', Argument: '%s'\n", cmd, arg);
-		//ft_printf("DEBUG: Current Index: %d\n", i);
-
 		entry = hash_action(minis()->table, (t_entry){cmd, arg, NULL}, ENTER);
 		if (!entry)
 			exit(EXIT_FAILURE);
