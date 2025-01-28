@@ -19,7 +19,7 @@ static int	print_export(void)
 	char	**export;
 
 	export = hashmap_quotes_array_and_sesh_vars();
-	//quick_sort_array(export, 0, ft_arraylen(export)); // ! not done
+	quick_sort(export, 0, array_len(export));
 	ft_strjoin_to_array("declare -x ", export);
 	print_array_fd(export, 1);
 	free_array(export);

@@ -13,6 +13,7 @@
 int	main(int ac, char **av, char **env)
 {
 	(void)av;
+	//char **export = ft_split("", ' ');
 
 	if (ac > 1)
 		return (0);
@@ -27,9 +28,11 @@ int	main(int ac, char **av, char **env)
 			break;
 		// start_minishell(...); // TODO: this is to innitialize and start important things
 		ft_printf("%s\n", minis()->ms->line);
+		//ft_export(export);
 		free(minis()->ms->line);
 	}
 	exit_minishell(minis()->error_status); // * this still need some work(not final)
+	//free_array(export);
 	//rl_clear_history();
 	free(minis()->ms->line);
 	return (0);

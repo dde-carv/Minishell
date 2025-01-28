@@ -1,5 +1,15 @@
 #include "minishell.h"
 
+int		array_len(char **array)
+{
+	int	i;
+
+	i = 0;
+	while (array[i + 1])
+		i++;
+	return (i);
+}
+
 void	ft_strjoin_to_array(char *str, char **array)
 {
 	int		i;

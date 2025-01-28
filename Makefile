@@ -12,11 +12,12 @@ RM		=	@rm -f
 BUILTINS_DIR	=	$(SRC_DIR)builtins/cd.c \
 					$(SRC_DIR)builtins/env.c \
 					$(SRC_DIR)builtins/pwd.c \
-					$(SRC_DIR)builtins/unset.c \
-					$(SRC_DIR)builtins/print_env.c \
-					$(SRC_DIR)builtins/array_utils.c \
 					$(SRC_DIR)builtins/echo.c \
+					$(SRC_DIR)builtins/unset.c \
 					$(SRC_DIR)builtins/export.c \
+					$(SRC_DIR)builtins/print_env.c \
+					$(SRC_DIR)builtins/quick_sort.c \
+					$(SRC_DIR)builtins/array_utils.c \
 					$(SRC_DIR)builtins/hashmap_to_array.c
 
 HASHMAP_DIR		=	$(SRC_DIR)hashmap/hash.c \

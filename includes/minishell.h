@@ -66,7 +66,7 @@ void	ft_pwd(void);
 void	ft_echo(char **args);
 // Function that replicates unset (removes variables from env)
 void	ft_unset(char **args);
-
+// Function that replicates export (adds variables to env)
 int		ft_export(char **args);
 // Function that creates a prompt, reads a line and add it to the history
 void	set_input(void);
@@ -76,6 +76,10 @@ void	print_env(int fd);
 char	**hashmap_quotes_array_and_sesh_vars(void);
 // Puts env variables into an array
 char	**hashmap_to_array(void);
+
+void	quick_sort(char **array, unsigned int left, unsigned int right);
+
+int		array_len(char **array);
 // Takes a string and aplies that string to every position in the array
 void	ft_strjoin_to_array(char *str, char **array);
 // Prints any char type array given and prints it to any file discriptor
