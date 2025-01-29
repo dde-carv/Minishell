@@ -13,12 +13,15 @@ BUILTINS_DIR	=	$(SRC_DIR)builtins/cd.c \
 					$(SRC_DIR)builtins/env.c \
 					$(SRC_DIR)builtins/pwd.c \
 					$(SRC_DIR)builtins/echo.c \
+					$(SRC_DIR)builtins/exit.c \
 					$(SRC_DIR)builtins/unset.c \
 					$(SRC_DIR)builtins/export.c \
 					$(SRC_DIR)builtins/print_env.c \
 					$(SRC_DIR)builtins/quick_sort.c \
 					$(SRC_DIR)builtins/array_utils.c \
 					$(SRC_DIR)builtins/hashmap_to_array.c
+
+EXEC_DIR		=	$(SRC_DIR)exec/executer.c
 
 HASHMAP_DIR		=	$(SRC_DIR)hashmap/hash.c \
 					$(SRC_DIR)hashmap/hashmap_create_entry.c \
@@ -38,7 +41,7 @@ SYS_MSL_DIR		=	$(SRC_DIR)system/main.c \
 
 PARSING_DIR		=	$(SRC_DIR)parsing/parsing.c \
 
-SRCS	=	$(SYS_MSL_DIR) $(MSL_UTILS_DIR) $(HASHMAP_DIR) $(BUILTINS_DIR) $(PARSING_DIR)
+SRCS	=	$(SYS_MSL_DIR) $(MSL_UTILS_DIR) $(HASHMAP_DIR) $(BUILTINS_DIR) $(EXEC_DIR) $(PARSING_DIR)
 
 OBJS	=	$(patsubst $(SRC_DIR)%.c,$(OBJ_DIR)%.o,$(SRCS))
 
