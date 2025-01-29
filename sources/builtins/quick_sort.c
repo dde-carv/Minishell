@@ -1,33 +1,6 @@
 
 #include "minishell.h"
 
-/* static unsigned int	partition(char **array, unsigned int left, unsigned int right)
-{
-	unsigned int	i;
-	unsigned int	j;
-	char	*tmp;
-	char	*pivot;
-
-	pivot = array[right];
-	i = left - 1;
-	j = left;
-	while (j <= right -1)
-	{
-		if (array[j] < pivot)
-		{
-			i++;
-			tmp = array[i];
-			array[i] = array[j];
-			array[j] = tmp;
-		}
-		j++;
-	}
-	tmp = pivot;
-	array[right] = array[i];
-	array[i] = tmp;
-	return(i);
-} */
-
 static int	partition(char **array, int left, int right)
 {
 	int		i;
@@ -55,7 +28,7 @@ static int	partition(char **array, int left, int right)
 	return (i);
 }
 
-void	quick_sort(char **array, unsigned int left, unsigned int right)
+void	quick_sort(char **array, int left, int right)
 {
 	unsigned int	pivot_i;
 

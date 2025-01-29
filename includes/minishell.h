@@ -77,7 +77,7 @@ char	**hashmap_quotes_array_and_sesh_vars(void);
 // Puts env variables into an array
 char	**hashmap_to_array(void);
 
-void	quick_sort(char **array, unsigned int left, unsigned int right);
+void	quick_sort(char **array, int left, int right);
 
 int		array_len(char **array);
 // Takes a string and aplies that string to every position in the array
