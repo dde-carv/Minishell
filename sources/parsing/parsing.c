@@ -103,16 +103,16 @@ void	parse_input(void)
 	int	i;
 	char	*cmd;
 	char	*arg;
-	t_entry	*entry;
+	//t_entry	*entry;
 
 	i = 0;
 	while (minis()->ms->line[i])
 	{
 		cmd = extract_cmd(minis()->ms->line, &i);
 		arg = extract_arg(minis()->ms->line, &i);
-		entry = hash_action(minis()->table, (t_entry){cmd, arg, NULL}, ENTER);
+		/* entry = hash_action(minis()->table, (t_entry){cmd, arg, NULL}, ENTER);
 		if (!entry)
-			exit(EXIT_FAILURE);
+			exit(EXIT_FAILURE); */
 		if (minis()->ms->line[i] == '|')
 			i++;
 		input_to_lst(cmd, arg);
