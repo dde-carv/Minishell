@@ -1,7 +1,7 @@
 
 #include "minishell.h"
 
-void	ft_exit(char **args)
+/* void	ft_exit(char **args)
 {
 
-}
+} */

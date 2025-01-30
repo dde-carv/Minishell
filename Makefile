@@ -40,6 +40,9 @@ SYS_MSL_DIR		=	$(SRC_DIR)system/main.c \
 					$(SRC_DIR)system/prompt.c
 
 PARSING_DIR		=	$(SRC_DIR)parsing/parsing.c \
+					$(SRC_DIR)parsing/parsing_lst/ft_input_lstnew.c \
+					$(SRC_DIR)parsing/parsing_lst/ft_input_lstdelone.c \
+					$(SRC_DIR)parsing/parsing_lst/ft_input_lstadd_back.c \
 
 SRCS	=	$(SYS_MSL_DIR) $(MSL_UTILS_DIR) $(HASHMAP_DIR) $(BUILTINS_DIR) $(EXEC_DIR) $(PARSING_DIR)
 
