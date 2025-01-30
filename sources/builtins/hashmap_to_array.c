@@ -8,9 +8,9 @@ static void	sesh_var_array(char **array, unsigned int *j)
 	t_entry			*tmp;
 
 	i = 0;
-	while (i < minis()->sesion_vars->size && *j < (minis()->sesion_vars->count + minis()->env->count))
+	while (i < minis()->non_value_vars->size && *j < (minis()->non_value_vars->count + minis()->env->count))
 	{
-		current = minis()->sesion_vars->entries[i];
+		current = minis()->non_value_vars->entries[i];
 		while (current)
 		{
 			tmp = current->next;
@@ -51,7 +51,7 @@ char	**hashmap_quotes_array_and_sesh_vars(void)
 
 	i = 0;
 	j = 0;
-	array = (char **)ft_calloc(sizeof (char *), minis()->env->count + minis()->sesion_vars->count + 1);
+	array = (char **)ft_calloc(sizeof (char *), minis()->env->count + minis()->non_value_vars->count + 1);
 	env_with_quotes_array(array, &j);
 	sesh_var_array(array, &j);
 	return(array);

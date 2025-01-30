@@ -75,5 +75,6 @@ void	set_env(char **env)
 		minis()->env = hash_env(env);
 	else
 		minis()->env = create_hash_env();
-	minis()->sesion_vars = create_table(50);
+	minis()->non_value_vars = create_table(100);
+	minis()->sesion_vars = create_table(100);
 }

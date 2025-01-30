@@ -23,4 +23,5 @@ void	ft_echo(char **args)
 	}
 	if (new_flag)
 		ft_printf("\n");
+	minis()->error_status = 0;
 }

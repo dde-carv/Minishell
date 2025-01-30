@@ -6,14 +6,14 @@ t_global *minis(void)
 	static t_global data;
 	static t_minishell ms;
 	static t_hashmap env;
-	static t_hashmap sesion_vars;
+	static t_hashmap non_value_vars;
 
 	if (!data.ms)
 	{
 		data.ms = &ms;
 		data.input = NULL;
 		data.env = &env;
-		data.sesion_vars = &sesion_vars;
+		data.non_value_vars = &non_value_vars;
 	}
 	return &data;
 }
@@ -23,7 +23,7 @@ int main()
 	minis()->ms->line = "infile ls | pwd | whoami | date | hostname | uname -a |";
 	minis()->table = create_table(100);
 	parse_input();
-	
+
 	t_input *current_input = minis()->input;
 	if (current_input)
 	{
@@ -44,7 +44,7 @@ int main()
 		printf("Hash Entry - Command: %s, Argument: %s\n", entry->key, entry->value);
 	else
 		printf("Hash entry creation failed.\n");
-	
+
 	// Print all hash entries
 	printf("All Hash Entries:\n");
 	for (unsigned int i = 0; i < minis()->table->size; i++)
