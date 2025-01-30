@@ -76,7 +76,7 @@ void	set_input(void);
 // Function that will print env variables
 void	print_env(int fd);
 // Puts env and session vars hashmaps into an array
-char	**hashmap_quotes_array_and_sesh_vars(void);
+char	**hashmap_quotes_array_and_non_value_vars(void);
 // Puts env variables into an array
 char	**hashmap_to_array(void);
 

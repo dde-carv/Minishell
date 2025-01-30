@@ -13,6 +13,7 @@ void	exit_minishell(void)
 	{
 		free_table(minis()->env);
 		free_table(minis()->non_value_vars);
+		free_table(minis()->sesion_vars);
 	}
 	exit(minis()->error_status);
 }

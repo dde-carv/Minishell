@@ -43,7 +43,7 @@ static void	env_with_quotes_array(char **array, unsigned int *j)
 	}
 }
 
-char	**hashmap_quotes_array_and_sesh_vars(void)
+char	**hashmap_quotes_array_and_non_value_vars(void)
 {
 	unsigned int	i;
 	unsigned int	j;
