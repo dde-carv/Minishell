@@ -45,11 +45,9 @@ static void	env_with_quotes_array(char **array, unsigned int *j)
 
 char	**hashmap_quotes_array_and_non_value_vars(void)
 {
-	unsigned int	i;
 	unsigned int	j;
 	char			**array;
 
-	i = 0;
 	j = 0;
 	array = (char **)ft_calloc(sizeof (char *), minis()->env->count + minis()->non_value_vars->count + 1);
 	env_with_quotes_array(array, &j);
