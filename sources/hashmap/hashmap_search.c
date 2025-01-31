@@ -16,7 +16,7 @@ char	*hashmap_search(t_hashmap *table, char *key)
 	return (NULL);
 }
 
-/* t_entry	*hash_action(t_hashmap *table, t_entry entry, t_action action)
+t_entry	*hash_action(t_hashmap *table, t_entry entry, t_action action)
 {
 	entry = (t_entry){.key = entry.key, .value = entry.value, .next = NULL};
 	char	*value = NULL;
@@ -36,9 +36,9 @@ char	*hashmap_search(t_hashmap *table, char *key)
 			return (create_entry(entry.key, value));
 	}
 	return (NULL);
-} */
+}
 
-t_entry	*hash_action(t_hashmap *table, t_entry entry, t_action action)
+/* t_entry	*hash_action(t_hashmap *table, t_entry entry, t_action action)
 {
 	if (!entry.key || (action != FIND && action != ENTER) || !table)
 		return (NULL);
@@ -47,4 +47,4 @@ t_entry	*hash_action(t_hashmap *table, t_entry entry, t_action action)
 	if (action == FIND)
 		return (hash_search(table->entries[hash(entry.key, table->size)], entry));
 	return (NULL);
-}
+} */

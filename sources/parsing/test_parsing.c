@@ -61,6 +61,7 @@ int main()
 
 /* clear && cc -Wall -Wextra -Werror -o test_parsing parsing.c \
 test_parsing.c \
+cpy_input.c \
 ../hashmap/hashmap_create_table.c \
 ../hashmap/hashmap_handle_collision.c \
 ../hashmap/hashmap_free.c \

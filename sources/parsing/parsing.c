@@ -1,6 +1,6 @@
 #include "../../includes/minishell.h"
 
-void	cpy_input(t_entry *entry)
+static void	cpy_input(t_entry *entry)
 {
 	t_input	*input;
 
