@@ -50,6 +50,7 @@ FTSTR_DIR		=	$(SRC_DIR)ft_str/ft_split.c \
 					$(SRC_DIR)ft_str/ft_strchr.c \
 					$(SRC_DIR)ft_str/ft_strcmp.c \
 					$(SRC_DIR)ft_str/ft_strcpy.c \
+					$(SRC_DIR)ft_str/ft_strncpy.c \
 					$(SRC_DIR)ft_str/ft_strdup.c \
 					$(SRC_DIR)ft_str/ft_striteri.c \
 					$(SRC_DIR)ft_str/ft_strjoin_var.c \

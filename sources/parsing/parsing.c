@@ -1,50 +1,41 @@
 #include "../../includes/minishell.h"
 
-void	input_to_lst(char *cmd, char *arg)
+void	cpy_input(t_entry *entry)
 {
-	t_input *new_input;
-	t_input *current;
+	t_input	*input;
 
-	new_input = malloc(sizeof(t_input));
-	if (!new_input)
-		exit(1);
-	new_input->cmd = ft_strdup(cmd);
-	new_input->arg = ft_strdup(arg);
-	if (!new_input->cmd || !new_input->arg)
-	{
-		free(new_input->cmd);
-		free(new_input->arg);
-		free(new_input);
-		exit(1);
-	}
-	new_input->next = NULL;
-	if (minis()->input == NULL)
-		minis()->input = new_input;
-	else
-	{
-		current = minis()->input;
-		while (current->next)
-			current = current->next;
-		current->next = new_input;
-	}
+	input = ft_input_lstnew(entry->key, entry->value);
+	if (!input)
+		exit(0);
+	ft_input_lstadd_back(&minis()->input, input);
 }
+
+static char	*remove_spaces(char *str)
+{
+	int	start;
+	int	end;
+
+	end = ft_strlen(str) - 1;
+	start = 0;
+	while (end > start && str[end] == ' ')
+		end--;
+	return (ft_substr(str, start, end - start + 1));
+}
+
 /**
  * Extracts a command from the input starting at index *i.
  * Updates *i to the position after the command.
  */
-static char	*extract_arg(char *input, int *i)
+static char	*extract_arg(const char *input, int *i)
 {
+	int		start;
+	int		in_quotes;
 	char	*arg;
-	int	start;
-	int	in_quotes;
 
 	in_quotes = 0;
 	while (input[*i] == ' ')
 		(*i)++;
 	start = *i;
-	if (input[*i] == '|' || input[*i] == '\0')
-		return (ft_strdup(""));
-	// Extract until space or pipe outside quotes
 	while (input[*i] && (input[*i] != '|' || in_quotes))
 	{
 		if ((input[*i] == '\'' || input[*i] == '"') && !in_quotes)
@@ -55,7 +46,9 @@ static char	*extract_arg(char *input, int *i)
 	}
 	if (start == *i)
 		return (ft_strdup(""));
-	arg = ft_substr(input, start, *i - start);
+	arg = remove_spaces(ft_substr(input, start, *i - start));
+	return (arg);
+}
 	
 	/* // Remove surrounding quotes if present
 	if ((arg[0] == '\'' && arg[ft_strlen(arg) - 1] == '\'') ||
@@ -65,8 +58,7 @@ static char	*extract_arg(char *input, int *i)
 		free(arg);
 		arg = temp;
 	} */
-	return (arg);
-}
+
 /**
  * Extracts an argument from the input starting at index *i.
  * Updates *i to the position after the argument.
@@ -74,8 +66,8 @@ static char	*extract_arg(char *input, int *i)
 static char *extract_cmd(char *input, int *i)
 {
 	char	*cmd;
-	int	start;
-	int	in_quotes;
+	int		start;
+	int		in_quotes;
 
 	in_quotes = 0;
 	// Skip leading spaces
@@ -100,7 +92,7 @@ static char *extract_cmd(char *input, int *i)
 
 void	parse_input(void)
 {
-	int	i;
+	int		i;
 	char	*cmd;
 	char	*arg;
 	t_entry	*entry;
@@ -112,10 +104,10 @@ void	parse_input(void)
 		arg = extract_arg(minis()->ms->line, &i);
 		entry = hash_action(minis()->table, (t_entry){cmd, arg, NULL}, ENTER);
 		if (!entry)
-			exit(EXIT_FAILURE);
+			exit(191);
 		if (minis()->ms->line[i] == '|')
 			i++;
-		input_to_lst(cmd, arg);
+		cpy_input(entry);
 		free(cmd);
 		free(arg);
 	}

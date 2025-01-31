@@ -35,7 +35,7 @@ int main()
 		}
 	}
 	else
-		printf("Input line is empty.\n");
+		ft_printf("Input line is empty.\n");
 
 	/* // Additional assertions can be added here to verify the hash table entries
 	// For example:

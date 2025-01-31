@@ -1,7 +1,7 @@
 
 #include "minishell.h"
 
-void	ft_exec()
+/* void	ft_exec()
 {
 	
-}
+} */
