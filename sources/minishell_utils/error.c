@@ -8,12 +8,13 @@ void	exit_minishell(void)
 	if (minis()->ms)
 		free(minis()->ms);
 	if (minis()->input)
-		free(minis()->input);
+		free_t_input(minis()->input);
 	if (minis()->env)
 	{
 		free_table(minis()->env);
 		free_table(minis()->non_value_vars);
 		free_table(minis()->sesion_vars);
+		free_table(minis()->table);
 	}
 	exit(minis()->error_status);
 }

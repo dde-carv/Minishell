@@ -24,7 +24,7 @@ int	main(int ac, char **av, char **env)
 			break;
 		//parse_input();
 		parse_input();
-	
+
 		t_input *current_input = minis()->input;
 		if (current_input)
 		{

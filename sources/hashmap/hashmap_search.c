@@ -18,12 +18,11 @@ char	*hashmap_search(t_hashmap *table, char *key)
 
 t_entry	*hash_action(t_hashmap *table, t_entry entry, t_action action)
 {
-	entry = (t_entry){.key = entry.key, .value = entry.value, .next = NULL};
+	//entry = (t_entry){.key = ft_strdup(entry.key), .value = ft_strdup(entry.value), .next = NULL};
 	char	*value = NULL;
 
 	if (!entry.key || (action != FIND && action != ENTER) || !table)
 		return (NULL);
-	ft_printf("wow");
 	if (action == ENTER)
 	{
 		insert_in_table(entry.key, entry.value, table);

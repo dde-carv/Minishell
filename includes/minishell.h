@@ -90,6 +90,8 @@ void	print_array_fd(char **array, int fd);
 // Frees any char type array given
 void	free_array(char **array);
 
+void	free_t_input(t_input *input);
+
 /************************** error **************************/
 
 # define NOT_FOUND "command not found"

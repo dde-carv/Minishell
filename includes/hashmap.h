@@ -37,7 +37,8 @@ void			handle_collision(t_hashmap *table, unsigned long index, t_entry *new_entr
 // Searches the key in the table and deletes that key and value
 void			hashmap_delete(t_hashmap *table, char *key);
 // Frees individual keys, values and the nodes (the whole table)
-void			free_entry(t_entry *entry);
+void			free_t_entry(t_entry *entry);
+
 // Frees every memory related to the table
 void			free_table(t_hashmap *table);
 // Prints the table

@@ -11,7 +11,7 @@ static void	find_and_delete_node(t_hashmap *table,
 		{
 			tmp = current->next;
 			current->next = current->next->next;
-			free_entry(tmp);
+			free_t_entry(tmp);
 			table->count -= 1;
 			return ;
 		}
@@ -23,14 +23,14 @@ static void	free_current_head(t_hashmap *table, t_entry *current,
 			unsigned long int index)
 {
 	table->entries[index] = current->next;
-	free_entry(current);
+	free_t_entry(current);
 	table->count -= 1;
 }
 
 static void	set_head_to_null(t_hashmap *table, t_entry *current,
 			unsigned long int index)
 {
-	free_entry(current);
+	free_t_entry(current);
 	table->entries[index] = NULL;
 	table->count -= 1;
 }

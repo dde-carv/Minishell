@@ -49,7 +49,7 @@ static char	*extract_arg(const char *input, int *i)
 	arg = remove_spaces(ft_substr(input, start, *i - start));
 	return (arg);
 }
-	
+
 	/* // Remove surrounding quotes if present
 	if ((arg[0] == '\'' && arg[ft_strlen(arg) - 1] == '\'') ||
 		(arg[0] == '"' && arg[ft_strlen(arg) - 1] == '"'))
@@ -101,13 +101,16 @@ void	parse_input(void)
 	while (minis()->ms->line[i])
 	{
 		cmd = extract_cmd(minis()->ms->line, &i);
+		//ft_printf("%s\n", cmd);
 		arg = extract_arg(minis()->ms->line, &i);
+		//ft_printf("%s\n", arg);
 		entry = hash_action(minis()->table, (t_entry){cmd, arg, NULL}, ENTER);
 		if (!entry)
-			exit(191);
+			exit(0);
 		if (minis()->ms->line[i] == '|')
 			i++;
 		cpy_input(entry);
+		free_t_entry(entry);
 		free(cmd);
 		free(arg);
 	}

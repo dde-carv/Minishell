@@ -20,7 +20,7 @@ void	insert_in_table(char *key, char *value, t_hashmap *table)
 		{
 			free (current->value);
 			current->value = ft_strdup(value);
-			free_entry(new_entry);
+			free_t_entry(new_entry);
 		}
 		else
 			handle_collision(table, index, new_entry);

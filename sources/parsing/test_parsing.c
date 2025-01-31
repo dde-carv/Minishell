@@ -61,7 +61,7 @@ int main()
 
 /* clear && cc -Wall -Wextra -Werror -o test_parsing parsing.c \
 test_parsing.c \
-cpy_input.c \
+../builtins/array_utils.c \
 ../hashmap/hashmap_create_table.c \
 ../hashmap/hashmap_handle_collision.c \
 ../hashmap/hashmap_free.c \
@@ -69,5 +69,8 @@ cpy_input.c \
 ../hashmap/hashmap_create_entry.c \
 ../hashmap/hash.c \
 ../hashmap/hashmap_insert.c \
+./parsing_lst/ft_input_lstadd_back.c \
+./parsing_lst/ft_input_lstdelone.c \
+./parsing_lst/ft_input_lstnew.c \
 ../../libft/libft.a \
 -I../../includes && ./test_parsing && rm test_parsing*/

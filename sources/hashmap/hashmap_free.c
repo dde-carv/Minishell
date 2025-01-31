@@ -1,10 +1,23 @@
 #include "../../includes/minishell.h"
 
-void	free_entry(t_entry *entry)
+void	free_t_entry(t_entry *entry)
 {
 	free(entry->key);
 	free(entry->value);
 	free(entry);
+}
+
+void	free_t_input(t_input *input)
+{
+	if (input->cmd)
+		free(input->cmd);
+	if (input->arg)
+		free(input->arg);
+	if (input->args)
+		free_array(input->args);
+	if (input->next)
+		free_t_input(input->next);
+	free(input);
 }
 
 void	free_table(t_hashmap *table)
@@ -20,7 +33,7 @@ void	free_table(t_hashmap *table)
 		while (current != NULL)
 		{
 			tmp = current->next;
-			free_entry(current);
+			free_t_entry(current);
 			current = tmp;
 		}
 		i++;
