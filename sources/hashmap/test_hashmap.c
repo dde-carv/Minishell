@@ -104,6 +104,6 @@ hashmap_print_table.c \
 hashmap_search.c \
 hashmap_delete.c \
 hashmap_free.c \
-test.c \
+test_hashmap.c \
 ../../libft/libft.a \
--I../../includes && valgrind ./hash_test */
+-I../../includes && ./hash_test */
