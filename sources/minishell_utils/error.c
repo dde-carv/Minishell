@@ -1,7 +1,7 @@
 
 #include "minishell.h"
 
-void	exit_minishell(int flag)
+void	exit_minishell(void)
 {
 	if (minis()->ms->line)
 		free(minis()->ms->line);
@@ -12,9 +12,10 @@ void	exit_minishell(int flag)
 	if (minis()->env)
 	{
 		free_table(minis()->env);
+		free_table(minis()->non_value_vars);
 		free_table(minis()->sesion_vars);
 	}
-	exit(flag);
+	exit(minis()->error_status);
 }
 
 void	error_mess(char *input, char *message, int status)

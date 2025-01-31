@@ -33,6 +33,7 @@ typedef struct s_global
 	t_input		*input;
 	t_hashmap	*table;
 	t_hashmap	*env;
+	t_hashmap	*non_value_vars;
 	t_hashmap	*sesion_vars;
 	t_minishell	*ms;
 }				t_global;
@@ -40,7 +41,7 @@ typedef struct s_global
 /************************** clean **************************/
 
 // Exits the program in a clean way
-void	exit_minishell(int flag);
+void	exit_minishell(void);
 
 /*************************** env ***************************/
 
@@ -64,6 +65,8 @@ void	ft_cd(char *path);
 void	ft_pwd(void);
 // Function that replicates echo (prints to stdout the arguments given)
 void	ft_echo(char **args);
+// Function that replicates exit (responsible to exit clean)
+void	ft_exit(char **args);
 // Function that replicates unset (removes variables from env)
 void	ft_unset(char **args);
 // Function that replicates export (adds variables to env)
@@ -73,7 +76,7 @@ void	set_input(void);
 // Function that will print env variables
 void	print_env(int fd);
 // Puts env and session vars hashmaps into an array
-char	**hashmap_quotes_array_and_sesh_vars(void);
+char	**hashmap_quotes_array_and_non_value_vars(void);
 // Puts env variables into an array
 char	**hashmap_to_array(void);
 
@@ -89,12 +92,13 @@ void	free_array(char **array);
 
 /************************** error **************************/
 
-# define NOT_FOUND "command not found."
-# define NO_OLDPWD "OLDPWD not set."
-# define NO_HOME "HOME not set."
-# define NO_FILE_OR_DIR "No such file or directory."
-# define SYNTAX_ERROR "syntax error."
-# define NUM_ARG_REQUIRED "numeric argument required."
+# define NOT_FOUND "command not found"
+# define NO_OLDPWD "OLDPWD not set"
+# define NO_HOME "HOME not set"
+# define NO_FILE_OR_DIR "No such file or directory"
+# define SYNTAX_ERROR "syntax error"
+# define TOO_MANY_ARGS "too many arguments"
+# define NUM_ARG_REQUIRED "numeric argument required"
 
 // Display error message in stderror
 void	error_mess(char *input, char *message, int status);

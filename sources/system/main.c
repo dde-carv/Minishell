@@ -43,8 +43,10 @@ int	main(int ac, char **av, char **env)
 		ft_printf("%s\n", minis()->ms->line);
 		free(minis()->ms->line);
 	}
-	exit_minishell(minis()->error_status); // * this still need some work(not final)
+	exit_minishell(); // * this still need some work(not final)
 	//rl_clear_history();
 	free(minis()->ms->line);
 	return (0);
 }
+
+// valgrind --suppressions=readline.supp --show-leak-kinds=all --leak-check=full --track-origins=yes ./minishell
