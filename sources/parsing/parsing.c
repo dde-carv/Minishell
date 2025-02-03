@@ -14,12 +14,15 @@ static char	*remove_spaces(char *str)
 {
 	int	start;
 	int	end;
+	char	*str_1;
 
 	end = ft_strlen(str) - 1;
 	start = 0;
 	while (end > start && str[end] == ' ')
 		end--;
-	return (ft_substr(str, start, end - start + 1));
+	str_1 = ft_substr(str, start, end - start + 1);
+	free(str);
+	return (str_1);
 }
 
 /**
