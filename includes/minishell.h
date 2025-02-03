@@ -62,7 +62,7 @@ t_global	*minis(void);
 // Function that replicates cd (change directory)
 void	ft_cd(char *path);
 // Function that replicates pwd (print working directory)
-void	ft_pwd(void);
+void	ft_pwd(char **args);
 // Function that replicates echo (prints to stdout the arguments given)
 void	ft_echo(char **args);
 // Function that replicates exit (responsible to exit clean)
