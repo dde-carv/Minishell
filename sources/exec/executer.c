@@ -3,7 +3,7 @@
 
 
 
-void	ft_exec(char *cmd, char **args)
+/* void	ft_exec(char *cmd, char **args)
 {
 	if (ft_strchr(cmd, '='))
 		ft_sesh_vars(cmd, args);
@@ -23,4 +23,4 @@ void	ft_exec(char *cmd, char **args)
 		ft_exit(args);
 	else
 		exec_cmd(cmd, args);
-}
+} */

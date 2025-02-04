@@ -3,6 +3,7 @@
 
 void	ft_pwd(char **args)
 {
+	(void)args;
 	char	*cwd;
 
 	minis()->error_status = 0;
