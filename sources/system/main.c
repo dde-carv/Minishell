@@ -44,8 +44,6 @@ int	main(int ac, char **av, char **env)
 		free(minis()->ms->line);
 	}
 	exit_minishell(); // * this still need some work(not final)
-	//rl_clear_history();
-	free(minis()->ms->line);
 	return (0);
 }
 

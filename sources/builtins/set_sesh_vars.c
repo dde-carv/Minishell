@@ -1,7 +1,7 @@
 
 #include "minishell.h"
 
-/* ft_sesh_vars(char *first, char **rest)
+ft_sesh_vars(char *first, char **rest)
 {
-
-} */
+	
+}

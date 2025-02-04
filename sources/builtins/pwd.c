@@ -1,9 +1,8 @@
 
 #include "minishell.h"
 
-void	ft_pwd(char **args)
+void	ft_pwd(void)
 {
-	(void)args;
 	char	*cwd;
 
 	minis()->error_status = 0;

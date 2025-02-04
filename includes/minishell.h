@@ -62,7 +62,7 @@ t_global	*minis(void);
 // Function that replicates cd (change directory)
 void	ft_cd(char *path);
 // Function that replicates pwd (print working directory)
-void	ft_pwd(char **args);
+void	ft_pwd(void);
 // Function that replicates echo (prints to stdout the arguments given)
 void	ft_echo(char **args);
 // Function that replicates exit (responsible to exit clean)
@@ -75,6 +75,8 @@ int		ft_export(char **args);
 void	set_input(void);
 // Function that will print env variables
 void	print_env(int fd);
+// Function that verifies if arguments are valid for cd
+void	ft_verify_cd(char **path);
 // Puts env and session vars hashmaps into an array
 char	**hashmap_quotes_array_and_non_value_vars(void);
 // Puts env variables into an array

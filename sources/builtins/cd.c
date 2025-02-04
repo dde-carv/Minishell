@@ -71,3 +71,14 @@ void	ft_cd(char *path)
 	}
 	free(current_path);
 }
+
+void	ft_verify_cd(char **path)
+{
+	if (path[1])
+	{
+		error_mess("cd", TOO_MANY_ARGS, 1);
+		return ;
+	}
+	else
+		ft_cd(*path);
+}
