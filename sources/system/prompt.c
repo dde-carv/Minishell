@@ -40,6 +40,6 @@ void	set_input(void)
 	minis()->ms->line = readline(minis()->ms->promp);
 	free(full_promp);
 	free(minis()->ms->promp);
-	if (minis()->ms->line)
+	if (*(minis()->ms->line) != '\0')
 		add_history(minis()->ms->line);
 }

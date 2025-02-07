@@ -1,19 +1,6 @@
 
 #include "minishell.h"
 
-char	**split_into2(char *arg, char c)
-{
-	char	**splited;
-	char	*c_p;
-
-	splited = (char **)malloc(3 * sizeof(char *));
-	c_p = ft_strchr(arg, c);
-	splited[0] = ft_substr(arg, 0, (c_p - arg));
-	splited[1] = ft_substr((c_p + 1), 0, (ft_strlen(c_p)));
-	splited[2] = NULL;
-	return(splited);
-}
-
 static int	print_export(void)
 {
 	char	**export;
@@ -28,7 +15,13 @@ static int	print_export(void)
 
 static void	add_to_non_value_vars(char *arg)
 {
-	if (hashmap_search(minis()->env, arg) != NULL)
+	if (hashmap_search(minis()->sesion_vars, arg))
+	{
+		insert_in_table(arg, hashmap_search(minis()->sesion_vars, arg), minis()->env);
+		hashmap_delete(minis()->sesion_vars, arg);
+		return ;
+	}
+	if (hashmap_search(minis()->env, arg))
 		return ;
 	if (hashmap_search(minis()->non_value_vars, arg))
 		hashmap_delete(minis()->non_value_vars, arg);
@@ -44,7 +37,7 @@ static void	add_to_env(char *arg)
 	values = split_into2(arg, '=');
 	if (hashmap_search(minis()->sesion_vars, values[0]))
 	{
-		insert_in_table(arg, hashmap_search(minis()->sesion_vars, arg), minis()->env);
+		insert_in_table(values[0], hashmap_search(minis()->sesion_vars, values[0]), minis()->env);
 		hashmap_delete(minis()->sesion_vars, values[0]);
 		free_array(values);
 		return ;

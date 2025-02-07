@@ -94,6 +94,8 @@ void	free_array(char **array);
 
 void	free_t_input(t_input *input);
 
+char	**split_into2(char *arg, char c);
+
 /************************** error **************************/
 
 # define NOT_FOUND "command not found"
