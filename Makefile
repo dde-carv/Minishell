@@ -19,6 +19,7 @@ BUILTINS_DIR	=	$(SRC_DIR)builtins/cd.c \
 					$(SRC_DIR)builtins/print_env.c \
 					$(SRC_DIR)builtins/quick_sort.c \
 					$(SRC_DIR)builtins/array_utils.c \
+					$(SRC_DIR)builtins/set_sesh_vars.c \
 					$(SRC_DIR)builtins/hashmap_to_array.c
 
 EXEC_DIR		=	$(SRC_DIR)exec/executer.c

@@ -33,7 +33,10 @@ static void	add_to_env(char *arg)
 	char	**values;
 
 	if (ft_strlen(arg) == 1)
+	{
+		error_mess("export", SYNTAX_ERROR, 1);
 		return ;
+	}
 	values = split_into2(arg, '=');
 	if (hashmap_search(minis()->sesion_vars, values[0]))
 	{

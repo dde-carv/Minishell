@@ -9,8 +9,8 @@ void	ft_exec(char *cmd, char **args)
 		ft_sesh_vars(cmd, args);
 	else if (!(ft_strcmp(cmd, "echo\0")))
 		ft_echo(args);
-	else if (!(ft_strcmp(cmd, "cd\0")))
-		ft_verify_cd(args);						// TODO
+	/* else if (!(ft_strcmp(cmd, "cd\0")))
+		ft_verify_cd(args); */						// TODO
 	else if (!(ft_strcmp(cmd, "pwd\0")))
 		ft_pwd();
 	else if (!(ft_strcmp(cmd, "export\0")))
@@ -21,6 +21,6 @@ void	ft_exec(char *cmd, char **args)
 		print_env(1);
 	else if (!(ft_strcmp(cmd, "exit\0")))
 		ft_exit(args);
-	else
-		ft_exec_cmd(cmd, args);					// TODO
+	/* else
+		ft_exec_cmd(cmd, args); */					// TODO
 }
