@@ -3,6 +3,7 @@
 # define MINISHELL_H
 
 # include <stddef.h>
+# include <stdbool.h>
 # include "hashmap.h"
 # include "parsing.h"
 # include "colors.h"
@@ -12,6 +13,14 @@
 # include <sys/wait.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+
+typedef enum s_type
+{
+	APPEND,
+	CREATE,
+	HEREDOC,
+	REVERSE,
+}					t_type;
 
 typedef struct s_input
 {
