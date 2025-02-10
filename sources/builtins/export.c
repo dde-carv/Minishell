@@ -37,14 +37,14 @@ static void	add_to_env(char *arg)
 		error_mess("export", SYNTAX_ERROR, 1);
 		return ;
 	}
-	values = split_into2(arg, '=');
 	if (hashmap_search(minis()->sesion_vars, values[0]))
 	{
 		insert_in_table(values[0], hashmap_search(minis()->sesion_vars, values[0]), minis()->env);
 		hashmap_delete(minis()->sesion_vars, values[0]);
-		free_array(values);
+		//free_array(values);
 		return ;
 	}
+	values = split_into2(arg, '=');
 	if (hashmap_search(minis()->non_value_vars, values[0]))
 		hashmap_delete(minis()->non_value_vars, values[0]);
 	if (hashmap_search(minis()->env, values[0]))
@@ -53,7 +53,7 @@ static void	add_to_env(char *arg)
 	free_array(values);
 }
 
-static int	add_var(char **args, int i)
+static int	add_var(char **args, int i) // TODO Needs some touches (if the argument has no '=')
 {
 	char	**values;
 

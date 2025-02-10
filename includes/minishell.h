@@ -66,6 +66,12 @@ t_hashmap	*create_hash_env(void);
 // Function that calls "global" struct
 t_global	*minis(void);
 
+/************************ executer *************************/
+
+
+void	ft_exec(char *cmd, char **args);
+
+
 /************************* builtin *************************/
 
 // Function that replicates cd (change directory)
@@ -104,6 +110,8 @@ void	free_array(char **array);
 void	free_t_input(t_input *input);
 
 char	**split_into2(char *arg, char c);
+
+void	ft_sesh_vars(char *first, char **rest);
 
 /************************** error **************************/
 

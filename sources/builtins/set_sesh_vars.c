@@ -5,6 +5,8 @@ static void	set_rest_vars(char **strs, int i)
 {
 	char **values;
 
+	if (!strs[i])
+		return ;
 	values = split_into2(strs[i], '=');
 	if (hashmap_search(minis()->non_value_vars, values[0]))
 	{
