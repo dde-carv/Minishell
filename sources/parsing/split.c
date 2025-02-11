@@ -1,6 +1,6 @@
 #include "../../includes/minishell.h"
 
-static int	words_count(t_string str)
+static int	words_count(char *str)
 {
 	char	c;
 	int		i;
@@ -28,7 +28,7 @@ static int	words_count(t_string str)
 	return (words);
 }
 
-static int	end_word(t_string str, int s)
+static int	end_word(char *str, int s)
 {
 	int	i;
 	int	c;
@@ -50,12 +50,12 @@ static int	end_word(t_string str, int s)
 	return (i);
 }
 
-t_string	*split_value(t_string str)
+char	**split_value(char *str)
 {
-	t_string	*result;
-	int			words;
-	int			i;
-	int			start[2];
+	char	**result;
+	int		words;
+	int		i;
+	int		start[2];
 
 	words = words_count(str);
 	result = ft_calloc(words_count(str) + 1, sizeof(char *));
@@ -75,7 +75,7 @@ t_string	*split_value(t_string str)
 	return (result);
 }
 
-bool	split_need(t_string s)
+bool	split_need(char *s)
 {
 	int	i;
 	int	c;
