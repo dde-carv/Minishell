@@ -1,42 +1,58 @@
 
 #include "minishell.h"
 
+static char	*ft_get_last(char *path)
+{
+	int		i;
+	char	*last;
+	char	**prompt;
+
+	if (!ft_strcmp(path, "/"))
+	{
+		return (last = ft_strdup("/"));
+	}
+	prompt = ft_split(path, '/');
+	i = -1;
+	while (prompt[++i]);
+	last = ft_strdup(prompt[i - 1]);
+	free_array(prompt);
+	return (last);
+}
+
 //Function to get the prompt via cwd (current working directory)
 static char	*ft_getprompt(void)
 {
-	int		i;
-	char	**promp;
 	char	*cwd;
 	char	*last;
 
-	i = 0;
 	cwd = getcwd(NULL, 0);
 	if (!ft_strcmp(cwd, "/"))
 	{
 		free(cwd);
 		return (last = ft_strdup("/"));
 	}
-	promp = ft_split(cwd, '/');
+	last = ft_get_last(cwd);
 	free(cwd);
-	i = -1;
-	while (promp[++i]);
-	last = ft_strdup(promp[i - 1]);
-	i = -1;
-	while (promp[++i])
-		free(promp[i]);
-	free(promp);
 	return (last);
 }
 
 void	set_input(void)
 {
 	char	*last;
+	char	*last_HOME;
 	char	*full_promp;
 
 	last = ft_getprompt();
+	last_HOME = ft_get_last(hashmap_search(minis()->env, "HOME"));
+	if (!ft_strcmp(last, last_HOME))
+	{
+		free(last);
+		last = ft_strdup("~");
+	}
 	full_promp = ft_strjoin_var(5, BOLD_CYAN, last, BOLD_YELLOW, " $ ", RESET_COLOR);
 	minis()->ms->promp = ft_strdup(full_promp);
 	free(last);
+	free(last_HOME);
 	minis()->ms->line = readline(minis()->ms->promp);
 	free(full_promp);
 	free(minis()->ms->promp);

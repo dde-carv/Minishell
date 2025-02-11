@@ -1,26 +1,46 @@
 
 #include "minishell.h"
 
+static char	*ft_gethome(char *path)
+{
+	char	*partial_path;
+	char	*full_path;
+
+	partial_path = ft_substr(path, 1, ft_strlen(path));
+	full_path = ft_strjoin(hashmap_search(minis()->env, "HOME"), partial_path);
+	free(partial_path);
+	ft_printf("%s\n", full_path);
+	return (full_path);
+}
+
 static void	ft_chdir_path(char *path)
 {
 	char	*pwd;
+	char	*final_path;
 	char	*error_msg;
 
-	pwd = NULL;
-	pwd = getcwd(pwd, 0);
+	pwd = getcwd(NULL, 0);
 	insert_in_table("OLDPWD", pwd, minis()->env);
 	free(pwd);
-	if (chdir(path) != 0 && ft_strchr(path, '>') == NULL)
+	final_path = ft_strdup(path);
+	if((!ft_strncmp(path, "~", 1)))
+	{
+		free(final_path);
+		final_path = ft_gethome(path);
+	}
+	if (chdir(final_path) != 0)
 	{
 		error_msg = ft_strjoin("cd: ", path);
 		error_mess(error_msg, NO_FILE_OR_DIR, 1);
 		free(error_msg);
+		free(final_path);
 		return ;
 	}
 	pwd = NULL;
-	pwd = getcwd(pwd, 0);
+	pwd = getcwd(NULL, 0);
 	insert_in_table("PWD", pwd, minis()->env);
 	free(pwd);
+	free(final_path);
 }
 
 static void	ft_chdir_oldpwd(char *path)
@@ -48,7 +68,6 @@ void	ft_cd(char *path)
 {
 	char	*current_path;
 
-	minis()->error_status = 0;
 	if ((!path) || !(ft_strcmp(path, "~")))
 	{
 		ft_chdir_home();
@@ -74,11 +93,12 @@ void	ft_cd(char *path)
 
 void	ft_verify_cd(char **path)
 {
+	minis()->error_status = 0;
 	if (path[1])
 	{
 		error_mess("cd", TOO_MANY_ARGS, 1);
 		return ;
 	}
 	else
-		ft_cd(*path);
+		ft_cd(path[0]);
 }

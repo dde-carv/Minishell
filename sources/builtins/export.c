@@ -37,10 +37,10 @@ static void	add_to_env(char *arg)
 		error_mess("export", SYNTAX_ERROR, 1);
 		return ;
 	}
-	if (hashmap_search(minis()->sesion_vars, values[0]))
+	if (!ft_strchr(arg, '=') && hashmap_search(minis()->sesion_vars, arg))
 	{
-		insert_in_table(values[0], hashmap_search(minis()->sesion_vars, values[0]), minis()->env);
-		hashmap_delete(minis()->sesion_vars, values[0]);
+		insert_in_table(arg, hashmap_search(minis()->sesion_vars, arg), minis()->env);
+		hashmap_delete(minis()->sesion_vars, arg);
 		//free_array(values);
 		return ;
 	}
@@ -53,12 +53,18 @@ static void	add_to_env(char *arg)
 	free_array(values);
 }
 
-static int	add_var(char **args, int i) // TODO Needs some touches (if the argument has no '=')
+static int	add_var(char **args, int i)
 {
 	char	**values;
 
 	if (!args[i])
 		return (0);
+	if (!ft_strchr(args[i], '=') && hashmap_search(minis()->sesion_vars, args[i]))
+	{
+		ft_printf("%s\n", args[i]);
+		add_to_env(args[i]);
+		return (add_var(args, i + 1));
+	}
 	values = split_into2(args[i], '=');
 	if (ft_strchr(args[i], '=') || (hashmap_search(minis()->sesion_vars, values[0])))
 		add_to_env(args[i]);
@@ -68,6 +74,7 @@ static int	add_var(char **args, int i) // TODO Needs some touches (if the argume
 	return (add_var(args, i + 1));
 }
 
+// TODO Need to protect for diferent cases like, if session_vars have or don't have '=' and all the verifications for the hashtables
 int	ft_export(char **args)
 {
 	minis()->error_status = 0;
