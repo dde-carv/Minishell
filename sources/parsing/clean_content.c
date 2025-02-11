@@ -1,6 +1,6 @@
 #include "../../includes/minishell.h"
 
-static void	add_matix(t_cmd **lst, t_string *s)
+static void	add_matix(t_cmd **lst, char **s)
 {
 	int	i;
 	int	j;
@@ -8,7 +8,7 @@ static void	add_matix(t_cmd **lst, t_string *s)
 	i = 0;
 	while (s[++i])
 		;
-	(*lst)->matrix = ft_calloc(sizeof(t_string), i + 1);
+	(*lst)->matrix = ft_calloc(sizeof(char *), i + 1);
 	i = 0;
 	j = -1;
 	while (s[++i])
@@ -16,11 +16,11 @@ static void	add_matix(t_cmd **lst, t_string *s)
 	(*lst)->matrix[++j] = NULL;
 }
 
-static void	join_matrix(t_cmd **lst, t_string *s)
+static void	join_matrix(t_cmd **lst, char **s)
 {
-	t_string	*str;
-	int			i;
-	int			j;
+	char	**str;
+	int		i;
+	int		j;
 
 	i = -1;
 	j = -1;
@@ -28,7 +28,7 @@ static void	join_matrix(t_cmd **lst, t_string *s)
 		;
 	while (s[++j])
 		;
-	str = ft_calloc(i + j + 1, sizeof(t_string));
+	str = ft_calloc(i + j + 1, sizeof(char *));
 	str[i] = NULL;
 	i = -1;
 	while ((*lst)->matrix[++i])
@@ -43,8 +43,8 @@ static void	join_matrix(t_cmd **lst, t_string *s)
 
 static void	matrix(t_cmd **lst)
 {
-	t_string	*s;
-	int			i;
+	char	**s;
+	int		i;
 
 	s = split_value((*lst)->cmd);
 	free((*lst)->cmd);
@@ -62,7 +62,7 @@ void	clean_content(void)
 {
 	t_cmd	*lst;
 
-	lst = mini()->cmd;
+	lst = minis()->cmd;
 	while (lst)
 	{
 		if (has_redirection(lst->cmd) || has_redirection(lst->arg))

@@ -1,6 +1,6 @@
 #include "../../includes/minishell.h"
 
-bool	has_redirection(t_string s)
+bool	has_redirection(char *s)
 {
 	int		i;
 	char	c;
@@ -21,13 +21,13 @@ bool	has_redirection(t_string s)
 }
 
 
-static void parse_redirection(t_cmd **cmd, t_string *str) {
+static void parse_redirection(t_cmd **cmd, char **str) {
 	int i;
 	int start;
 	char c;
 	t_type type;
-	t_string redir;
-	t_string new_str;
+	char *redir;
+	char *new_str;
 	int new_str_len;
 
 	i = 0;
@@ -43,7 +43,8 @@ static void parse_redirection(t_cmd **cmd, t_string *str) {
 			c = 0;
 		else if (!c && ((*str)[i] == '<' || (*str)[i] == '>')) {
 			start = i;
-			if ((*str)[i] == '>' && (*str)[i + 1] == '>') {
+			if ((*str)[i] == '>' && (*str)[i + 1] == '>')
+			{
 				type = APPEND;
 				i++;
 			} else if ((*str)[i] == '<' && (*str)[i + 1] == '<') {

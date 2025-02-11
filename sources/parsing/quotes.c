@@ -1,6 +1,6 @@
 #include "../../includes/minishell.h"
 
-static void	take_spaces(t_string *s)
+static void	take_spaces(char **s)
 {
 	int	i;
 
@@ -11,28 +11,28 @@ static void	take_spaces(t_string *s)
 		(*s)[i--] = 0;
 }
 
-void	take_quotes(t_string *str)
+void	take_quotes(char **str)
 {
-	t_string	s;
-	int			i;
-	int			y;
-	int			c;
+	char	*s;
+	int		i;
+	int		j;
+	int		in_quotes;
 
 	s = *str;
-	i = -1;
-	y = -1;
-	c = 0;
-	while (s[++i])
+	i = 0;
+	j = 0;
+	in_quotes = 0;
+	while (s[i++])
 	{
-		if ((s[i] == '"' || s[i] == '\'') && !c)
-			c = s[i];
-		else if (s[i] == c)
-			c = 0;
+		if ((s[i] == '"' || s[i] == '\'') && !in_quotes)
+			in_quotes = s[i];
+		else if (s[i] == in_quotes)
+			in_quotes = 0;
 		else
-			(*str)[++y] = s[i];
+			(*str)[j++] = s[i];
 	}
-	while (y < i)
-		(*str)[++y] = 0;
+	while (j < i)
+		(*str)[j++] = 0;
 }
 
 static void	take_expantions(t_cmd **lst)

@@ -23,7 +23,7 @@ void	expantions(char *s)
 	}
 }
 
-/* char	*sub_expantion(char *s, char *str)
+char	*sub_expantion(char *s, char *str)
 {
 	char		*new;
 	int			i;
@@ -36,15 +36,15 @@ void	expantions(char *s)
 	j = 0;
 	while (s[i])
 	{
-		if ((s)[i] == 2)
+		if (s[i] == 2)
 		{
 			i++;
 			while (s[i] && ft_isalpha(s[i]))
 				i++;
-			while (*str != 0)
+			while (*str)
 				new[j++] = *str++;
 			while (s[i])
-				new[j++] = (s)[i++];
+				new[j++] = s[i++];
 			break ;
 		}
 		else
@@ -54,16 +54,17 @@ void	expantions(char *s)
 		new[j++] = s[i++];
 	free(s);
 	return (new);
-} */
+}
 
 bool	is_expantion(char *str)
 {
-	int	i;
-
-	if (!str || !*str)
+	if (!str)
 		return (0);
-	i = 0;
-	while (str[i++] && str[i] != 2)
-		;
-	return (str[i] == 2);
+	while (*str)
+	{
+		if (*str == 2)
+			return (1);
+		str++;
+	}
+	return (0);
 }
