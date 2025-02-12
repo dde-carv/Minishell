@@ -35,7 +35,7 @@ void	take_quotes(char **str)
 		(*str)[j++] = 0;
 }
 
-static void	take_expantions(t_cmd **lst)
+static void	take_expantions(t_input **lst)
 {
 	bool	f;
 	int		i;
@@ -48,12 +48,12 @@ static void	take_expantions(t_cmd **lst)
 	while (is_expantion((*lst)->arg))
 		(*lst)->arg = sub_expantion((*lst)->arg, get_var((*lst)->arg));
 	if (f && *(*lst)->cmd)
-		matrix(lst);
+		args(lst);
 	else
-		(*lst)->matrix = split_value((*lst)->arg);
-	while ((*lst)->matrix && (*lst)->matrix[++i] != NULL)
+		(*lst)->args = split_value((*lst)->arg);
+	while ((*lst)->args && (*lst)->args[++i] != NULL)
 	{
-		take_quotes(&(*lst)->matrix[i]);
-		take_spaces(&(*lst)->matrix[i]);
+		take_quotes(&(*lst)->args[i]);
+		take_spaces(&(*lst)->args[i]);
 	}
 }

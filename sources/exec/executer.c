@@ -14,7 +14,7 @@
 
 void	ft_exec(char *cmd, char **args)
 {
-	/* if (ft_strchr(cmd, '='))					// ! don't forget to add flag
+	/* if (ft_strchr(cmd, '='))						// ! don't forget to add flag
 		ft_sesh_vars(cmd, args); */
 	if (!(ft_strcmp(cmd, "echo\0")))
 		ft_echo(args);

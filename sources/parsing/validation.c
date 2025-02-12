@@ -10,12 +10,12 @@ bool	is_valid(void)
 	{
 		if (!closed_quotes(lst->cmd) || !closed_quotes(lst->arg))
 		{
-			perror("syntax error");
+			error_mess("minishell", SYNTAX_ERROR, 1);
 			return (0);
 		}
 		if (!lst->cmd || !*lst->cmd)
 		{
-			perror("syntax error pipe");
+			error_mess("minishell", SYNTAX_ERROR, 1);
 			return (0);
 		}
 		expantions(lst->cmd);

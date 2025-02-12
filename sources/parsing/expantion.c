@@ -1,16 +1,16 @@
 #include "../../includes/minishell.h"
 
-void	expantions(char *s)
+void	expantions(char **s)
 {
 	int			i;
 	int			in_quotes;
 	char		*str;
 
+	if (!s || !*s)
+		return ;
 	str = *s;
 	i = 0;
 	in_quotes = 0;
-	if (!s || !*s)
-		return ;
 	while (str[i++])
 	{
 		if ((str[i] == '"' || str[i] == '\'') && !in_quotes)

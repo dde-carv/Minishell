@@ -1,6 +1,6 @@
 #include "../../includes/minishell.h"
 
-static void	add_matix(t_cmd **lst, char **s)
+static void	add_args(t_input **lst, char **s)
 {
 	int	i;
 	int	j;
@@ -8,15 +8,15 @@ static void	add_matix(t_cmd **lst, char **s)
 	i = 0;
 	while (s[++i])
 		;
-	(*lst)->matrix = ft_calloc(sizeof(char *), i + 1);
+	(*lst)->args = ft_calloc(sizeof(char *), i + 1);
 	i = 0;
 	j = -1;
 	while (s[++i])
-		(*lst)->matrix[++j] = ft_strdup(s[i]);
-	(*lst)->matrix[++j] = NULL;
+		(*lst)->args[++j] = ft_strdup(s[i]);
+	(*lst)->args[++j] = NULL;
 }
 
-static void	join_matrix(t_cmd **lst, char **s)
+static void	join_args(t_input **lst, char **s)
 {
 	char	**str;
 	int		i;
@@ -24,24 +24,24 @@ static void	join_matrix(t_cmd **lst, char **s)
 
 	i = -1;
 	j = -1;
-	while ((*lst)->matrix[++i])
+	while ((*lst)->args[++i])
 		;
 	while (s[++j])
 		;
 	str = ft_calloc(i + j + 1, sizeof(char *));
 	str[i] = NULL;
 	i = -1;
-	while ((*lst)->matrix[++i])
-		str[i] = ft_strdup((*lst)->matrix[i]);
+	while ((*lst)->args[++i])
+		str[i] = ft_strdup((*lst)->args[i]);
 	j = -1;
 	while (s[++j])
 		str[i++] = ft_strdup(s[j]);
-	free_matrix(s);
-	free_matrix((*lst)->matrix);
-	(*lst)->matrix = str;
+	free_args(s);
+	free_args((*lst)->args);
+	(*lst)->args = str;
 }
 
-static void	matrix(t_cmd **lst)
+static void	args(t_input **lst)
 {
 	char	**s;
 	int		i;
@@ -55,14 +55,14 @@ static void	matrix(t_cmd **lst)
 		free(s[i]);
 	free(s[i]);
 	free(s);
-	join_matrix(lst, split_value((*lst)->arg));
+	join_args(lst, split_value((*lst)->arg));
 }
 
 void	clean_content(void)
 {
-	t_cmd	*lst;
+	t_input	*lst;
 
-	lst = minis()->cmd;
+	lst = minis()->input;
 	while (lst)
 	{
 		if (has_redirection(lst->cmd) || has_redirection(lst->arg))

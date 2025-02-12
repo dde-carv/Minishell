@@ -99,22 +99,27 @@ void	parse_input(void)
 	char	*cmd;
 	char	*arg;
 	t_entry	*entry;
+	t_entry	e;
 
 	i = 0;
 	while (minis()->ms->line[i])
 	{
 		cmd = extract_cmd(minis()->ms->line, &i);
-		//ft_printf("%s\n", cmd);
 		arg = extract_arg(minis()->ms->line, &i);
-		//ft_printf("%s\n", arg);
 		entry = hash_action(minis()->table, (t_entry){cmd, arg, NULL}, ENTER);
 		if (!entry)
 			exit(0);
 		if (minis()->ms->line[i] == '|')
 			i++;
 		cpy_input(entry);
-		free_t_entry(entry);
+		free_t_entry(entry);	// ! Posible Invalid free because of parsing and expantions(in hugo's transform_str.c clean_content function)
 		free(cmd);
 		free(arg);
+	}
+	if (minis()->ms->line[i - 1] == '|')
+	{
+		e.key = "";
+		e.value = "";
+		cpy_input(&e);
 	}
 }

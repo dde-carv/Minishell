@@ -21,7 +21,7 @@ bool	has_redirection(char *s)
 }
 
 
-static void parse_redirection(t_cmd **cmd, char **str) {
+static void parse_redirection(t_input **cmd, char **str) {
 	int i;
 	int start;
 	char c;
@@ -74,7 +74,7 @@ static void parse_redirection(t_cmd **cmd, char **str) {
 	*str = new_str;
 }
 
-void	parse_redirects(t_cmd **cmd)
+void	parse_redirects(t_input **cmd)
 {
 	if (has_redirection((*cmd)->cmd))
 		parse_redirection(cmd, &(*cmd)->cmd);
