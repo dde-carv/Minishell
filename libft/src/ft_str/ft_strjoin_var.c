@@ -6,7 +6,7 @@
 /*   By: dde-carv <dde-carv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 10:54:11 by dde-carv          #+#    #+#             */
-/*   Updated: 2025/01/15 11:35:55 by dde-carv         ###   ########.fr       */
+/*   Updated: 2025/02/13 16:34:34 by dde-carv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*ft_strjoin_var(unsigned int arg_n, ...)
 	while (i < arg_n)
 	{
 		arg_buff = va_arg(arg_list, char *);
-		if(!result)
+		if (!result)
 			result = ft_strdup(arg_buff);
 		else
 		{
