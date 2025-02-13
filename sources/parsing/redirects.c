@@ -20,7 +20,6 @@ bool	has_redirection(char *s)
 	return (false);
 }
 
-
 static void parse_redirection(t_input **cmd, char **str)
 {
 	int i;
