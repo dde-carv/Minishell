@@ -60,9 +60,8 @@ t_global	*minis(void);
 
 /************************ executer *************************/
 
-
+// Function to call the builtins and execution
 void	ft_exec(char *cmd, char **args);
-
 
 /************************* builtin *************************/
 
