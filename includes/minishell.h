@@ -88,9 +88,9 @@ void	ft_verify_cd(char **path);
 char	**hashmap_quotes_array_and_non_value_vars(void);
 // Puts env variables into an array
 char	**hashmap_to_array(void);
-
+// Sorts an array in ascii oreder
 void	quick_sort(char **array, int left, int right);
-
+// Gives the length of the array
 int		array_len(char **array);
 // Takes a string and aplies that string to every position in the array
 void	ft_strjoin_to_array(char *str, char **array);
@@ -98,11 +98,9 @@ void	ft_strjoin_to_array(char *str, char **array);
 void	print_array_fd(char **array, int fd);
 // Frees any char type array given
 void	free_array(char **array);
-
-void	free_t_input(t_input *input);
-
+// Splites the string given by the first occurence of 'c'
 char	**split_into2(char *arg, char c);
-
+// Sets the sesion variables
 void	ft_sesh_vars(char *first, char **rest);
 
 /************************** error **************************/

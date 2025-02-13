@@ -59,9 +59,10 @@ static int	add_var(char **args, int i)
 
 	if (!args[i])
 		return (0);
+	if (!ft_strchr(args[i], '=') && hashmap_search(minis()->env, args[i]))
+		return(0);
 	if (!ft_strchr(args[i], '=') && hashmap_search(minis()->sesion_vars, args[i]))
 	{
-		ft_printf("%s\n", args[i]);
 		add_to_env(args[i]);
 		return (add_var(args, i + 1));
 	}

@@ -62,5 +62,5 @@ void	ft_sesh_vars(char *first, char **rest)
 		return ;
 	} */
 	set_first_var(first);
-	set_rest_vars(rest, 0); // TODO
+	set_rest_vars(rest, 0);
 }

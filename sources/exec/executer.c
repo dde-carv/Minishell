@@ -14,8 +14,8 @@
 
 void	ft_exec(char *cmd, char **args)
 {
-	/* if (ft_strchr(cmd, '='))						// ! don't forget to add flag
-		ft_sesh_vars(cmd, args); */
+	if (ft_strchr(cmd, '='))						// ! don't forget to add flag
+		ft_sesh_vars(cmd, args);
 	if (!(ft_strcmp(cmd, "echo\0")))
 		ft_echo(args);
 	else if (!(ft_strcmp(cmd, "cd\0")))
@@ -23,7 +23,7 @@ void	ft_exec(char *cmd, char **args)
 	else if (!(ft_strcmp(cmd, "pwd\0")))
 		ft_pwd();
 	else if (!(ft_strcmp(cmd, "export\0")))
-		ft_export(args);							// ! YOU HAVE THINGS TO CHANGE HERE
+		ft_export(args);
 	else if (!(ft_strcmp(cmd, "unset\0")))
 		ft_unset(args);
 	else if (!(ft_strcmp(cmd, "env\0")))

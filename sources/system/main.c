@@ -14,13 +14,13 @@ int	main(int ac, char **av, char **env)
 {
 	(void)av;
 
-/* 	char **env1 = ft_split("", ' ');
+	char **env1 = ft_split("", ' ');
 	char **export1 = ft_split("", ' ');
 
 	char **sesh_vars = ft_split("xyz=wow lol=abc", ' ');
 
 	char **export2 = ft_split("export=MACHO SHLVL=PUNHETA", ' ');
-	char **export3 = ft_split("abc lol", ' '); */
+	char **export3 = ft_split("abc lol", ' ');
 
 
 	if (ac > 1)
@@ -48,8 +48,10 @@ int	main(int ac, char **av, char **env)
 		else
 			ft_printf("Input line is empty.\n"); */
 
+		if (!ft_strcmp(minis()->ms->line, "exit") && (ft_strlen(minis()->ms->line)) == 4)
+			break;
 
-/* 		ft_printf("\n*************************    0    *************************\n");
+		ft_printf("\n*************************    0    *************************\n");
 		ft_printf("\n");
 		ft_exec("env", env1);
 		ft_printf("\n");
@@ -75,21 +77,19 @@ int	main(int ac, char **av, char **env)
 		ft_exec("env", env1);
 		ft_printf("\n");
 		ft_exec("export", export1);
-		ft_printf("\n"); */
+		ft_printf("\n");
 
-		if (!ft_strcmp(minis()->ms->line, "exit") && (ft_strlen(minis()->ms->line)) == 4)
-			break;
 
 		// start_minishell(...); // TODO: this is to innitialize and start important things
 		ft_printf("%s\n", minis()->ms->line);
 		free(minis()->ms->line);
 	}
 
-/* 	free_array(env1);
+	free_array(env1);
 	free_array(export1);
 	free_array(sesh_vars);
 	free_array(export2);
-	free_array(export3); */
+	free_array(export3);
 
 	exit_minishell(); // * this still need some work(not final)
 	return (0);
