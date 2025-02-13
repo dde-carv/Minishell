@@ -1,77 +1,86 @@
 #include "../../includes/minishell.h"
 
+// Count how many words (tokens) there will be
 static int	words_count(char *str)
 {
-	char	c;
-	int		i;
+	char	in_quotes;
 	int		words;
+	int		i;
 
-	i = 0;
+	in_quotes = 0;
 	words = 0;
-	c = 0;
+	i = 0;
 	while (str[i])
 	{
+		// Skip spaces
 		while (str[i] == ' ')
 			i++;
 		if (!str[i])
 			return (0);
-		words++;
-		while (str[i] && ((str[i] != ' ' && !c) || (c)))
+		words++; // Found a word
+		// Move until the word ends
+		while (str[i] && ((str[i] != ' ' && !in_quotes) || (in_quotes)))
 		{
-			if ((str[i] == '\'' || str[i] == '"') && !c)
-				c = str[i];
-			else if (str[i] == c)
-				c = 0;
+			if ((str[i] == '\'' || str[i] == '"') && !in_quotes)
+				in_quotes = str[i]; // Enter quotes
+			else if (str[i] == in_quotes)
+				in_quotes = 0; // Exit quotes
 			i++;
 		}
 	}
 	return (words);
 }
 
-static int	end_word(char *str, int s)
+// Find where the current word (token) ends
+static int	end_word(char *str, int start)
 {
 	int	i;
-	int	c;
+	int	in_quotes;
 
-	i = s;
 	if (!str || !*str)
 		return (0);
-	c = 0;
+	i = start;
+	in_quotes = 0;
 	while (str[i])
 	{
-		if (str[i] == ' ' && !c)
+		if (str[i] == ' ' && !in_quotes)
 			break ;
-		if ((str[i] == '\'' || str[i] == '"') && !c)
-			c = str[i];
-		else if (str[i] == c)
-			c = 0;
+		if ((str[i] == '\'' || str[i] == '"') && !in_quotes)
+			in_quotes = str[i];
+		else if (str[i] == in_quotes)
+			in_quotes = 0;
 		i++;
 	}
 	return (i);
 }
 
+// Create an array of tokens
 char	**split_value(char *str)
 {
 	char	**result;
+	int		word_index;
 	int		words;
-	int		i;
-	int		start[2];
+	int		start;
+	int		end;
 
-	words = words_count(str);
-	result = ft_calloc(words_count(str) + 1, sizeof(char *));
+	result = ft_calloc(words + 1, sizeof(char *));
 	if (!result)
 		return (NULL);
-	i = -1;
-	start[0] = 0;
-	while (++i < words)
+	word_index = 0;
+	words = words_count(str);
+	start = 0;
+	while (word_index < words)
 	{
-		while (str[start[0]] == ' ')
-			start[0]++;
-		start[1] = end_word(str, start[0]);
-		result[i] = ft_substr(str, start[0], start[1] - start[0]);
-		start[0] = start[1];
+		// Skip leading spaces
+		while (str[start] == ' ')
+			start++;
+		// Mark the end of the token
+		end = end_word(str, start);
+		// Extract token using a substring function
+		result[word_index++] = ft_substr(str, start, end - start);
+		start = end;
 	}
-	result[i] = NULL;
+	result[word_index] = NULL;
 	return (result);
 }
 
@@ -101,3 +110,17 @@ bool	split_need(char *s)
 	}
 	return (false);
 }
+
+/*
+
+Summary:
+
+Counting Words: Ignores extra spaces and respects quotes.
+
+Finding Word End: Uses a helper that safely stops at a space or the end of quoted sections.
+
+Extracting Tokens: Allocates an array and fills it with the tokens from the input string.
+
+Special Marker Handling: The function split_need checks for markers that indicate further processing is needed.
+
+*/

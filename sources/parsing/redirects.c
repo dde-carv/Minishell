@@ -21,7 +21,8 @@ bool	has_redirection(char *s)
 }
 
 
-static void parse_redirection(t_input **cmd, char **str) {
+static void parse_redirection(t_input **cmd, char **str)
+{
 	int i;
 	int start;
 	char c;

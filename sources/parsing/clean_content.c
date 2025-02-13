@@ -1,61 +1,37 @@
 #include "../../includes/minishell.h"
 
-static void	add_args(t_input **lst, char **s)
+static void	take_spaces(char **s)
 {
 	int	i;
-	int	j;
 
-	i = 0;
-	while (s[++i])
-		;
-	(*lst)->args = ft_calloc(sizeof(char *), i + 1);
-	i = 0;
-	j = -1;
-	while (s[++i])
-		(*lst)->args[++j] = ft_strdup(s[i]);
-	(*lst)->args[++j] = NULL;
+	i = ft_strlen(*s) - 1;
+	if (i == -1)
+		return ;
+	while (i && (*s)[i] == ' ')
+		(*s)[i--] = 0;
 }
 
-static void	join_args(t_input **lst, char **s)
+static void	take_expantions(t_input **lst)
 {
-	char	**str;
-	int		i;
-	int		j;
-
-	i = -1;
-	j = -1;
-	while ((*lst)->args[++i])
-		;
-	while (s[++j])
-		;
-	str = ft_calloc(i + j + 1, sizeof(char *));
-	str[i] = NULL;
-	i = -1;
-	while ((*lst)->args[++i])
-		str[i] = ft_strdup((*lst)->args[i]);
-	j = -1;
-	while (s[++j])
-		str[i++] = ft_strdup(s[j]);
-	free_args(s);
-	free_args((*lst)->args);
-	(*lst)->args = str;
-}
-
-static void	args(t_input **lst)
-{
-	char	**s;
+	bool	f;
 	int		i;
 
-	s = split_value((*lst)->cmd);
-	free((*lst)->cmd);
-	(*lst)->cmd = ft_strdup(s[0]);
-	add_matix(lst, s);
-	i = -1;
-	while (s[++i])
-		free(s[i]);
-	free(s[i]);
-	free(s);
-	join_args(lst, split_value((*lst)->arg));
+	i = 0;
+	f = split_need((*lst)->cmd);
+	take_quotes(&(*lst)->cmd);
+	while (is_expantion((*lst)->cmd))
+		(*lst)->cmd = sub_expantion((*lst)->cmd, get_var((*lst)->cmd));
+	while (is_expantion((*lst)->arg))
+		(*lst)->arg = sub_expantion((*lst)->arg, get_var((*lst)->arg));
+	if (f && *(*lst)->cmd)
+		args(lst);
+	else
+		(*lst)->args = split_value((*lst)->arg);
+	while ((*lst)->args && (*lst)->args[i++] != NULL)
+	{
+		take_quotes(&(*lst)->args[i]);
+		take_spaces(&(*lst)->args[i]);
+	}
 }
 
 void	clean_content(void)
