@@ -1,16 +1,5 @@
 #include "../../includes/minishell.h"
 
-static void	take_spaces(char **s)
-{
-	int	i;
-
-	i = ft_strlen(*s) - 1;
-	if (i == -1)
-		return ;
-	while (i && (*s)[i] == ' ')
-		(*s)[i--] = 0;
-}
-
 void	take_quotes(char **str)
 {
 	char	*s;
@@ -33,27 +22,4 @@ void	take_quotes(char **str)
 	}
 	while (j < i)
 		(*str)[j++] = 0;
-}
-
-static void	take_expantions(t_input **lst)
-{
-	bool	f;
-	int		i;
-
-	i = -1;
-	f = split_need((*lst)->cmd);
-	take_quotes(&(*lst)->cmd);
-	while (is_expantion((*lst)->cmd))
-		(*lst)->cmd = sub_expantion((*lst)->cmd, get_var((*lst)->cmd));
-	while (is_expantion((*lst)->arg))
-		(*lst)->arg = sub_expantion((*lst)->arg, get_var((*lst)->arg));
-	if (f && *(*lst)->cmd)
-		args(lst);
-	else
-		(*lst)->args = split_value((*lst)->arg);
-	while ((*lst)->args && (*lst)->args[++i] != NULL)
-	{
-		take_quotes(&(*lst)->args[i]);
-		take_spaces(&(*lst)->args[i]);
-	}
 }
