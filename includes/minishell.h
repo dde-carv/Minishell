@@ -22,14 +22,6 @@ typedef enum s_type
 	REVERSE,
 }					t_type;
 
-typedef struct s_input
-{
-	char			*cmd;
-	char			*arg;
-	char			**args;
-	struct s_input	*next;
-}				t_input;
-
 typedef struct s_minishell
 {
 	char	*promp;

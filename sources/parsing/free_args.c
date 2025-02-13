@@ -6,8 +6,8 @@ void	free_args(char **args)
 
 	if (!args)
 		return ;
-	i = -1;
-	while (args[++i])
+	i = 0;
+	while (args[i++])
 		free(args[i]);
 	free(args);
 }

@@ -3,7 +3,13 @@
 
 #include "minishell.h"
 
-typedef struct s_input	t_input;
+typedef struct s_input
+{
+	char			*cmd;
+	char			*arg;
+	char			**args;
+	struct s_input	*next;
+}				t_input;
 
 void	parse_input(void);
 
