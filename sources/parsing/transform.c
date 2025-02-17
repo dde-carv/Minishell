@@ -10,5 +10,5 @@ void	transform_str(void)
 	}
 	clean_content();
 	if (minis()->input->cmd && *minis()->input->cmd)
-		execute(); 
+		execute();
 }
