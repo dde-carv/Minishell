@@ -112,7 +112,7 @@ void	parse_input(void)
 		if (minis()->ms->line[i] == '|')
 			i++;
 		cpy_input(entry);
-		free_t_entry(entry);	// ! Posible Invalid free because of parsing and expantions(in hugo's transform_str.c clean_content function)
+		free_t_entry(entry);													// ! Posible Invalid free because of parsing and expantions(in hugo's transform_str.c clean_content function)
 		free(cmd);
 		free(arg);
 	}

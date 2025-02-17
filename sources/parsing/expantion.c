@@ -1,5 +1,27 @@
 #include "../../includes/minishell.h"
 
+/* //! Don't forget to add flag for singl/double quotes
+
+line:	echo "My home directory is: $HOME"
+output:	My home directory is: /home/dde-carv
+
+line:	echo 'My home directory is: $HOME'
+output:	My home directory is: $HOME
+
+line:	echo "My home directory is: '$HOME'"
+output:	My home directory is: '/home/dde-carv'
+
+line:	echo 'My home directory is: "$HOME"'
+output:	My home directory is: "$HOME"
+
+line:	echo "My home directory is: '$HOME"
+output:	My home directory is: '/home/dde-carv
+
+line:	echo 'My home directory is: "$HOME'
+output:	My home directory is: "$HOME
+
+ */
+
 void	expantions(char **s)
 {
 	int			i;
@@ -23,7 +45,7 @@ void	expantions(char **s)
 	}
 }
 
-char	*sub_expantion(char *s, char *str)
+char	*sub_expantion(char *s, char *str) //s=original str=var_value
 {
 	char		*new;
 	int			i;
