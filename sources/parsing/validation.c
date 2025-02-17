@@ -18,8 +18,8 @@ bool	is_valid(void)
 			error_mess("minishell", SYNTAX_ERROR, 1);
 			return (0);
 		}
-		expantions(lst->cmd);
-		expantions(lst->arg);
+		/* expantions(&lst->cmd);
+		expantions(&lst->arg); */
 		lst = lst->next;
 	}
 	return (1);

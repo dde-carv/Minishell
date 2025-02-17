@@ -87,25 +87,25 @@ char	**split_value(char *str)
 bool	split_need(char *s)
 {
 	int	i;
-	int	c;
+	int	in_quotes;
 
-	i = -1;
+	i = 0;
 	if (!s || !*s || *s != 2)
 		return (false);
-	c = 0;
-	while (s[++i])
+	in_quotes = 0;
+	while (s[i++])
 	{
-		if ((s[i] == '"' || s[i] == '\'') && !c)
-			c = s[i];
-		else if (s[i] == c)
-			c = 0;
-		else if (s[i] == 2 && !c)
+		if ((s[i] == '"' || s[i] == '\'') && !in_quotes)
+			in_quotes = s[i];
+		else if (s[i] == in_quotes)
+			in_quotes = 0;
+		else if (s[i] == 2 && !in_quotes)
 		{
 			while (ft_isalpha(s[++i]))
 				;
-			if (s[i] != 0 && s[i] != ' ')
-				return (false);
-			return (true);
+			if (s[i] == 0 || s[i] == ' ')
+				return (true);
+			return (false);
 		}
 	}
 	return (false);

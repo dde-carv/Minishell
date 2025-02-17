@@ -1,6 +1,6 @@
 #include "../../includes/minishell.h"
 
-/* //! Don't forget to add flag for singl/double quotes
+/* //? Don't forget to add flag for singl/double quotes (maybe this works, don't change for now only in tests)
 
 line:	echo "My home directory is: $HOME"
 output:	My home directory is: /home/dde-carv
@@ -45,36 +45,36 @@ void	expantions(char **s)
 	}
 }
 
-char	*sub_expantion(char *s, char *str) //s=original str=var_value
+char	*sub_expantion(char *og, char *value)
 {
 	char		*new;
 	int			i;
 	int			j;
 
-	new = ft_calloc(ft_strlen(s) + ft_strlen(str) + 1, sizeof(char));
+	new = ft_calloc(ft_strlen(og) + ft_strlen(value) + 1, sizeof(char));
 	if (!new)
 		return (ft_strdup(""));
 	i = 0;
 	j = 0;
-	while (s[i])
+	while (og[i])
 	{
-		if (s[i] == 2)
+		if (og[i] == 2)
 		{
 			i++;
-			while (s[i] && ft_isalpha(s[i]))
+			while (og[i] && ft_isalpha(og[i]))
 				i++;
-			while (*str)
-				new[j++] = *str++;
-			while (s[i])
-				new[j++] = s[i++];
+			while (*value)
+				new[j++] = *value++;
+			while (og[i])
+				new[j++] = og[i++];
 			break ;
 		}
 		else
-			new[j++] = s[i++];
+			new[j++] = og[i++];
 	}
-	while (s[i])
-		new[j++] = s[i++];
-	free(s);
+	while (og[i])
+		new[j++] = og[i++];
+	free(og);
 	return (new);
 }
 

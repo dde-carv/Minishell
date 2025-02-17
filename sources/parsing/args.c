@@ -9,7 +9,7 @@ static void	add_args(t_input **input, char **s)
 	while (s[i++])
 		;
 	(*input)->args = ft_calloc(sizeof(char *), i + 1);
-	i = 0;
+	i = 1;
 	j = 0;
 	while (s[i++])
 		(*input)->args[j++] = ft_strdup(s[i]);
