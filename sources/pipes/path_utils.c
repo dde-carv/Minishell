@@ -6,11 +6,11 @@
 /*   By: dde-carv <dde-carv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 11:54:40 by dde-carv          #+#    #+#             */
-/*   Updated: 2024/11/16 22:37:36 by dde-carv         ###   ########.fr       */
+/*   Updated: 2025/02/17 12:03:37 by dde-carv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/pipex.h"
+#include "../../includes/pipex.h"
 
 static t_cmd	*ft_lastcmd(t_cmd *input)
 {

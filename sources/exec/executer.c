@@ -1,8 +1,6 @@
 
 #include "minishell.h"
 
-
-
 void	ft_exec(char *cmd, char **args)
 {
 	if (ft_strchr(cmd, '='))						// ! don't forget to add flag

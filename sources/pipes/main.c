@@ -6,11 +6,11 @@
 /*   By: dde-carv <dde-carv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 13:05:09 by dde-carv          #+#    #+#             */
-/*   Updated: 2025/01/08 11:49:36 by dde-carv         ###   ########.fr       */
+/*   Updated: 2025/02/17 12:03:37 by dde-carv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/pipex.h"
+#include "../../includes/pipex.h"
 
 t_pipe	*data(void)
 {
