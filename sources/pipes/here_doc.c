@@ -6,11 +6,11 @@
 /*   By: dde-carv <dde-carv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/09 10:52:21 by dde-carv          #+#    #+#             */
-/*   Updated: 2024/11/19 12:59:03 by dde-carv         ###   ########.fr       */
+/*   Updated: 2025/02/17 12:03:37 by dde-carv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/pipex.h"
+#include "../../includes/pipex.h"
 
 static int	here_doc(char **argv)
 {

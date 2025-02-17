@@ -6,11 +6,11 @@
 /*   By: dde-carv <dde-carv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 11:50:58 by dde-carv          #+#    #+#             */
-/*   Updated: 2024/11/20 11:53:07 by dde-carv         ###   ########.fr       */
+/*   Updated: 2025/02/17 12:03:37 by dde-carv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/pipex.h"
+#include "../../includes/pipex.h"
 
 static void	prep_father(t_cmd *input)
 {
