@@ -24,7 +24,7 @@ static void parse_redirection(t_input **cmd, char **str)
 {
 	int i;
 	int start;
-	char c;
+	int c;
 	t_type type;
 	char *redir;
 	char *new_str;
@@ -36,7 +36,8 @@ static void parse_redirection(t_input **cmd, char **str)
 	new_str = ft_calloc(new_str_len + 1, sizeof(char));
 	if (!new_str)
 		exit(1);
-	while ((*str)[i]) {
+	while ((*str)[i])
+	{
 		if (((*str)[i] == '"' || (*str)[i] == '\'') && !c)
 			c = (*str)[i];
 		else if ((*str)[i] == c)
@@ -47,10 +48,12 @@ static void parse_redirection(t_input **cmd, char **str)
 			{
 				type = APPEND;
 				i++;
-			} else if ((*str)[i] == '<' && (*str)[i + 1] == '<') {
+			}
+			else if ((*str)[i] == '<' && (*str)[i + 1] == '<') {
 				type = HEREDOC;
 				i++;
-			} else if ((*str)[i] == '>')
+			}
+			else if ((*str)[i] == '>')
 				type = CREATE;
 			else
 				type = REVERSE;
@@ -62,7 +65,9 @@ static void parse_redirection(t_input **cmd, char **str)
 				i++;
 			redir = ft_substr(*str, start, i - start);
 			ft_fdadd_back(&(*cmd)->fd, ft_fd_new(redir, -1, type));
-		} else {
+		}
+		else
+		{
 			new_str[ft_strlen(new_str)] = (*str)[i];
 			i++;
 		}
