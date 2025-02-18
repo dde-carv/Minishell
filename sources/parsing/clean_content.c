@@ -44,9 +44,9 @@ static void	take_expantions(t_input **lst)
 	f = split_need((*lst)->cmd);
 	take_quotes(&(*lst)->cmd);
 	while (is_expantion((*lst)->cmd))
-		(*lst)->cmd = sub_expantion((*lst)->cmd, get_var((*lst)->cmd)); // * In get_var instead of searching on a list check in minis()->env and minis()->sesion_vars with hashmap_search
+		(*lst)->cmd = sub_expantion((*lst)->cmd, get_value((*lst)->cmd));
 	while (is_expantion((*lst)->arg))
-		(*lst)->arg = sub_expantion((*lst)->arg, get_var((*lst)->arg));
+		(*lst)->arg = sub_expantion((*lst)->arg, get_value((*lst)->arg));
 	if (f && *(*lst)->cmd)
 		args(lst);
 	else

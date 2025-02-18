@@ -61,7 +61,7 @@ char	*sub_expantion(char *og, char *value)
 		if (og[i] == 2)
 		{
 			i++;
-			while (og[i] && ft_isalpha(og[i]))
+			while (og[i] && ft_isalnum(og[i]))
 				i++;
 			while (*value)
 				new[j++] = *value++;
@@ -89,4 +89,33 @@ bool	is_expantion(char *str)
 		str++;
 	}
 	return (0);
+}
+
+char	*get_value(char *s)
+{
+	int			i;
+	int			j;
+	int			len;
+	char		*str;
+	char		*value;
+
+	i = 0;
+	while (s[i++])
+	{
+		if (s[i] == 2)
+		{
+			j = i + 1;
+			while (s[j] && ft_isalnum(s[j]) && ft_isalpha(s[i + 1]))
+				j++;
+			len = (j - i - 1);
+			str = ft_substr(s, (i + 1), len);
+			if (hashmap_search(minis()->env, str))
+				value = hashmap_search(minis()->env, str);
+			else if (hashmap_search(minis()->sesion_vars, str))
+				value = hashmap_search(minis()->sesion_vars, str);
+			free(str);
+			return (value);
+		}
+	}
+	return ("");
 }
