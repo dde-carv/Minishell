@@ -3,11 +3,28 @@
 
 #include "minishell.h"
 
+typedef enum s_type
+{
+	APPEND,
+	CREATE,
+	HEREDOC,
+	REVERSE,
+}					t_type;
+
+typedef struct s_fd
+{
+	int			fd;
+	char		*name;
+	t_type		type;
+	struct s_fd	*next;
+}					t_fd;
+
 typedef struct s_input
 {
 	char			*cmd;
 	char			*arg;
 	char			**args;
+	t_fd			*fd;
 	struct s_input	*next;
 }				t_input;
 
