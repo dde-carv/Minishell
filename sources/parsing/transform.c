@@ -9,6 +9,8 @@ void	transform_str(void)
 		return ;
 	}
 	clean_content();
+	//if (ft_strchr(minis()->input->cmd, '='))
+	//	bool skip_to_exec_cmd = true;
 	if (minis()->input->cmd && *minis()->input->cmd)
-		execute();
+		execute(/*skip_to_exec_cmd*/);
 }

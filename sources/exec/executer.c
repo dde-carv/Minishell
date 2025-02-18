@@ -1,12 +1,9 @@
 
 #include "minishell.h"
 
-// ! don't forget to add flag if arg is command with args for example abc="cd .." and
-// !   if we execute $abc IT WILL EXECUTE
-
 void	ft_exec(char *cmd, char **args)
 {
-	if (ft_strchr(cmd, '='))				// ! create flag if expansion is calling another variable to not create it and send it to execute_cmd(pipex)
+	if (ft_strchr(cmd, '=') /* && !skip_to_exec_cmd*/)				// ! create flag if expansion is calling another variable to not create it and send it to execute_cmd(pipex)
 		ft_sesh_vars(cmd, args);
 	else if (!(ft_strcmp(cmd, "echo\0")))
 		ft_echo(args);
