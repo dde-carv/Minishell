@@ -22,7 +22,8 @@ BUILTINS_DIR	=	$(SRC_DIR)builtins/cd.c \
 					$(SRC_DIR)builtins/set_sesh_vars.c \
 					$(SRC_DIR)builtins/hashmap_to_array.c
 
-EXEC_DIR		=	$(SRC_DIR)exec/executer.c
+EXEC_DIR		=	$(SRC_DIR)exec/executer.c \
+					$(SRC_DIR)exec/fds.c
 
 HASHMAP_DIR		=	$(SRC_DIR)hashmap/hash.c \
 					$(SRC_DIR)hashmap/hashmap_create_entry.c \
@@ -42,8 +43,9 @@ SYS_MSL_DIR		=	$(SRC_DIR)system/main.c \
 
 PARSING_DIR		=	$(SRC_DIR)parsing/parsing.c \
 					$(SRC_DIR)parsing/parsing_lst/ft_input_lstnew.c \
+					$(SRC_DIR)parsing/parsing_lst/ft_input_lstsize.c \
 					$(SRC_DIR)parsing/parsing_lst/ft_input_lstdelone.c \
-					$(SRC_DIR)parsing/parsing_lst/ft_input_lstadd_back.c \
+					$(SRC_DIR)parsing/parsing_lst/ft_input_lstadd_back.c
 
 SRCS	=	$(SYS_MSL_DIR) $(MSL_UTILS_DIR) $(HASHMAP_DIR) $(BUILTINS_DIR) $(EXEC_DIR) $(PARSING_DIR)
 

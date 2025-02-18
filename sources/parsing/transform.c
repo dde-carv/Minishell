@@ -1,4 +1,4 @@
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 void	transform_str(void)
 {
@@ -12,5 +12,5 @@ void	transform_str(void)
 	//if (ft_strchr(minis()->input->cmd, '='))
 	//	bool skip_to_exec_cmd = true;
 	if (minis()->input->cmd && *minis()->input->cmd)
-		ft_exec(/*skip_to_exec_cmd*/minis()->input->cmd, minis()->input->args);
+		execute(/*skip_to_exec_cmd*/);
 }

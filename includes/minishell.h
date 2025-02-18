@@ -52,8 +52,10 @@ t_global	*minis(void);
 
 /************************ executer *************************/
 
-// Function to call the builtins and execution
-void	ft_exec(char *cmd, char **args);
+// Functions that calls if is builtin and execution
+void	execute(void);
+// Function to call the builtins
+void	ft_exec_builtin(char *cmd, char **args);
 
 /************************* builtin *************************/
 
@@ -103,6 +105,7 @@ void	ft_sesh_vars(char *first, char **rest);
 # define SYNTAX_ERROR "syntax error"
 # define TOO_MANY_ARGS "too many arguments"
 # define NUM_ARG_REQUIRED "numeric argument required"
+# define INVALID_IDENTIFY "not a valid identifier"
 
 // Display error message in stderror
 void	error_mess(char *input, char *message, int status);

@@ -1,21 +1,6 @@
 {
-	readline_and_history_leaks
-	Memcheck:Leak
-	...
-	fun:readline
-	...
-}
-{
-	add_history_leaks
-	Memcheck:Leak
-	...
-	fun:add_history
-	...
-}
-{
-	readline_internal_buffer
-	Memcheck:Leak
-	...
-	fun:rl_insert_text
-	...
+	ignore_libreadline_conditional_jump_errors
+		Memcheck:Leak
+		...
+		obj:*/libreadline.so.*
 }

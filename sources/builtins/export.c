@@ -1,6 +1,14 @@
 
 #include "minishell.h"
 
+static int	valid_var(char *str)
+{
+	if (!ft_isupper(*str) && !ft_islower(*str))
+	{
+		error_mess("export", INVALID_IDENTIFY, 1);
+	}
+}
+
 static int	print_export(void)
 {
 	char	**export;
@@ -59,6 +67,8 @@ static int	add_var(char **args, int i)
 
 	if (!args[i])
 		return (0);
+	if (!valid_var(args[i]))
+		return ;
 	if (!ft_strchr(args[i], '=') && hashmap_search(minis()->env, args[i]))
 		return(0);
 	if (!ft_strchr(args[i], '=') && hashmap_search(minis()->sesion_vars, args[i]))
@@ -75,7 +85,8 @@ static int	add_var(char **args, int i)
 	return (add_var(args, i + 1));
 }
 
-// TODO Need to protect for diferent cases like, if session_vars have or don't have '=' and all the verifications for the hashtables
+// ? Need to protect for diferent cases like, if session_vars have or don't have '=' and all the verifications for the hashtables
+// ? Need to verify if it accepts ints as first char of the var
 int	ft_export(char **args)
 {
 	minis()->error_status = 0;

@@ -26,7 +26,7 @@ void	error_mess(char *input, char *message, int status)
 	error_out = ft_strjoin_var(
 		7,
 		BOLD_RED,
-		"error: ",
+		"minishell: ",
 		RED, input,
 		": ", message,
 		RESET_COLOR);
