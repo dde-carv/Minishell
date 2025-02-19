@@ -91,7 +91,7 @@ void	ft_cd(char *path)
 	free(current_path);
 }
 
-void	ft_verify_cd(char **path)
+void	ft_verify_cd(char **path) // protect to if file is put to trash
 {
 	minis()->error_status = 0;
 	if (path[1])
