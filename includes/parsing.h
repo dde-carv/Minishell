@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: luiribei <luiribei@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/19 09:36:04 by luiribei          #+#    #+#             */
+/*   Updated: 2025/02/19 11:35:44 by luiribei         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PARSING_H
 # define PARSING_H
 
@@ -6,7 +18,7 @@
 typedef enum s_type
 {
 	APPEND,
-	CREATE,
+	TRUNCATE,
 	HEREDOC,
 	REVERSE,
 }					t_type;
@@ -14,7 +26,7 @@ typedef enum s_type
 typedef struct s_fd
 {
 	int			fd;
-	char		*name;
+	char		*file_n;
 	t_type		type;
 	struct s_fd	*next;
 }					t_fd;

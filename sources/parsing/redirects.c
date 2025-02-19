@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   redirects.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: luiribei <luiribei@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/19 09:38:37 by luiribei          #+#    #+#             */
+/*   Updated: 2025/02/19 11:37:48 by luiribei         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell.h"
 
 bool	has_redirection(char *s)
@@ -20,15 +32,15 @@ bool	has_redirection(char *s)
 	return (false);
 }
 
-static void parse_redirection(t_input **cmd, char **str)
+static void	parse_redirection(t_input **cmd, char **str)
 {
-	int i;
-	int start;
-	int c;
-	t_type type;
-	char *redir;
-	char *new_str;
-	int new_str_len;
+	int		i;
+	int		start;
+	int		c;
+	t_type	type;
+	char	*redir;
+	char	*new_str;
+	int		new_str_len;
 
 	i = 0;
 	c = 0;
@@ -42,26 +54,29 @@ static void parse_redirection(t_input **cmd, char **str)
 			c = (*str)[i];
 		else if ((*str)[i] == c)
 			c = 0;
-		else if (!c && ((*str)[i] == '<' || (*str)[i] == '>')) {
+		else if (!c && ((*str)[i] == '<' || (*str)[i] == '>'))
+		{
 			start = i;
 			if ((*str)[i] == '>' && (*str)[i + 1] == '>')
 			{
 				type = APPEND;
 				i++;
 			}
-			else if ((*str)[i] == '<' && (*str)[i + 1] == '<') {
+			else if ((*str)[i] == '<' && (*str)[i + 1] == '<')
+			{
 				type = HEREDOC;
 				i++;
 			}
 			else if ((*str)[i] == '>')
-				type = CREATE;
+				type = TRUNCATE;
 			else
 				type = REVERSE;
 			i++;
 			while ((*str)[i] == ' ')
 				i++;
 			start = i;
-			while ((*str)[i] && (*str)[i] != ' ' && (*str)[i] != '<' && (*str)[i] != '>')
+			while ((*str)[i] && (*str)[i] != ' '
+				&& (*str)[i] != '<' && (*str)[i] != '>')
 				i++;
 			redir = ft_substr(*str, start, i - start);
 			ft_fdadd_back(&(*cmd)->fd, ft_fd_new(redir, -1, type));

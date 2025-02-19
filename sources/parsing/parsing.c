@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: luiribei <luiribei@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/19 09:38:31 by luiribei          #+#    #+#             */
+/*   Updated: 2025/02/19 10:03:51 by luiribei         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell.h"
 
 static void	cpy_input(t_entry *entry)
@@ -12,44 +24,44 @@ static void	cpy_input(t_entry *entry)
 
 static char	*remove_spaces(char *str)
 {
-	int	start;
-	int	end;
-	char	*str_1;
+	int		start;
+	int		end;
+	char	*new_str;
 
 	end = ft_strlen(str) - 1;
 	start = 0;
 	while (end > start && str[end] == ' ')
 		end--;
-	str_1 = ft_substr(str, start, end - start + 1);
+	new_str = ft_substr(str, start, end - start + 1);
 	free(str);
-	return (str_1);
+	return (new_str);
 }
 
 /**
  * Extracts a command from the input starting at index *i.
  * Updates *i to the position after the command.
  */
-static char	*extract_arg(const char *input, int *i)
+static char	*extract_arg(const char *str, int *i)
 {
 	int		start;
 	int		in_quotes;
 	char	*arg;
 
 	in_quotes = 0;
-	while (input[*i] == ' ')
+	while (str[*i] == ' ')
 		(*i)++;
 	start = *i;
-	while (input[*i] && (input[*i] != '|' || in_quotes))
+	while (str[*i] && (str[*i] != '|' || in_quotes))
 	{
-		if ((input[*i] == '\'' || input[*i] == '"') && !in_quotes)
-			in_quotes = input[*i];
-		else if (in_quotes == input[*i])
+		if ((str[*i] == '\'' || str[*i] == '"') && !in_quotes)
+			in_quotes = str[*i];
+		else if (in_quotes == str[*i])
 			in_quotes = 0;
 		(*i)++;
 	}
 	if (start == *i)
 		return (ft_strdup(""));
-	arg = remove_spaces(ft_substr(input, start, *i - start));
+	arg = remove_spaces(ft_substr(str, start, *i - start));
 	return (arg);
 }
 
@@ -66,30 +78,28 @@ static char	*extract_arg(const char *input, int *i)
  * Extracts an argument from the input starting at index *i.
  * Updates *i to the position after the argument.
  */
-static char *extract_cmd(char *input, int *i)
+static char	*extract_cmd(char *str, int *i)
 {
 	char	*cmd;
 	int		start;
 	int		in_quotes;
 
 	in_quotes = 0;
-	// Skip leading spaces
-	while (input[*i] == ' ')
+	while (str[*i] == ' ')
 		(*i)++;
 	start = *i;
-	// Extract until pipe outside quotes
-	while (input[*i] && (input[*i] != ' ' || in_quotes) \
-		&& (input[*i] != '|' || in_quotes))
+	while (str[*i] && (str[*i] != ' ' || in_quotes) \
+		&& (str[*i] != '|' || in_quotes))
 	{
-		if ((input[*i] == '\'' || input[*i] == '"') && !in_quotes)
-			in_quotes = input[*i];
-		else if (in_quotes == input[*i])
+		if ((str[*i] == '\'' || str[*i] == '"') && !in_quotes)
+			in_quotes = str[*i];
+		else if (in_quotes == str[*i])
 			in_quotes = 0;
 		(*i)++;
 	}
 	if (start == *i)
 		return (ft_strdup(""));
-	cmd = ft_substr(input, start, *i - start);
+	cmd = ft_substr(str, start, *i - start);
 	return (cmd);
 }
 
@@ -112,7 +122,7 @@ void	parse_input(void)
 		if (minis()->ms->line[i] == '|')
 			i++;
 		cpy_input(entry);
-		free_t_entry(entry);													// ! Posible Invalid free because of parsing and expantions(in hugo's transform_str.c clean_content function)
+		free_t_entry(entry);// ! Posible Invalid free because of parsing and expantions(in hugo's transform_str.c clean_content function)
 		free(cmd);
 		free(arg);
 	}
