@@ -19,6 +19,9 @@ t_input	*ft_input_lstnew(char *cmd, char *arg)
 		ft_input_lstdelone(&input);
 		exit(0);
 	}
+	input->l_read = 0;
+	input->l_write = 1;
+	input->fd = NULL;
 	input->args = NULL;
 	input->next = NULL;
 	return (input);

@@ -25,6 +25,8 @@ typedef struct s_input
 	char			*arg;
 	char			**args;
 	t_fd			*fd;
+	int				l_write;
+	int				l_read;
 	struct s_input	*next;
 }				t_input;
 
