@@ -1,28 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hash.c                                             :+:      :+:    :+:   */
+/*   ft_fd_new.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: luiribei <luiribei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/19 09:39:38 by luiribei          #+#    #+#             */
-/*   Updated: 2025/02/19 09:39:39 by luiribei         ###   ########.fr       */
+/*   Created: 2025/02/19 09:37:33 by luiribei          #+#    #+#             */
+/*   Updated: 2025/02/19 11:38:18 by luiribei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-unsigned long	hash_function(const char *key, size_t size)
+t_fd	*ft_fd_new(char *file_n, int fd, t_type type)
 {
-	unsigned long	hash_value;
-	unsigned int	i;
+	t_fd	*n;
 
-	hash_value = 0;
-	i = 0;
-	while (i < size && key[i])
-	{
-		hash_value = ((hash_value << 5) + hash_value) + key[i];
-		i++;
-	}
-	return (hash_value % size);
+	n = ft_calloc(sizeof(t_fd), 1);
+	if (!n)
+		return (NULL);
+	n->file_n = file_n;
+	n->fd = fd;
+	n->type = type;
+	n->next = NULL;
+	return (n);
 }

@@ -1,6 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   expantion.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: luiribei <luiribei@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/19 09:38:15 by luiribei          #+#    #+#             */
+/*   Updated: 2025/02/19 09:49:38 by luiribei         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell.h"
 
-/* //? Don't forget to add flag for singl/double quotes (maybe this works, don't change for now only in tests)
+/* //? Don't forget to add flag for singl/double quotes
+(maybe this works, don't change for now only in tests)
 
 line:	echo "My home directory is: $HOME"
 output:	My home directory is: /home/dde-carv
@@ -45,36 +58,36 @@ void	expantions(char **s)
 	}
 }
 
-char	*sub_expantion(char *og, char *value)
+char	*sub_expantion(char *str, char *value)
 {
 	char		*new;
 	int			i;
 	int			j;
 
-	new = ft_calloc(ft_strlen(og) + ft_strlen(value) + 1, sizeof(char));
+	new = ft_calloc(ft_strlen(str) + ft_strlen(value) + 1, sizeof(char));
 	if (!new)
 		return (ft_strdup(""));
 	i = 0;
 	j = 0;
-	while (og[i])
+	while (str[i])
 	{
-		if (og[i] == 2)
+		if (str[i] == 2)
 		{
 			i++;
-			while (og[i] && ft_isalnum(og[i]))
+			while (str[i] && ft_isalnum(str[i]))
 				i++;
 			while (*value)
 				new[j++] = *value++;
-			while (og[i])
-				new[j++] = og[i++];
+			while (str[i])
+				new[j++] = str[i++];
 			break ;
 		}
 		else
-			new[j++] = og[i++];
+			new[j++] = str[i++];
 	}
-	while (og[i])
-		new[j++] = og[i++];
-	free(og);
+	while (str[i])
+		new[j++] = str[i++];
+	free(str);
 	return (new);
 }
 

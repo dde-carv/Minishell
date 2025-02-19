@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   transform.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: luiribei <luiribei@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/19 09:38:51 by luiribei          #+#    #+#             */
+/*   Updated: 2025/02/19 10:00:12 by luiribei         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 void	transform_str(void)
@@ -9,8 +21,8 @@ void	transform_str(void)
 		return ;
 	}
 	clean_content();
-	//if (ft_strchr(minis()->input->cmd, '='))
-	//	bool skip_to_exec_cmd = true;
 	if (minis()->input->cmd && *minis()->input->cmd)
-		execute(/*skip_to_exec_cmd*/);
+		execute();/*skip_to_exec_cmd*/
 }
+	/* if (ft_strchr(minis()->input->cmd, '='))
+		bool skip_to_exec_cmd = true; */
