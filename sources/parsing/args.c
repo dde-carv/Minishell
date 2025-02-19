@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   args.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: luiribei <luiribei@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/19 09:38:04 by luiribei          #+#    #+#             */
-/*   Updated: 2025/02/19 09:38:05 by luiribei         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../../includes/minishell.h"
 
 static void	add_args(t_input **input, char **s)
@@ -80,4 +68,17 @@ void	free_args(char **args)
 	while (args[i++])
 		free(args[i]);
 	free(args);
+}
+
+void	free_t_input(t_input *input)
+{
+	if (input->cmd)
+		free(input->cmd);
+	if (input->arg)
+		free(input->arg);
+	if (input->args)
+		free_array(input->args);
+	if (input->next)
+		free_t_input(input->next);
+	free(input);
 }

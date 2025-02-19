@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   hashmap_free.c                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: luiribei <luiribei@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/19 09:39:52 by luiribei          #+#    #+#             */
-/*   Updated: 2025/02/19 09:39:53 by luiribei         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../../includes/minishell.h"
 
 void	free_t_entry(t_entry *entry)
@@ -17,19 +5,6 @@ void	free_t_entry(t_entry *entry)
 	free(entry->key);
 	free(entry->value);
 	free(entry);
-}
-
-void	free_t_input(t_input *input)
-{
-	if (input->cmd)
-		free(input->cmd);
-	if (input->arg)
-		free(input->arg);
-	if (input->args)
-		free_array(input->args);
-	if (input->next)
-		free_t_input(input->next);
-	free(input);
 }
 
 void	free_table(t_hashmap *table)

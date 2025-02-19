@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   expantion.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: luiribei <luiribei@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/19 09:38:15 by luiribei          #+#    #+#             */
-/*   Updated: 2025/02/19 09:49:38 by luiribei         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../../includes/minishell.h"
 
 /* //? Don't forget to add flag for singl/double quotes
@@ -74,7 +62,7 @@ char	*sub_expantion(char *str, char *value)
 		if (str[i] == 2)
 		{
 			i++;
-			while (str[i] && ft_isalnum(str[i]))
+			while (str[i] && (ft_isalnum(str[i]) || str[i] == '_')) //! check if there is more special characters
 				i++;
 			while (*value)
 				new[j++] = *value++;

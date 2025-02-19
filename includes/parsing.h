@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   parsing.h                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: luiribei <luiribei@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/19 09:36:04 by luiribei          #+#    #+#             */
-/*   Updated: 2025/02/19 11:35:44 by luiribei         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef PARSING_H
 # define PARSING_H
 
@@ -40,18 +28,55 @@ typedef struct s_input
 	struct s_input	*next;
 }				t_input;
 
-void	parse_input(void);
+/************************* Parsing *************************/
 
-// Parsing list
-
-t_input	*ft_input_lstnew(char *cmd, char *arg);
-void	ft_input_lstadd_back(t_input **lst, t_input *n);
-void	ft_input_lstdelone(t_input **lst);
-int	ft_input_lstsize(t_input **lst);
-
-void	free_t_input(t_input *input);
-void	args(t_input **lst);
+// Function that processes and sets the arguments for an input command.
+void	args(t_input **input);
+// Frees the array of argument strings.
 void	free_args(char **args);
+// Frees the entire t_input linked list.
+void	free_t_input(t_input *input);
+// Parses the raw input string and builds the input linked list.
+void	parse_input(void);
+// Scans the input for redirection operators and constructs the corresponding file descriptors.
 void	parse_redirects(t_input **cmd);
+// Cleans leading/trailing spaces and other unwanted characters from the input.
+void	clean_content(void);
+// Applies necessary transformations to the input string before execution.
+void	transform_str(void);
+// Processes any environment variable expansions present in the string.
+void	expantions(char **s);
+// Replaces the expansion marker in the string with its actual value.
+char	*sub_expantion(char *str, char *value);
+// Retrieves the value corresponding to an environment variable reference.
+char	*get_value(char *s);
+// Splits the input string into tokens based on specific delimiters.
+char	**split_value(char *str);
+// Verifies that all quotes in the string are properly closed.
+bool	closed_quotes(char *str);
+// Checks if the string contains an environment variable expansion.
+bool	is_expantion(char *str);
+// Validates the overall syntax of the input.
+bool	is_valid(void);
+// Determines if the string requires additional splitting for proper parsing.
+bool	split_need(char *s);
+
+/************************* Parsing list functions *************************/
+
+// Creates a new input node with the specified command and argument.
+t_input	*ft_input_lstnew(char *cmd, char *arg);
+// Adds a new input node to the end of the t_input linked list.
+void	ft_input_lstadd_back(t_input **lst, t_input *n);
+// Frees a single input node.
+void	ft_input_lstdelone(t_input **lst);
+// Returns the total number of nodes in the input linked list.
+int		ft_input_lstsize(t_input **lst);
+
+/************************* Parsing file descriptor functions *************************/
+
+// Adds a new file descriptor node to the end of the t_fd linked list.
+void	ft_fd_add_back(t_fd **lst, t_fd *n);
+// Creates and returns a new file descriptor node with the specified file name, file descriptor and type.
+t_fd	*ft_fd_new(char *file_n, int fd, t_type type);
 
 #endif

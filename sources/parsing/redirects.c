@@ -6,13 +6,13 @@
 /*   By: luiribei <luiribei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 09:38:37 by luiribei          #+#    #+#             */
-/*   Updated: 2025/02/19 11:37:48 by luiribei         ###   ########.fr       */
+/*   Updated: 2025/02/19 14:31:24 by luiribei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-bool	has_redirection(char *s)
+static bool	has_redirection(char *s)
 {
 	int		i;
 	char	c;
@@ -79,7 +79,7 @@ static void	parse_redirection(t_input **cmd, char **str)
 				&& (*str)[i] != '<' && (*str)[i] != '>')
 				i++;
 			redir = ft_substr(*str, start, i - start);
-			ft_fdadd_back(&(*cmd)->fd, ft_fd_new(redir, -1, type));
+			ft_fd_add_back(&(*cmd)->fd, ft_fd_new(redir, -1, type));
 		}
 		else
 		{

@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   hashmap.h                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: luiribei <luiribei@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/19 09:36:15 by luiribei          #+#    #+#             */
-/*   Updated: 2025/02/19 09:36:17 by luiribei         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef HASHMAP_H
 # define HASHMAP_H
 
@@ -17,7 +5,7 @@ typedef enum s_action
 {
 	ENTER,
 	FIND,
-}						t_action;
+}				t_action;
 
 typedef struct s_entry
 {
