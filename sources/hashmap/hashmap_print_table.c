@@ -1,4 +1,4 @@
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 void	hashmap_print_table(t_hashmap *table)
 {

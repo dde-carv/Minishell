@@ -1,4 +1,4 @@
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 static t_fd	*ft_lst_last(t_fd *lst)
 {
