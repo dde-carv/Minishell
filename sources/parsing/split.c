@@ -1,4 +1,4 @@
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 // Count how many words (tokens) there will be
 static int	words_count(char *str)
@@ -63,6 +63,7 @@ char	**split_value(char *str)
 	int		start;
 	int		end;
 
+	words = 0;
 	result = ft_calloc(words + 1, sizeof(char *));
 	if (!result)
 		return (NULL);

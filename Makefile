@@ -9,31 +9,31 @@ CC		=	@cc
 CFLAGS	=	-Wall -Werror -Wextra -g
 RM		=	@rm -f
 
-BUILTINS_DIR	=	$(SRC_DIR)builtins/cd.c \
-					$(SRC_DIR)builtins/env.c \
+BUILTINS_DIR	=	$(SRC_DIR)builtins/env.c \
+					$(SRC_DIR)builtins/print_env.c \
+					$(SRC_DIR)builtins/array_utils.c \
+					$(SRC_DIR)builtins/set_sesh_vars.c \
+					$(SRC_DIR)builtins/hashmap_to_array.c \
+					$(SRC_DIR)builtins/cd.c \
 					$(SRC_DIR)builtins/pwd.c \
 					$(SRC_DIR)builtins/echo.c \
 					$(SRC_DIR)builtins/exit.c \
 					$(SRC_DIR)builtins/unset.c \
 					$(SRC_DIR)builtins/export.c \
-					$(SRC_DIR)builtins/print_env.c \
 					$(SRC_DIR)builtins/quick_sort.c \
-					$(SRC_DIR)builtins/array_utils.c \
-					$(SRC_DIR)builtins/set_sesh_vars.c \
-					$(SRC_DIR)builtins/hashmap_to_array.c
 
 EXEC_DIR		=	$(SRC_DIR)exec/executer.c \
-					$(SRC_DIR)exec/fds.c
+#					$(SRC_DIR)exec/fds.c
 
 HASHMAP_DIR		=	$(SRC_DIR)hashmap/hash.c \
+					$(SRC_DIR)hashmap/hashmap_free.c \
+					$(SRC_DIR)hashmap/hashmap_insert.c \
+					$(SRC_DIR)hashmap/hashmap_search.c \
+					$(SRC_DIR)hashmap/hashmap_delete.c \
+					$(SRC_DIR)hashmap/hashmap_print_table.c \
 					$(SRC_DIR)hashmap/hashmap_create_entry.c \
 					$(SRC_DIR)hashmap/hashmap_create_table.c \
-					$(SRC_DIR)hashmap/hashmap_delete.c \
-					$(SRC_DIR)hashmap/hashmap_free.c \
-					$(SRC_DIR)hashmap/hashmap_handle_collision.c \
-					$(SRC_DIR)hashmap/hashmap_insert.c \
-					$(SRC_DIR)hashmap/hashmap_print_table.c \
-					$(SRC_DIR)hashmap/hashmap_search.c
+					$(SRC_DIR)hashmap/hashmap_handle_collision.c
 
 MSL_UTILS_DIR	=	$(SRC_DIR)minishell_utils/data.c \
 					$(SRC_DIR)minishell_utils/error.c
@@ -41,13 +41,23 @@ MSL_UTILS_DIR	=	$(SRC_DIR)minishell_utils/data.c \
 SYS_MSL_DIR		=	$(SRC_DIR)system/main.c \
 					$(SRC_DIR)system/prompt.c
 
-PARSING_DIR		=	$(SRC_DIR)parsing/parsing.c \
+PARSING_DIR		=	$(SRC_DIR)parsing/args.c \
+					$(SRC_DIR)parsing/split.c \
+					$(SRC_DIR)parsing/parsing.c \
+					$(SRC_DIR)parsing/expantion.c \
+					$(SRC_DIR)parsing/redirects.c \
+					$(SRC_DIR)parsing/transform.c \
+					$(SRC_DIR)parsing/validation.c \
+					$(SRC_DIR)parsing/clean_content.c \
+					$(SRC_DIR)parsing/parsing_lst/ft_fd_new.c \
+					$(SRC_DIR)parsing/parsing_lst/ft_fd_add_back.c \
 					$(SRC_DIR)parsing/parsing_lst/ft_input_lstnew.c \
 					$(SRC_DIR)parsing/parsing_lst/ft_input_lstsize.c \
+					$(SRC_DIR)parsing/parsing_lst/ft_input_lstclear.c \
 					$(SRC_DIR)parsing/parsing_lst/ft_input_lstdelone.c \
 					$(SRC_DIR)parsing/parsing_lst/ft_input_lstadd_back.c
 
-SRCS	=	$(SYS_MSL_DIR) $(MSL_UTILS_DIR) $(HASHMAP_DIR) $(BUILTINS_DIR) $(EXEC_DIR) $(PARSING_DIR)
+SRCS	=	$(SYS_MSL_DIR) $(MSL_UTILS_DIR) $(HASHMAP_DIR) $(BUILTINS_DIR) $(PARSING_DIR) $(EXEC_DIR)
 
 OBJS	=	$(patsubst $(SRC_DIR)%.c,$(OBJ_DIR)%.o,$(SRCS))
 

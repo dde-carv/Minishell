@@ -1,4 +1,4 @@
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 bool	is_valid(void)
 {
@@ -30,11 +30,11 @@ bool	closed_quotes(char *str)
 	int		i;
 	char	in_quotes;
 
-	i = 0;
+	i = -1;
 	in_quotes = 0;
 	if (!str)
 		return (1);
-	while (str[i++])
+	while (str[++i])
 	{
 		if ((str[i] == '"' || str[i] == '\'') && !in_quotes)
 			in_quotes = str[i];

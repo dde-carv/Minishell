@@ -1,4 +1,4 @@
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 char	*hashmap_search(t_hashmap *table, char *key)
 {

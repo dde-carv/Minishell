@@ -6,7 +6,9 @@ static int	valid_var(char *str)
 	if (!ft_isupper(*str) && !ft_islower(*str))
 	{
 		error_mess("export", INVALID_IDENTIFY, 1);
+		return (0);
 	}
+	return (1);
 }
 
 static int	print_export(void)
@@ -68,9 +70,9 @@ static int	add_var(char **args, int i)
 	if (!args[i])
 		return (0);
 	if (!valid_var(args[i]))
-		return ;
+		return (0);
 	if (!ft_strchr(args[i], '=') && hashmap_search(minis()->env, args[i]))
-		return(0);
+		return (0);
 	if (!ft_strchr(args[i], '=') && hashmap_search(minis()->sesion_vars, args[i]))
 	{
 		add_to_env(args[i]);

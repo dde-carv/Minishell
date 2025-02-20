@@ -1,4 +1,4 @@
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 t_entry	*create_entry(char *key, char *value)
 {

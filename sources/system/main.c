@@ -20,29 +20,45 @@ int	main(int ac, char **av, char **env)
 	while (1)
 	{
 		set_input();
-		if (!minis()->ms->line)
-			break;
+		if (!*minis()->ms->line)
+			continue ;
 
-/* 		parse_input();
+		parse_input();
 
-		t_input *current_input = minis()->input;
-		if (current_input)
+		ft_printf("\n=== exec built ===\n");
+		transform_str();
+		// Reset input for the transform test
+		ft_printf("\n=== Test transform ===\n");
+
+		ft_printf("Before transform:\n");
+		t_input	*current_input = minis()->input;
+		while (current_input)
 		{
-			ft_printf("Parsed Commands:\n");
-			while (current_input)
-			{
-				ft_printf("Command: %s, Argument: %s\n", current_input->cmd, current_input->arg);
-				current_input = current_input->next;
-			}
+			ft_printf("Command: %s, Argument: %s\n",
+				current_input->cmd, current_input->arg);
+			current_input = current_input->next;
 		}
-		else
-			ft_printf("Input line is empty.\n"); */
+
+		// Call transform() to clean/transform the input string
+		ft_printf("\nCalling transform...\n");
+
+		// Print the cleaned commands for verification
+		ft_printf("\nAfter transform:\n");
+		current_input = minis()->input;
+		while (current_input)
+		{
+			ft_printf("Cleaned Command: %s, Cleaned Argument: %s\n",
+				current_input->cmd, current_input->arg);
+			current_input = current_input->next;
+		}
 
 		if (!ft_strcmp(minis()->ms->line, "exit") && (ft_strlen(minis()->ms->line)) == 4)
 			break;
 
 		// start_minishell(...); // TODO: this is to innitialize and start important things
 		ft_printf("%s\n", minis()->ms->line);
+		ft_input_lstclear(&minis()->input);
+		free(current_input);
 		free(minis()->ms->line);
 	}
 	exit_minishell(); // * this still need some work(not final)

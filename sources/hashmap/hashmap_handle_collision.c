@@ -1,4 +1,4 @@
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 void	handle_collision(t_hashmap *table,
 		unsigned long index, t_entry *new_entry)

@@ -1,4 +1,4 @@
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 static void	find_and_delete_node(t_hashmap *table,
 			t_entry *current, char *key)
