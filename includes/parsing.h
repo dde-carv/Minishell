@@ -28,7 +28,7 @@ typedef struct s_input
 	int				l_write;
 	int				l_read;
 	struct s_input	*next;
-}				t_input;
+}					t_input;
 
 /************************* Parsing *************************/
 
@@ -62,17 +62,21 @@ bool	is_expantion(char *str);
 bool	is_valid(void);
 // Determines if the string requires additional splitting for proper parsing.
 bool	split_need(char *s);
+//
+bool	has_redirection(char *s);
 
 /************************* Parsing list functions *************************/
 
+// Returns the total number of nodes in the input linked list.
+int		ft_input_lstsize(t_input **lst);
 // Creates a new input node with the specified command and argument.
 t_input	*ft_input_lstnew(char *cmd, char *arg);
 // Adds a new input node to the end of the t_input linked list.
 void	ft_input_lstadd_back(t_input **lst, t_input *n);
 // Frees a single input node.
 void	ft_input_lstdelone(t_input **lst);
-// Returns the total number of nodes in the input linked list.
-int		ft_input_lstsize(t_input **lst);
+// Frees the entire list.
+void	ft_input_lstclear(t_input **lst);
 
 /************************* Parsing file descriptor functions *************************/
 
@@ -80,5 +84,7 @@ int		ft_input_lstsize(t_input **lst);
 void	ft_fd_add_back(t_fd **lst, t_fd *n);
 // Creates and returns a new file descriptor node with the specified file name, file descriptor and type.
 t_fd	*ft_fd_new(char *file_n, int fd, t_type type);
+// Function to delete fd nodes
+void	ft_fd_del(t_fd	**fd);
 
 #endif
