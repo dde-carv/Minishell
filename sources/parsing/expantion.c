@@ -1,4 +1,4 @@
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 /* //? Don't forget to add flag for singl/double quotes
 (maybe this works, don't change for now only in tests)
@@ -32,9 +32,9 @@ void	expantions(char **s)
 	if (!s || !*s)
 		return ;
 	str = *s;
-	i = 0;
+	i = -1;
 	in_quotes = 0;
-	while (str[i++])
+	while (str[++i])
 	{
 		if ((str[i] == '"' || str[i] == '\'') && !in_quotes)
 			in_quotes = str[i];
@@ -52,6 +52,8 @@ char	*sub_expantion(char *str, char *value)
 	int			i;
 	int			j;
 
+	if (value == NULL)
+		return (ft_strdup(""));
 	new = ft_calloc(ft_strlen(str) + ft_strlen(value) + 1, sizeof(char));
 	if (!new)
 		return (ft_strdup(""));
@@ -76,6 +78,7 @@ char	*sub_expantion(char *str, char *value)
 	while (str[i])
 		new[j++] = str[i++];
 	free(str);
+	free(value);
 	return (new);
 }
 
@@ -100,8 +103,9 @@ char	*get_value(char *s)
 	char		*str;
 	char		*value;
 
-	i = 0;
-	while (s[i++])
+	i = -1;
+	value = NULL;
+	while (s[++i])
 	{
 		if (s[i] == 2)
 		{

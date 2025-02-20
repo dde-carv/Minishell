@@ -1,18 +1,6 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   redirects.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: luiribei <luiribei@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/19 09:38:37 by luiribei          #+#    #+#             */
-/*   Updated: 2025/02/19 14:31:24 by luiribei         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+#include "minishell.h"
 
-#include "../../includes/minishell.h"
-
-static bool	has_redirection(char *s)
+bool	has_redirection(char *s)
 {
 	int		i;
 	char	c;

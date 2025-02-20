@@ -1,4 +1,4 @@
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 void	insert_in_table(char *key, char *value, t_hashmap *table)
 {

@@ -1,4 +1,4 @@
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 t_fd	*ft_fd_new(char *file_n, int fd, t_type type)
 {
