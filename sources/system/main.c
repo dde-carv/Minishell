@@ -20,17 +20,16 @@ int	main(int ac, char **av, char **env)
 	while (1)
 	{
 		set_input();
+		minis()->error_status = 0;
 		if (!*minis()->ms->line)
 			continue ;
 
 		parse_input();
 
-		ft_printf("\n=== exec built ===\n");
-		transform_str();
 		// Reset input for the transform test
 		ft_printf("\n=== Test transform ===\n");
 
-		ft_printf("Before transform:\n");
+		ft_printf("\nBefore transform:\n");
 		t_input	*current_input = minis()->input;
 		while (current_input)
 		{
@@ -39,11 +38,11 @@ int	main(int ac, char **av, char **env)
 			current_input = current_input->next;
 		}
 
-		// Call transform() to clean/transform the input string
-		ft_printf("\nCalling transform...\n");
+		transform_str();
 
 		// Print the cleaned commands for verification
 		ft_printf("\nAfter transform:\n");
+		
 		current_input = minis()->input;
 		while (current_input)
 		{
@@ -55,8 +54,9 @@ int	main(int ac, char **av, char **env)
 		if (!ft_strcmp(minis()->ms->line, "exit") && (ft_strlen(minis()->ms->line)) == 4)
 			break;
 
+		ft_printf("\n=== exec built ===\n");
 		// start_minishell(...); // TODO: this is to innitialize and start important things
-		ft_printf("%s\n", minis()->ms->line);
+		//ft_printf("%s\n", minis()->ms->line);
 		ft_input_lstclear(&minis()->input);
 		free(current_input);
 		free(minis()->ms->line);
@@ -66,3 +66,6 @@ int	main(int ac, char **av, char **env)
 }
 
 // valgrind --suppressions=readline.supp --show-leak-kinds=all --leak-check=full --track-origins=yes ./minishell
+
+
+/* echo "pwd $HOME" | whoami | uname -a | echo Hello, $USER | curl --version | echo "Shell: $SHELL'" | echo "Path: $PATH, Home: '$HOME'" | echo "Hello, World!" | echo $? */

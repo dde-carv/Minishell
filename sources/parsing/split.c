@@ -63,12 +63,11 @@ char	**split_value(char *str)
 	int		start;
 	int		end;
 
-	words = 0;
+	words = words_count(str);
 	result = ft_calloc(words + 1, sizeof(char *));
 	if (!result)
 		return (NULL);
 	word_index = 0;
-	words = words_count(str);
 	start = 0;
 	while (word_index < words)
 	{
