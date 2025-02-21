@@ -1,33 +1,10 @@
 #include "minishell.h"
 
-/* //? Don't forget to add flag for singl/double quotes
-(maybe this works, don't change for now only in tests)
-
-line:	echo "My home directory is: $HOME"
-output:	My home directory is: /home/dde-carv
-
-line:	echo 'My home directory is: $HOME'
-output:	My home directory is: $HOME
-
-line:	echo "My home directory is: '$HOME'"
-output:	My home directory is: '/home/dde-carv'
-
-line:	echo 'My home directory is: "$HOME"'
-output:	My home directory is: "$HOME"
-
-line:	echo "My home directory is: '$HOME"
-output:	My home directory is: '/home/dde-carv
-
-line:	echo 'My home directory is: "$HOME'
-output:	My home directory is: "$HOME
-
- */
-
 void	expantions(char **s)
 {
-	int			i;
-	int			in_quotes;
+	char		in_quotes;
 	char		*str;
+	int			i;
 
 	if (!s || !*s)
 		return ;
@@ -36,21 +13,20 @@ void	expantions(char **s)
 	in_quotes = 0;
 	while (str[++i])
 	{
-		if ((str[i] == '"' || str[i] == '\'') && !in_quotes)
-			in_quotes = str[i];
-		else if (str[i] == in_quotes)
-			in_quotes = 0;
-		else if (str[i] == '$' && (!in_quotes || in_quotes == '"')
-			&& str[i + 1] && ft_isalpha(str[i + 1]))
+		update_quote_state(str[i], &in_quotes);
+		if (str[i] == '$' && (!in_quotes || in_quotes == '"')
+			&& str[i + 1] && (ft_isalpha(str[i + 1]) || str[i + 1] == '?'))
 			str[i] = 2;
 	}
 }
 
 char	*sub_expantion(char *str, char *value)
 {
+	char		*error_str;
 	char		*new;
 	int			i;
 	int			j;
+	int			k;
 
 	if (value == NULL)
 		return (ft_strdup(""));
@@ -64,10 +40,22 @@ char	*sub_expantion(char *str, char *value)
 		if (str[i] == 2)
 		{
 			i++;
-			while (str[i] && (ft_isalnum(str[i]) || str[i] == '_')) //! check if there is more special characters
+			if (str[i] == '?')
+			{
+				error_str = ft_itoa(minis()->error_status);
+				k = 0;
+				while (error_str[k])
+					new[j++] = error_str[k++];
+				free(error_str);
 				i++;
-			while (*value)
-				new[j++] = *value++;
+			}
+			else
+			{
+				while (str[i] && (ft_isalnum(str[i]) || str[i] == '_' || str[i] == '?')) //! check if there is more special characters
+					i++;
+				while (*value)
+					new[j++] = *value++;
+			}
 			while (str[i])
 				new[j++] = str[i++];
 			break ;
@@ -108,8 +96,10 @@ char	*get_value(char *s)
 	{
 		if (s[i] == 2)
 		{
+			if (s[i + 1] == '?')
+				return ("");
 			j = i + 1;
-			while (s[j] && ft_isalnum(s[j]) && ft_isalpha(s[i + 1]))
+			while (s[j] && (ft_isalnum(s[j])) && (ft_isalpha(s[i + 1]) || s[i + 1] == '?'))
 				j++;
 			len = (j - i - 1);
 			str = ft_substr(s, (i + 1), len);

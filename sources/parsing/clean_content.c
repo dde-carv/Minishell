@@ -1,5 +1,13 @@
 #include "minishell.h"
 
+void	update_quote_state(char c, char *in_quotes)
+{
+	if ((c == '"' || c == '\'') && !(*in_quotes))
+		*in_quotes = c;
+	else if (c == *in_quotes)
+		*in_quotes = 0;
+}
+
 static void	take_spaces(char **s)
 {
 	int	i;

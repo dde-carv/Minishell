@@ -42,6 +42,8 @@ void	free_t_input(t_input *input);
 void	parse_input(void);
 // Scans the input for redirection operators and constructs the corresponding file descriptors.
 void	parse_redirects(t_input **cmd);
+// Updates the quote state.
+void	update_quote_state(char c, char *in_quotes);
 // Cleans leading/trailing spaces and other unwanted characters from the input.
 void	clean_content(void);
 // Applies necessary transformations to the input string before execution.
@@ -62,7 +64,7 @@ bool	is_expantion(char *str);
 bool	is_valid(void);
 // Determines if the string requires additional splitting for proper parsing.
 bool	split_need(char *s);
-//
+// Determines if the string has any redirections.
 bool	has_redirection(char *s);
 
 /************************* Parsing list functions *************************/
