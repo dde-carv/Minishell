@@ -11,6 +11,7 @@ RM		=	@rm -f
 
 BUILTINS_DIR	=	$(SRC_DIR)builtins/env.c \
 					$(SRC_DIR)builtins/print_env.c \
+					$(SRC_DIR)builtins/env_update.c \
 					$(SRC_DIR)builtins/array_utils.c \
 					$(SRC_DIR)builtins/set_sesh_vars.c \
 					$(SRC_DIR)builtins/hashmap_to_array.c \

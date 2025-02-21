@@ -41,7 +41,7 @@ int	handle_fd(t_input **input)
 	fd = (*input)->fd;
 	while (fd)
 	{
-		take_quotes(&fd->file_n);
+		//take_quotes(&fd->file_n); // !! Can create problems if expansions don't take all the quotes
 		if (fd->type == TRUNCATE)
 			fd->fd = open(fd->file_n, O_CREAT | O_TRUNC | O_WRONLY, 0644);
 		if (fd->type == APPEND)
