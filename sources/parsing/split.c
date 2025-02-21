@@ -21,10 +21,7 @@ static int	words_count(char *str)
 		// Move until the word ends
 		while (str[i] && ((str[i] != ' ' && !in_quotes) || (in_quotes)))
 		{
-			if ((str[i] == '\'' || str[i] == '"') && !in_quotes)
-				in_quotes = str[i]; // Enter quotes
-			else if (str[i] == in_quotes)
-				in_quotes = 0; // Exit quotes
+			update_quote_state(str[i], &in_quotes);
 			i++;
 		}
 	}
@@ -34,8 +31,8 @@ static int	words_count(char *str)
 // Find where the current word (token) ends
 static int	end_word(char *str, int start)
 {
-	int	i;
-	int	in_quotes;
+	char	in_quotes;
+	int		i;
 
 	if (!str || !*str)
 		return (0);
@@ -45,10 +42,7 @@ static int	end_word(char *str, int start)
 	{
 		if (str[i] == ' ' && !in_quotes)
 			break ;
-		if ((str[i] == '\'' || str[i] == '"') && !in_quotes)
-			in_quotes = str[i];
-		else if (str[i] == in_quotes)
-			in_quotes = 0;
+		update_quote_state(str[i], &in_quotes);
 		i++;
 	}
 	return (i);
@@ -86,8 +80,8 @@ char	**split_value(char *str)
 
 bool	split_need(char *s)
 {
-	int	i;
-	int	in_quotes;
+	char	in_quotes;
+	int		i;
 
 	i = 0;
 	if (!s || !*s || *s != 2)
@@ -95,11 +89,8 @@ bool	split_need(char *s)
 	in_quotes = 0;
 	while (s[i++])
 	{
-		if ((s[i] == '"' || s[i] == '\'') && !in_quotes)
-			in_quotes = s[i];
-		else if (s[i] == in_quotes)
-			in_quotes = 0;
-		else if (s[i] == 2 && !in_quotes)
+		update_quote_state(s[i], &in_quotes);
+		if (s[i] == 2 && !in_quotes)
 		{
 			while (ft_isalpha(s[++i]))
 				;

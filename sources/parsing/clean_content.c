@@ -21,10 +21,11 @@ static void	take_spaces(char **s)
 
 static void	take_quotes(char **str)
 {
+	char	old_in_quotes;
+	char	in_quotes;
 	char	*s;
 	int		i;
 	int		j;
-	int		in_quotes;
 
 	s = *str;
 	i = 0;
@@ -34,11 +35,10 @@ static void	take_quotes(char **str)
 	{
 		if ((s[i] == '"' || s[i] == '\''))
 		{
-			if (!in_quotes)
-				in_quotes = s[i];
-			else if (s[i] == in_quotes)
-				in_quotes = 0;
-			else
+			old_in_quotes = in_quotes;
+			update_quote_state((*str)[i], &in_quotes);
+			// If update_quote_state toggled the quote state, do not copy the quote.
+			if (old_in_quotes == in_quotes)
 				(*str)[j++] = s[i];
 		}
 		else

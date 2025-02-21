@@ -27,19 +27,14 @@ bool	is_valid(void)
 
 bool	closed_quotes(char *str)
 {
-	int		i;
 	char	in_quotes;
+	int		i;
 
 	i = -1;
 	in_quotes = 0;
 	if (!str)
 		return (1);
 	while (str[++i])
-	{
-		if ((str[i] == '"' || str[i] == '\'') && !in_quotes)
-			in_quotes = str[i];
-		else if (str[i] == in_quotes)
-			in_quotes = 0;
-	}
+		update_quote_state(str[i], &in_quotes);
 	return (in_quotes == 0);
 }
