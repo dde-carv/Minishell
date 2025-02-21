@@ -78,7 +78,6 @@ char	*sub_expantion(char *str, char *value)
 	while (str[i])
 		new[j++] = str[i++];
 	free(str);
-	free(value);
 	return (new);
 }
 

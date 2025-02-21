@@ -25,8 +25,6 @@ int	main(int ac, char **av, char **env)
 
 		parse_input();
 
-		ft_printf("\n=== exec built ===\n");
-		transform_str();
 		// Reset input for the transform test
 		ft_printf("\n=== Test transform ===\n");
 
@@ -42,8 +40,12 @@ int	main(int ac, char **av, char **env)
 		// Call transform() to clean/transform the input string
 		ft_printf("\nCalling transform...\n");
 
+		ft_printf("\n=== exec built ===\n");
+		transform_str();
+
 		// Print the cleaned commands for verification
 		ft_printf("\nAfter transform:\n");
+		
 		current_input = minis()->input;
 		while (current_input)
 		{
@@ -66,3 +68,6 @@ int	main(int ac, char **av, char **env)
 }
 
 // valgrind --suppressions=readline.supp --show-leak-kinds=all --leak-check=full --track-origins=yes ./minishell
+
+
+/* infile ls -la | echo "pwd $HOME" | whoami | date | hostname | uname -a | df -h | free -m | id | env | who | w | last | echo Hello, $USER | lsblk | curl --version | tar --version | wget --version | echo 'Shell: $SHELL' | ls | pwd | who | date | whoami | id | env | uptime | hostname | echo "Path: $PATH, Home: '$HOME'" | ls | pwd | whoami | date | hostname | uname -a | df -h | free -m | id | env | who | w | last | echo "Hello, World!" | lsblk | curl --version | tar --version | wget --version */

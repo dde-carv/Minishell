@@ -2,15 +2,21 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# define _DEFAULT_SOURCE
+
 # include <stddef.h>
 # include <stdbool.h>
 # include "hashmap.h"
 # include "parsing.h"
 # include "colors.h"
 # include "../libft/inc/libft.h"
+# include <signal.h>
+# include <sys/stat.h>
 # include <sys/wait.h>
+# include <sys/signal.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+
 
 typedef struct s_minishell
 {
@@ -21,6 +27,7 @@ typedef struct s_minishell
 typedef struct s_global
 {
 	int			error_status;
+	int			signal;
 	t_input		*input;
 	t_hashmap	*table;
 	t_hashmap	*env;

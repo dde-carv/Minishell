@@ -65,8 +65,11 @@ void	free_args(char **args)
 	if (!args)
 		return ;
 	i = 0;
-	while (args[i++])
+	while (args[i])
+	{
 		free(args[i]);
+		i++;
+	}
 	free(args);
 }
 
