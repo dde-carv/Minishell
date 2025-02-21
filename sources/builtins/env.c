@@ -72,7 +72,10 @@ void	set_env(char **env)
 {
 	(void)env;
 	if (*env)
+	{
 		minis()->env = hash_env(env);
+		shlvl_update();
+	}
 	else
 		minis()->env = create_hash_env();
 	minis()->non_value_vars = create_table(100);

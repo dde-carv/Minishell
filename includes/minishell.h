@@ -40,6 +40,8 @@ void	exit_minishell(void);
 void	set_env(char **env);
 // Duplicates env variables and put them in a hash table
 t_hashmap	*hash_env(char **env);
+// Updates the shell level when entering a new session
+void	shlvl_update(void);
 // Creates some env variables and put them in a hash table
 t_hashmap	*create_hash_env(void);
 
