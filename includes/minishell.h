@@ -6,16 +6,17 @@
 
 # include <stddef.h>
 # include <stdbool.h>
-# include "hashmap.h"
-# include "parsing.h"
-# include "colors.h"
-# include "../libft/inc/libft.h"
 # include <signal.h>
 # include <sys/stat.h>
 # include <sys/wait.h>
 # include <sys/signal.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include "../libft/inc/libft.h"
+# include "hashmap.h"
+# include "parsing.h"
+# include "colors.h"
+# include "pipex.h"
 
 
 typedef struct s_minishell
@@ -56,6 +57,8 @@ t_hashmap	*create_hash_env(void);
 
 // Function that calls "global" struct
 t_global	*minis(void);
+// Function that calls "pipe" struct
+t_pipe	*pipex(void);
 
 /************************ executer *************************/
 

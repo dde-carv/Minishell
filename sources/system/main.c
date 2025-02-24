@@ -42,7 +42,7 @@ int	main(int ac, char **av, char **env)
 
 		// Print the cleaned commands for verification
 		ft_printf("\nAfter transform:\n");
-		
+
 		current_input = minis()->input;
 		while (current_input)
 		{
