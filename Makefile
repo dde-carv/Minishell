@@ -45,6 +45,7 @@ SYS_MSL_DIR		=	$(SRC_DIR)system/main.c \
 PARSING_DIR		=	$(SRC_DIR)parsing/args.c \
 					$(SRC_DIR)parsing/split.c \
 					$(SRC_DIR)parsing/parsing.c \
+					$(SRC_DIR)parsing/get_value.c \
 					$(SRC_DIR)parsing/expantion.c \
 					$(SRC_DIR)parsing/redirects.c \
 					$(SRC_DIR)parsing/transform.c \

@@ -12,13 +12,11 @@ static int	words_count(char *str)
 	i = 0;
 	while (str[i])
 	{
-		// Skip spaces
 		while (str[i] == ' ')
 			i++;
 		if (!str[i])
 			return (0);
 		words++; // Found a word
-		// Move until the word ends
 		while (str[i] && ((str[i] != ' ' && !in_quotes) || (in_quotes)))
 		{
 			update_quote_state(str[i], &in_quotes);
@@ -65,53 +63,12 @@ char	**split_value(char *str)
 	start = 0;
 	while (word_index < words)
 	{
-		// Skip leading spaces
 		while (str[start] == ' ')
 			start++;
-		// Mark the end of the token
-		end = end_word(str, start);
-		// Extract token using a substring function
-		result[word_index++] = ft_substr(str, start, end - start);
+		end = end_word(str, start); // Mark the end of the token
+		result[word_index++] = ft_substr(str, start, end - start); // Extract token using a substring function
 		start = end;
 	}
 	result[word_index] = NULL;
 	return (result);
 }
-
-bool	split_need(char *s)
-{
-	char	in_quotes;
-	int		i;
-
-	i = 0;
-	if (!s || !*s || *s != 2)
-		return (false);
-	in_quotes = 0;
-	while (s[i++])
-	{
-		update_quote_state(s[i], &in_quotes);
-		if (s[i] == 2 && !in_quotes)
-		{
-			while (ft_isalpha(s[++i]))
-				;
-			if (s[i] == 0 || s[i] == ' ')
-				return (true);
-			return (false);
-		}
-	}
-	return (false);
-}
-
-/*
-
-Summary:
-
-Counting Words: Ignores extra spaces and respects quotes.
-
-Finding Word End: Uses a helper that safely stops at a space or the end of quoted sections.
-
-Extracting Tokens: Allocates an array and fills it with the tokens from the input string.
-
-Special Marker Handling: The function split_need checks for markers that indicate further processing is needed.
-
-*/

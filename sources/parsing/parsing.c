@@ -25,10 +25,6 @@ static char	*remove_spaces(char *str)
 	return (new_str);
 }
 
-/**
- * Extracts a command from the input starting at index *i.
- * Updates *i to the position after the command.
- */
 static char	*extract_arg(const char *str, int *i)
 {
 	char	in_quotes;
@@ -78,7 +74,6 @@ void	parse_input(void)
 	char	*cmd;
 	char	*arg;
 	t_entry	*entry;
-	t_entry	e;
 
 	i = 0;
 	while (minis()->ms->line[i])
@@ -96,9 +91,5 @@ void	parse_input(void)
 		free(arg);
 	}
 	if (minis()->ms->line[i - 1] == '|')
-	{
-		e.key = "";
-		e.value = "";
-		cpy_input(&e);
-	}
+		cpy_input(&(t_entry){"", "", NULL});
 }
