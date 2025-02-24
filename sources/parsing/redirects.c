@@ -1,48 +1,114 @@
 #include "minishell.h"
 
-bool	has_redirection(char *s)
+static t_type	get_redirection_type(const char *str, int *i)
 {
-	int		i;
-	char	c;
-
-	i = 0;
-	c = 0;
-	while (s[i])
+	t_type type;
+	if (str[*i] == '>' && str[*i + 1] == '>')
 	{
-		if ((s[i] == '"' || s[i] == '\'') && !c)
-			c = s[i];
-		else if (s[i] == c)
-			c = 0;
-		else if (!c && (s[i] == '<' || s[i] == '>'))
-			return (true);
-		i++;
+		type = APPEND;
+		(*i)++;
 	}
-	return (false);
+	else if (str[*i] == '<' && str[*i + 1] == '<')
+	{
+		type = HEREDOC;
+		(*i)++;
+	}
+	else if (str[*i] == '>')
+		type = TRUNCATE;
+	else
+		type = REVERSE;
+	return (type);
 }
 
-static void	parse_redirection(t_input **cmd, char **str)
+static char	*extract_filename(const char *s, int *i)
 {
-	int		i;
 	int		start;
-	int		c;
+	int		len;
+	char	*fname;
+
+	while (s[*i] == ' ')
+		(*i)++;
+	start = *i;
+	while (s[*i] && s[*i] != ' ' &&
+		   s[*i] != '<' && s[*i] != '>')
+		(*i)++;
+	len = *i - start;
+	fname = ft_substr(s, start, len);
+	return (fname);
+}
+
+static char	*build_new_str(t_input *cmd, const char *s)
+{
 	t_type	type;
-	char	*redir;
+	int		i;
+	char	in_quotes;
 	char	*new_str;
-	int		new_str_len;
+	char	*fname;
 
 	i = 0;
-	c = 0;
+	in_quotes = 0;
+	new_str = ft_calloc(ft_strlen(s) + 1, sizeof(char));
+	if (!new_str)
+		exit(1);
+	while (s[i])
+	{
+		update_quote_state(s[i], &in_quotes);
+		if ((s[i] == '<' || s[i] == '>') && !in_quotes)
+		{
+			type = get_redirection_type(s, &i);
+			fname = extract_filename(s, &i);
+			ft_fd_add_back(&cmd->fd, ft_fd_new(fname, -1, type));
+		}
+		else
+			new_str[ft_strlen(new_str)] = s[i++];
+	}
+	return (new_str);
+}
+
+void	parse_redirection(t_input **cmd, char **str)
+{
+	int		i;
+	char	*new_str;
+
+	new_str = build_new_str(*cmd, *str);
+	free(*str);
+	i = ft_strlen(new_str) - 1;
+	while (i > 0 && new_str[i] == ' ')
+	{
+		new_str[i] = 0;
+		i--;
+	}
+	*str = new_str;
+}
+
+void	parse_redirects(t_input **cmd)
+{
+	if (has_redirection((*cmd)->cmd))
+		parse_redirection(cmd, &(*cmd)->cmd);
+	if (has_redirection((*cmd)->arg))
+		parse_redirection(cmd, &(*cmd)->arg);
+}
+
+/* static void	parse_redirection(t_input **cmd, char **str)
+{
+	char	in_quotes;
+	char	*new_str;
+	char	*redir;
+	t_type	type;
+	int		new_str_len;
+	int		start;
+	int		i;
+
+	i = 0;
+	in_quotes = 0;
 	new_str_len = ft_strlen(*str);
 	new_str = ft_calloc(new_str_len + 1, sizeof(char));
 	if (!new_str)
 		exit(1);
 	while ((*str)[i])
 	{
-		if (((*str)[i] == '"' || (*str)[i] == '\'') && !c)
-			c = (*str)[i];
-		else if ((*str)[i] == c)
-			c = 0;
-		else if (!c && ((*str)[i] == '<' || (*str)[i] == '>'))
+		update_quote_state(*str[i], &in_quotes);
+		if (((*str)[i] == '<' || (*str)[i] == '>') && !in_quotes)
 		{
 			start = i;
 			if ((*str)[i] == '>' && (*str)[i + 1] == '>')
@@ -80,12 +146,4 @@ static void	parse_redirection(t_input **cmd, char **str)
 	while (i > 0 && new_str[i] == ' ')
 		new_str[i--] = 0;
 	*str = new_str;
-}
-
-void	parse_redirects(t_input **cmd)
-{
-	if (has_redirection((*cmd)->cmd))
-		parse_redirection(cmd, &(*cmd)->cmd);
-	if (has_redirection((*cmd)->arg))
-		parse_redirection(cmd, &(*cmd)->arg);
-}
+} */

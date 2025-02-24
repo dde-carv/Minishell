@@ -25,15 +25,11 @@ static char	*remove_spaces(char *str)
 	return (new_str);
 }
 
-/**
- * Extracts a command from the input starting at index *i.
- * Updates *i to the position after the command.
- */
 static char	*extract_arg(const char *str, int *i)
 {
-	int		start;
-	int		in_quotes;
+	char	in_quotes;
 	char	*arg;
+	int		start;
 
 	in_quotes = 0;
 	while (str[*i] == ' ')
@@ -41,10 +37,7 @@ static char	*extract_arg(const char *str, int *i)
 	start = *i;
 	while (str[*i] && (str[*i] != '|' || in_quotes))
 	{
-		if ((str[*i] == '\'' || str[*i] == '"') && !in_quotes)
-			in_quotes = str[*i];
-		else if (in_quotes == str[*i])
-			in_quotes = 0;
+		update_quote_state(str[*i], &in_quotes);
 		(*i)++;
 	}
 	if (start == *i)
@@ -53,24 +46,11 @@ static char	*extract_arg(const char *str, int *i)
 	return (arg);
 }
 
-	/* // Remove surrounding quotes if present
-	if ((arg[0] == '\'' && arg[ft_strlen(arg) - 1] == '\'') ||
-		(arg[0] == '"' && arg[ft_strlen(arg) - 1] == '"'))
-	{
-		char *temp = ft_substr(arg, 1, ft_strlen(arg) - 2);
-		free(arg);
-		arg = temp;
-	} */
-
-/**
- * Extracts an argument from the input starting at index *i.
- * Updates *i to the position after the argument.
- */
 static char	*extract_cmd(char *str, int *i)
 {
+	char	in_quotes;
 	char	*cmd;
 	int		start;
-	int		in_quotes;
 
 	in_quotes = 0;
 	while (str[*i] == ' ')
@@ -79,10 +59,7 @@ static char	*extract_cmd(char *str, int *i)
 	while (str[*i] && (str[*i] != ' ' || in_quotes) \
 		&& (str[*i] != '|' || in_quotes))
 	{
-		if ((str[*i] == '\'' || str[*i] == '"') && !in_quotes)
-			in_quotes = str[*i];
-		else if (in_quotes == str[*i])
-			in_quotes = 0;
+		update_quote_state(str[*i], &in_quotes);
 		(*i)++;
 	}
 	if (start == *i)
@@ -97,7 +74,6 @@ void	parse_input(void)
 	char	*cmd;
 	char	*arg;
 	t_entry	*entry;
-	t_entry	e;
 
 	i = 0;
 	while (minis()->ms->line[i])
@@ -115,9 +91,5 @@ void	parse_input(void)
 		free(arg);
 	}
 	if (minis()->ms->line[i - 1] == '|')
-	{
-		e.key = "";
-		e.value = "";
-		cpy_input(&e);
-	}
+		cpy_input(&(t_entry){"", "", NULL});
 }
