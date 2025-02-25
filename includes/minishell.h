@@ -17,6 +17,7 @@
 # include "parsing.h"
 # include "colors.h"
 # include "pipex.h"
+# include "signals.h"
 
 
 typedef struct s_minishell

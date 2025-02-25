@@ -2,7 +2,8 @@
 
 static t_type	get_redirection_type(const char *str, int *i)
 {
-	t_type type;
+	t_type	type;
+
 	if (str[*i] == '>' && str[*i + 1] == '>')
 	{
 		type = APPEND;
@@ -29,8 +30,8 @@ static char	*extract_filename(const char *s, int *i)
 	while (s[*i] == ' ')
 		(*i)++;
 	start = *i;
-	while (s[*i] && s[*i] != ' ' &&
-		   s[*i] != '<' && s[*i] != '>')
+	while (s[*i] && s[*i] != ' '
+		&& s[*i] != '<' && s[*i] != '>')
 		(*i)++;
 	len = *i - start;
 	fname = ft_substr(s, start, len);

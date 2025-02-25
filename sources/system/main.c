@@ -1,4 +1,3 @@
-
 #include "minishell.h"
 // TODO: this is to innitialize and start important things
 // ** take paths for pipexinside "Path"
@@ -18,13 +17,25 @@ int	main(int ac, char **av, char **env)
 	if (ac > 1)
 		return (0);
 	set_env(env);
+
+	// Disable readline's own signal handlers.
+	//rl_catch_signals = 0;
+	// Install our own handlers once.
+	load_signals();
+
 	while (1)
 	{
 		set_input();
-		minis()->error_status = 0;
+		/* minis()->error_status = 0;
 		if (!*minis()->ms->line)
-			continue ;
+		continue ; */
 
+		if (!minis()->ms->line)
+		{
+			ft_printf("exit\n");
+			exit_minishell();
+		}
+		
 		parse_input();
 
 		// Reset input for the transform test
@@ -52,7 +63,8 @@ int	main(int ac, char **av, char **env)
 			current_input = current_input->next;
 		}
 
-		if (!ft_strcmp(minis()->ms->line, "exit") && (ft_strlen(minis()->ms->line)) == 4)
+		if (!ft_strcmp(minis()->ms->line, "exit")
+			&& (ft_strlen(minis()->ms->line)) == 4)
 			break;
 
 		ft_printf("\n=== exec built ===\n");
