@@ -53,7 +53,7 @@ static void	take_expantions(t_input **lst)
 	int		i;
 
 	i = 0;
-	f = split_need((*lst)->cmd);
+	f = needs_split((*lst)->cmd);
 	take_quotes(&(*lst)->cmd);
 	while (is_expantion((*lst)->cmd))
 		(*lst)->cmd = sub_expantion((*lst)->cmd, get_value((*lst)->cmd));

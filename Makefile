@@ -49,7 +49,7 @@ PARSING_DIR		=	$(SRC_DIR)parsing/args.c \
 					$(SRC_DIR)parsing/expantion.c \
 					$(SRC_DIR)parsing/redirects.c \
 					$(SRC_DIR)parsing/transform.c \
-					$(SRC_DIR)parsing/validation.c \
+					$(SRC_DIR)parsing/bools.c \
 					$(SRC_DIR)parsing/clean_content.c \
 					$(SRC_DIR)parsing/parsing_lst/ft_fd_new.c \
 					$(SRC_DIR)parsing/parsing_lst/ft_fd_add_back.c \
@@ -59,7 +59,9 @@ PARSING_DIR		=	$(SRC_DIR)parsing/args.c \
 					$(SRC_DIR)parsing/parsing_lst/ft_input_lstdelone.c \
 					$(SRC_DIR)parsing/parsing_lst/ft_input_lstadd_back.c
 
-SRCS	=	$(SYS_MSL_DIR) $(MSL_UTILS_DIR) $(HASHMAP_DIR) $(BUILTINS_DIR) $(PARSING_DIR) $(EXEC_DIR)
+SIGNALS_DIR		=	$(SRC_DIR)signals/signals.c
+
+SRCS	=	$(SYS_MSL_DIR) $(MSL_UTILS_DIR) $(HASHMAP_DIR) $(BUILTINS_DIR) $(PARSING_DIR) $(EXEC_DIR) $(SIGNALS_DIR)
 
 OBJS	=	$(patsubst $(SRC_DIR)%.c,$(OBJ_DIR)%.o,$(SRCS))
 
