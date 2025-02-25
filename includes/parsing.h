@@ -24,6 +24,7 @@ typedef struct s_input
 	char			*cmd;
 	char			*arg;
 	char			**args;
+	char			*path;
 	t_fd			*fd;
 	int				l_write;
 	int				l_read;

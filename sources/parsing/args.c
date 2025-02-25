@@ -79,6 +79,8 @@ void	free_t_input(t_input *input)
 		free(input->cmd);
 	if (input->arg)
 		free(input->arg);
+	if (input->path)
+		free(input->path);
 	if (input->args)
 		free_array(input->args);
 	if (input->next)

@@ -1,7 +1,8 @@
 
 #include "minishell.h"
-
-/* static void	start_minishell(char *line, char **env) // TODO: this is to innitialize and start important things
+// TODO: this is to innitialize and start important things
+// ** take paths for pipexinside "Path"
+/* static void	start_minishell(char *line, char **env)
 {
 	char	**line_split;
 	int		i;
