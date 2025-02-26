@@ -6,7 +6,7 @@
 /*   By: dde-carv <dde-carv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 11:54:40 by dde-carv          #+#    #+#             */
-/*   Updated: 2025/02/25 14:09:15 by dde-carv         ###   ########.fr       */
+/*   Updated: 2025/02/26 14:31:22 by dde-carv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,23 +66,15 @@ t_input	*ft_newcmd(char *cmd, char *path, int is_last)
 	return (new);
 } */
 
-char	**ft_get_path(char **envp)
+char	**ft_get_paths(void)
 {
 	int		i;
 	char	**paths;
 
-	i = 0;
+	i = -1;
 	paths = NULL;
-	while (envp[i])
-	{
-		if (ft_strncmp(envp[i], "PATH=", 5) == 0)
-		{
-			paths = ft_split(envp[i] + 5, ':');
-			return (paths);
-		}
-		i++;
-	}
-	exit_pipex(NULL, 1);
+	if (hashmap_search(minis()->env, "PATH"))
+		paths = ft_split(hashmap_search(minis()->env, "PATH"), ':');
 	return (paths);
 }
 
@@ -102,5 +94,6 @@ char	*ft_check_path(char *cmd, char **paths)
 			return (path_cmd);
 		free(path_cmd);
 	}
+	error_mess(path_cmd, NO_FILE_OR_DIR, 127);
 	return (NULL);
 }

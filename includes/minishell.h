@@ -42,6 +42,10 @@ typedef struct s_global
 
 // Exits the program in a clean way
 void	exit_minishell(void);
+// Frees any char type array given
+void	free_array(char **array);
+// Frees any char type string given
+void	free_pointer(char *str);
 
 /*************************** env ***************************/
 
@@ -100,8 +104,6 @@ int		array_len(char **array);
 void	ft_strjoin_to_array(char *str, char **array);
 // Prints any char type array given and prints it to any file discriptor
 void	print_array_fd(char **array, int fd);
-// Frees any char type array given
-void	free_array(char **array);
 // Splites the string given by the first occurence of 'c'
 char	**split_into2(char *arg, char c);
 // Sets the sesion variables

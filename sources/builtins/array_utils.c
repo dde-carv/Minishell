@@ -37,19 +37,6 @@ void	print_array_fd(char **array, int fd)
 	}
 }
 
-void	free_array(char **array)
-{
-	int	i;
-
-	i = 0;
-	while (array[i])
-	{
-		free(array[i]);
-		i++;
-	}
-	free(array);
-}
-
 char	**split_into2(char *arg, char c)
 {
 	char	**splited;

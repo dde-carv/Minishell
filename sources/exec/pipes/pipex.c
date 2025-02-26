@@ -6,13 +6,13 @@
 /*   By: dde-carv <dde-carv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 10:15:04 by dde-carv          #+#    #+#             */
-/*   Updated: 2025/02/25 11:19:24 by dde-carv         ###   ########.fr       */
+/*   Updated: 2025/02/26 15:09:44 by dde-carv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	check_empty(int argc, char **argv)
+/* static int	check_empty(int argc, char **argv)
 {
 	int	i;
 	int	j;
@@ -67,7 +67,7 @@ static t_input	*init_pipex(int argc, char **argv, char **envp)
 	return (input);
 }
 
-/* int	main(int argc, char **argv, char **envp)
+int	main(int argc, char **argv, char **envp)
 {
 	t_input	*input;
 
@@ -96,8 +96,14 @@ void	ft_exec_pipex(t_input **input)
 
 	pipe_flag = 0;
 	tmp = *input;
+	pipex()->paths = ft_get_paths();
 	while (tmp)
 	{
 		tmp->path = ft_check_path(tmp->cmd, pipex()->paths);
+		
 	}
+	env = hashmap_to_array();
+
+	free_array(pipex()->paths);
+	free_array(env);
 }

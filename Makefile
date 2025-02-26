@@ -37,6 +37,7 @@ HASHMAP_DIR		=	$(SRC_DIR)hashmap/hash.c \
 					$(SRC_DIR)hashmap/hashmap_handle_collision.c
 
 MSL_UTILS_DIR	=	$(SRC_DIR)minishell_utils/data.c \
+					$(SRC_DIR)minishell_utils/free.c \
 					$(SRC_DIR)minishell_utils/error.c
 
 SYS_MSL_DIR		=	$(SRC_DIR)system/main.c \
