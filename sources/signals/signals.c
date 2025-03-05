@@ -9,7 +9,7 @@ int rl_replace_line(const char *text, int clear_undo)
 
 #include "minishell.h"
 
-extern int rl_replace_line(const char *text, int clear_undo);
+//extern int rl_replace_line(const char *text, int clear_undo);
 
 void	load_signals(void)
 {
@@ -33,6 +33,7 @@ void	sig_handler(int signum, siginfo_t *sig, void *s)
 		rl_on_new_line();
 		rl_redisplay();
 		minis()->signal = 1;
+		minis()->error_status = 130;
 	}
 	if (signum == SIGQUIT)
 		return ;

@@ -22,11 +22,11 @@ int	main(int ac, char **av, char **env)
 	//rl_catch_signals = 0;
 	// Install our own handlers once.
 	load_signals();
-
+	minis()->error_status = 0;
 	while (1)
 	{
 		set_input();
-		/* minis()->error_status = 0;
+		/*
 		if (!*minis()->ms->line)
 		continue ; */
 
@@ -35,7 +35,7 @@ int	main(int ac, char **av, char **env)
 			ft_printf("exit\n");
 			exit_minishell();
 		}
-		
+
 		parse_input();
 
 		// Reset input for the transform test
