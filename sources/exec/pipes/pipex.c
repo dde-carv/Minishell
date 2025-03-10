@@ -6,7 +6,7 @@
 /*   By: dde-carv <dde-carv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 13:05:09 by dde-carv          #+#    #+#             */
-/*   Updated: 2025/03/10 14:28:47 by dde-carv         ###   ########.fr       */
+/*   Updated: 2025/03/10 16:53:17 by dde-carv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,19 +89,18 @@ void	ft_exec_pipex(t_input *input)
 {
 	t_input	*tmp;
 	char	**env;
-	int		pipe_flag;
 
-	pipe_flag = 0;
 	tmp = input;
 	env = hashmap_to_array();
 	pipex()->paths = ft_get_paths(env);
 	while (tmp)
 	{
 		tmp->path = ft_check_path(tmp->cmd, pipex()->paths);
-		if (pipe(tmp->fd->fd))
-			return ;
+		if (pipe(tmp->fd->fd) == -1)
+			return (exit_pipex(tmp, 69)); // * Still need to work on this
 		tmp->next;
 	}
+	// Now lets go to execution
 	free_array(pipex()->paths);
 	free_array(env);
 }
