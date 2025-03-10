@@ -37,6 +37,7 @@ HASHMAP_DIR		=	$(SRC_DIR)hashmap/hash.c \
 					$(SRC_DIR)hashmap/hashmap_handle_collision.c
 
 MSL_UTILS_DIR	=	$(SRC_DIR)minishell_utils/data.c \
+					$(SRC_DIR)minishell_utils/free.c \
 					$(SRC_DIR)minishell_utils/error.c
 
 SYS_MSL_DIR		=	$(SRC_DIR)system/main.c \
@@ -45,10 +46,11 @@ SYS_MSL_DIR		=	$(SRC_DIR)system/main.c \
 PARSING_DIR		=	$(SRC_DIR)parsing/args.c \
 					$(SRC_DIR)parsing/split.c \
 					$(SRC_DIR)parsing/parsing.c \
+					$(SRC_DIR)parsing/get_value.c \
 					$(SRC_DIR)parsing/expantion.c \
 					$(SRC_DIR)parsing/redirects.c \
 					$(SRC_DIR)parsing/transform.c \
-					$(SRC_DIR)parsing/validation.c \
+					$(SRC_DIR)parsing/bools.c \
 					$(SRC_DIR)parsing/clean_content.c \
 					$(SRC_DIR)parsing/parsing_lst/ft_fd_new.c \
 					$(SRC_DIR)parsing/parsing_lst/ft_fd_add_back.c \
@@ -58,7 +60,9 @@ PARSING_DIR		=	$(SRC_DIR)parsing/args.c \
 					$(SRC_DIR)parsing/parsing_lst/ft_input_lstdelone.c \
 					$(SRC_DIR)parsing/parsing_lst/ft_input_lstadd_back.c
 
-SRCS	=	$(SYS_MSL_DIR) $(MSL_UTILS_DIR) $(HASHMAP_DIR) $(BUILTINS_DIR) $(PARSING_DIR) $(EXEC_DIR)
+SIGNALS_DIR		=	$(SRC_DIR)signals/signals.c
+
+SRCS	=	$(SYS_MSL_DIR) $(MSL_UTILS_DIR) $(HASHMAP_DIR) $(BUILTINS_DIR) $(PARSING_DIR) $(EXEC_DIR) $(SIGNALS_DIR)
 
 OBJS	=	$(patsubst $(SRC_DIR)%.c,$(OBJ_DIR)%.o,$(SRCS))
 

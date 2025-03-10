@@ -37,7 +37,6 @@ static void	take_quotes(char **str)
 		{
 			old_in_quotes = in_quotes;
 			update_quote_state((*str)[i], &in_quotes);
-			// If update_quote_state toggled the quote state, do not copy the quote.
 			if (old_in_quotes == in_quotes)
 				(*str)[j++] = s[i];
 		}
@@ -54,7 +53,7 @@ static void	take_expantions(t_input **lst)
 	int		i;
 
 	i = 0;
-	f = split_need((*lst)->cmd);
+	f = needs_split((*lst)->cmd);
 	take_quotes(&(*lst)->cmd);
 	while (is_expantion((*lst)->cmd))
 		(*lst)->cmd = sub_expantion((*lst)->cmd, get_value((*lst)->cmd));

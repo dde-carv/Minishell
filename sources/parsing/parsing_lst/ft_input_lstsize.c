@@ -14,5 +14,5 @@ int	ft_input_lstsize(t_input **lst)
 		i++;
 		tmp = tmp->next;
 	}
-	return(i);
+	return (i);
 }

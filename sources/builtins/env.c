@@ -61,6 +61,7 @@ t_hashmap	*create_hash_env(void)
 
 	pwd = getcwd(NULL, 0);
 	table = create_table(200);
+	insert_in_table("PATH", "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin", table); // !! verify if this is the correct path for "env -i" (In the school computers)
 	insert_in_table("PWD", pwd, table);
 	insert_in_table("SHLVL", "1", table);
 	insert_in_table("_", "/usr/bin/env", table);

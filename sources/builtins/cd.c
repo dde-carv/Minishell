@@ -45,7 +45,7 @@ static void	ft_chdir_path(char *path)
 
 static void	ft_chdir_oldpwd(char *path)
 {
-	ft_printf("%s\n");
+	ft_printf("%s\n", path);
 	ft_chdir_path(path);
 }
 

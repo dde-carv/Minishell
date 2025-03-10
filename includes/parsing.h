@@ -24,6 +24,7 @@ typedef struct s_input
 	char			*cmd;
 	char			*arg;
 	char			**args;
+	char			*path;
 	t_fd			*fd;
 	int				l_write;
 	int				l_read;
@@ -63,7 +64,7 @@ bool	is_expantion(char *str);
 // Validates the overall syntax of the input.
 bool	is_valid(void);
 // Determines if the string requires additional splitting for proper parsing.
-bool	split_need(char *s);
+bool	needs_split(char *s);
 // Determines if the string has any redirections.
 bool	has_redirection(char *s);
 

@@ -6,16 +6,18 @@
 
 # include <stddef.h>
 # include <stdbool.h>
-# include "hashmap.h"
-# include "parsing.h"
-# include "colors.h"
-# include "../libft/inc/libft.h"
 # include <signal.h>
 # include <sys/stat.h>
 # include <sys/wait.h>
 # include <sys/signal.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include "../libft/inc/libft.h"
+# include "hashmap.h"
+# include "parsing.h"
+# include "colors.h"
+# include "pipex.h"
+# include "signals.h"
 
 
 typedef struct s_minishell
@@ -40,6 +42,10 @@ typedef struct s_global
 
 // Exits the program in a clean way
 void	exit_minishell(void);
+// Frees any char type array given
+void	free_array(char **array);
+// Frees any char type string given
+void	free_pointer(char *str);
 
 /*************************** env ***************************/
 
@@ -56,6 +62,8 @@ t_hashmap	*create_hash_env(void);
 
 // Function that calls "global" struct
 t_global	*minis(void);
+// Function that calls "pipe" struct
+t_pipe	*pipex(void);
 
 /************************ executer *************************/
 
@@ -96,8 +104,6 @@ int		array_len(char **array);
 void	ft_strjoin_to_array(char *str, char **array);
 // Prints any char type array given and prints it to any file discriptor
 void	print_array_fd(char **array, int fd);
-// Frees any char type array given
-void	free_array(char **array);
 // Splites the string given by the first occurence of 'c'
 char	**split_into2(char *arg, char c);
 // Sets the sesion variables
