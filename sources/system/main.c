@@ -26,15 +26,9 @@ int	main(int ac, char **av, char **env)
 	while (1)
 	{
 		set_input();
-		/*
+		
 		if (!*minis()->ms->line)
-		continue ; */
-
-		if (!minis()->ms->line)
-		{
-			ft_printf("exit\n");
-			exit_minishell();
-		}
+			continue ;
 
 		parse_input();
 
@@ -72,7 +66,7 @@ int	main(int ac, char **av, char **env)
 		//ft_printf("%s\n", minis()->ms->line);
 		ft_input_lstclear(&minis()->input);
 		free(current_input);
-		free(minis()->ms->line);
+		free_pointer(minis()->ms->line);
 	}
 	exit_minishell(); // * this still need some work(not final)
 	return (0);
