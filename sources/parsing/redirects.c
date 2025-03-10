@@ -27,7 +27,8 @@ static char	*extract_filename(const char *s, int *i)
 	int		len;
 	char	*fname;
 
-	while (s[*i] == ' ')
+	while (s[*i] && (s[*i] == ' '
+		|| s[*i] == '<' || s[*i] == '>'))
 		(*i)++;
 	start = *i;
 	while (s[*i] && s[*i] != ' '
@@ -46,12 +47,12 @@ static char	*build_new_str(t_input *cmd, const char *s)
 	char	*new_str;
 	char	*fname;
 
-	i = 0;
+	i = -1;
 	in_quotes = 0;
 	new_str = ft_calloc(ft_strlen(s) + 1, sizeof(char));
 	if (!new_str)
 		exit(1);
-	while (s[i])
+	while (s[++i])
 	{
 		update_quote_state(s[i], &in_quotes);
 		if ((s[i] == '<' || s[i] == '>') && !in_quotes)
@@ -61,7 +62,7 @@ static char	*build_new_str(t_input *cmd, const char *s)
 			ft_fd_add_back(&cmd->fd, ft_fd_new(fname, -1, type));
 		}
 		else
-			new_str[ft_strlen(new_str)] = s[i++];
+			new_str[ft_strlen(new_str)] = s[i];
 	}
 	return (new_str);
 }
@@ -85,7 +86,7 @@ void	parse_redirection(t_input **cmd, char **str)
 void	parse_redirects(t_input **cmd)
 {
 	if (has_redirection((*cmd)->cmd))
-		parse_redirection(cmd, &(*cmd)->cmd);
+		parse_cmd_redirection(cmd, &(*cmd)->cmd, &(*cmd)->arg); // ! if there is a redirect in the command search the arg for the first pos for the file name (Ex: "< lol cat"; cmd: "<" arg: "lol cat"; you want to parse "< lol")
 	if (has_redirection((*cmd)->arg))
 		parse_redirection(cmd, &(*cmd)->arg);
 }

@@ -10,7 +10,5 @@ void	transform_str(void)
 	}
 	clean_content();
 	/* if (minis()->input->cmd && *minis()->input->cmd)
-		execute();//skip_to_exec_cmd */
+		execute(); */
 }
-	/* if (ft_strchr(minis()->input->cmd, '='))
-		bool skip_to_exec_cmd = true; */

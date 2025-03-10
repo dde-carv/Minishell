@@ -8,7 +8,7 @@ t_fd	*ft_fd_new(char *file_n, int fd, t_type type)
 	if (!n)
 		return (NULL);
 	n->file_n = file_n;
-	n->fd = fd;
+	*n->fd = fd;										// ! Can lead to problems keep an eye on this fd array
 	n->type = type;
 	n->next = NULL;
 	return (n);
