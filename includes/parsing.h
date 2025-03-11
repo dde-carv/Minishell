@@ -29,6 +29,7 @@ typedef struct s_input
 	int				l_write;
 	int				l_read;
 	struct s_input	*next;
+	struct s_input	*prev;
 }					t_input;
 
 /************************* Parsing *************************/

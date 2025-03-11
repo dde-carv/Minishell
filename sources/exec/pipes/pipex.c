@@ -6,7 +6,7 @@
 /*   By: dde-carv <dde-carv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 13:05:09 by dde-carv          #+#    #+#             */
-/*   Updated: 2025/03/10 16:53:17 by dde-carv         ###   ########.fr       */
+/*   Updated: 2025/03/11 14:20:49 by dde-carv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,10 @@ static int	check_empty(int argc, char **argv)
 	return (1);
 }
 
-static t_cmd	*set_input(int argc, char **argv, char **paths)
+static t_input	*set_input(int argc, char **argv, char **paths)
 {
 	int		i;
-	t_cmd	*input;
+	t_input	*input;
 	int		is_last;
 
 	i = 2;
@@ -63,44 +63,47 @@ static t_cmd	*set_input(int argc, char **argv, char **paths)
 	return (input);
 }
 
-static t_cmd	*init_pipex(int argc, char **argv, char **envp)
+static t_input	*init_pipex(int argc, char **argv, char **envp)
 {
-	t_cmd	*input;
+	t_input	*input;
 
 	if (!ft_strncmp(argv[1], "here_doc", 9))
 		here_doc_main(argc, argv);
 	else
 	{
-		data()->fd_in = open(argv[1], O_RDONLY);
-		if (data()->fd_in == -1)
+		pipex()->fd_in = open(argv[1], O_RDONLY);
+		if (pipex()->fd_in == -1)
 			exit_pipex(NULL, 1);
-		data()->fd_out = open(argv[argc - 1], \
+		pipex()->fd_out = open(argv[argc - 1], \
 			O_WRONLY | O_CREAT | O_TRUNC, 0644);
-		if (data()->fd_out == -1)
+		if (pipex()->fd_out == -1)
 			exit_pipex(NULL, 1);
 	}
-	data()->paths = get_path(envp);
-	input = set_input(argc, argv, data()->paths);
-	data()->first = input;
+	pipex()->paths = get_path(envp);
+	input = set_input(argc, argv, pipex()->paths);
+	pipex()->first = input;
 	return (input);
 } */
 
-void	ft_exec_pipex(t_input *input)
+void	ft_exec_pipex(t_input *input) // !!! DON'T forget to update the $_ variable after execution
 {
 	t_input	*tmp;
 	char	**env;
 
 	tmp = input;
-	env = hashmap_to_array();
-	pipex()->paths = ft_get_paths(env);
+	pipex()->paths = ft_get_paths();
 	while (tmp)
 	{
 		tmp->path = ft_check_path(tmp->cmd, pipex()->paths);
+		ft_printf("ola pipes\n");										//!!
 		if (pipe(tmp->fd->fd) == -1)
-			return (exit_pipex(tmp, 69)); // * Still need to work on this
-		tmp->next;
+			return ;
+			//return (exit_pipex(tmp, 69)); // * Still need to work on this
+		tmp = tmp->next;
 	}
-	// Now lets go to execution
+	env = hashmap_to_array();
+	if (father_son(input, env) == -1)
+		minis()->error_status = 1; //?????
 	free_array(pipex()->paths);
 	free_array(env);
 }

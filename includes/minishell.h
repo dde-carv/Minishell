@@ -19,6 +19,7 @@
 # include "pipex.h"
 # include "signals.h"
 
+typedef struct s_pipe t_pipe;
 
 typedef struct s_minishell
 {

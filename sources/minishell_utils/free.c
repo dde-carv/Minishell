@@ -5,6 +5,7 @@ void	free_pointer(char *str)
 {
 	if (str)
 		free(str);
+	str = NULL;
 }
 
 void	free_array(char **array)

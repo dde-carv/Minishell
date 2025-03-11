@@ -8,7 +8,8 @@ void	exit_minishell(void)
 	/* if (minis()->ms)
 		free(minis()->ms); */
 	if (minis()->input)
-		free_t_input(minis()->input);
+		ft_input_lstclear(&minis()->input);
+		//free_t_input(minis()->input);
 	/* if (minis()->input->args)
 		free_args(minis()->input->args); */
 	if (minis()->env)

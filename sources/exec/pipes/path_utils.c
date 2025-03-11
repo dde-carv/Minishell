@@ -6,13 +6,13 @@
 /*   By: dde-carv <dde-carv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 11:54:40 by dde-carv          #+#    #+#             */
-/*   Updated: 2025/03/10 14:04:34 by dde-carv         ###   ########.fr       */
+/*   Updated: 2025/03/11 14:01:33 by dde-carv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/pipex.h"
 
-/* static t_cmd	*ft_lastcmd(t_cmd *input)
+/* static t_input	*ft_lastcmd(t_input *input)
 {
 	if (!input)
 		return (NULL);
@@ -21,9 +21,9 @@
 	return (input);
 }
 
-void	ft_addcmd(t_cmd **input, t_cmd *new)
+void	ft_addcmd(t_input **input, t_input *new)
 {
-	t_cmd	*last;
+	t_input	*last;
 
 	if (!input || !new)
 		return ;
@@ -37,11 +37,11 @@ void	ft_addcmd(t_cmd **input, t_cmd *new)
 	}
 }
 
-t_cmd	*ft_newcmd(char *cmd, char *path, int is_last)
+t_input	*ft_newcmd(char *cmd, char *path, int is_last)
 {
-	t_cmd	*new;
+	t_input	*new;
 
-	new = (t_cmd *)malloc(sizeof(t_cmd));
+	new = (t_input *)malloc(sizeof(t_input));
 	if (!new)
 		return (NULL);
 	new->av = ft_split(cmd, ' ');
@@ -92,10 +92,9 @@ char	*ft_check_path(char *cmd, char **paths)
 	}
 	error_mess(path_cmd, NO_FILE_OR_DIR, 127);
 	return (NULL);
-
 }
 
-char	**ft_get_paths(char **envp)
+char	**ft_get_paths()
 {
 	char	**paths;
 

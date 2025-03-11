@@ -46,7 +46,7 @@ static char	*extract_arg(const char *str, int *i)
 	return (arg);
 }
 
-static char	*extract_cmd(char *str, int *i)
+static char	*extract_input(char *str, int *i)
 {
 	char	in_quotes;
 	char	*cmd;
@@ -78,7 +78,7 @@ void	parse_input(void)
 	i = 0;
 	while (minis()->ms->line[i])
 	{
-		cmd = extract_cmd(minis()->ms->line, &i);
+		cmd = extract_input(minis()->ms->line, &i);
 		arg = extract_arg(minis()->ms->line, &i);
 		entry = hash_action(minis()->table, (t_entry){cmd, arg, NULL}, ENTER);
 		if (!entry)

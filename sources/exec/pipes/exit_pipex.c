@@ -6,7 +6,7 @@
 /*   By: dde-carv <dde-carv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 14:53:43 by dde-carv          #+#    #+#             */
-/*   Updated: 2025/03/10 11:23:33 by dde-carv         ###   ########.fr       */
+/*   Updated: 2025/03/11 11:41:46 by dde-carv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ void	free_all_cmds(char **cmds)
 	free(cmds);
 }
 
-static void	ft_free_rest(t_cmd **input, char **paths)
+static void	ft_free_rest(t_input **input, char **paths)
 {
 	int		i;
-	t_cmd	*tmp;
+	t_input	*tmp;
 
 	while (*input)
 	{
@@ -53,26 +53,26 @@ static void	ft_free_rest(t_cmd **input, char **paths)
 		free(paths);
 }
 
-void	exit_pipex(t_cmd *input, int error)
+void	exit_pipex(t_input *input, int error)
 {
-	if (data()->flag == 42)
+	if (pipex()->flag == 42)
 		unlink(".temp");
-	if (data()->fd_in != -1)
-		close(data()->fd_in);
-	if (data()->fd_out != -1)
-		close(data()->fd_out);
+	if (pipex()->fd_in != -1)
+		close(pipex()->fd_in);
+	if (pipex()->fd_out != -1)
+		close(pipex()->fd_out);
 	if (error != 0)
 	{
 		if (error == 1)
 			ft_printf("Error:\nInvalid usage.\n");
 		else if (error == 2)
 		{
-			input = data()->first;
-			ft_free_rest(&input, data()->paths);
+			input = pipex()->first;
+			ft_free_rest(&input, pipex()->paths);
 		}
 		exit(1);
 	}
-	input = data()->first;
-	ft_free_rest(&input, data()->paths);
+	input = pipex()->first;
+	ft_free_rest(&input, pipex()->paths);
 	exit(0);
 }

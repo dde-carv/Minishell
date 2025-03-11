@@ -6,72 +6,77 @@
 /*   By: dde-carv <dde-carv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 11:50:58 by dde-carv          #+#    #+#             */
-/*   Updated: 2025/03/10 11:23:56 by dde-carv         ###   ########.fr       */
+/*   Updated: 2025/03/11 14:05:46 by dde-carv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/pipex.h"
 
-static void	prep_father(t_cmd *input)
+static void	prep_father(t_input *input)
 {
 	if (!input->prev)
-		dup2(data()->fd_in, 0);
+		dup2(pipex()->fd_in, 0);
 	else
 	{
-		dup2(input->prev->fd[0], 0);
-		close(input->prev->fd[0]);
+		dup2(input->prev->fd->fd[0], 0);
+		close(input->prev->fd->fd[0]);
 	}
 }
 
-static void	son(t_cmd *input, char **envp)
+static void	son(t_input *input, char **envp)
 {
 	if (input->next == NULL)
 	{
-		dup2(data()->fd_out, 1);
-		close(data()->fd_out);
+		dup2(pipex()->fd_out, 1);
+		close(pipex()->fd_out);
 	}
 	else
-		dup2(input->fd[1], 1);
-	if (input->fd[0] != -1)
-		close(input->fd[0]);
-	if (input->fd[1] != -1)
-		close(input->fd[1]);
-	close(data()->fd_in);
+		dup2(input->fd->fd[1], 1);
+	if (input->fd->fd[0] != -1)
+		close(input->fd->fd[0]);
+	if (input->fd->fd[1] != -1)
+		close(input->fd->fd[1]);
+	close(pipex()->fd_in);
 	if (input->next)
-		close(data()->fd_out);
+		close(pipex()->fd_out);
 	if (!input->path)
-		exit_pipex(input, 2);
-	if (execve(input->path, input->av, envp) == -1)
-		exit_pipex(input, 2);
+		ft_printf("lol 69\n");									//!!!!!
+		//exit_pipex(input, 2);
+	if (execve(input->path, input->args, envp) == -1)
+		ft_printf("lol 70\n");									//!!!!!
+		//exit_pipex(input, 2);
 }
 
-static void	after_father(t_cmd *input)
+static void	after_father(t_input *input)
 {
-	if (input->fd[1] != -1)
-		close(input->fd[1]);
+	if (input->fd->fd[1] != -1)
+		close(input->fd->fd[1]);
 	if (!input->next)
-		if (input->fd[0] != -1)
-			close(input->fd[0]);
+		if (input->fd->fd[0] != -1)
+			close(input->fd->fd[0]);
 }
 
-void	father_son(t_cmd *input, char **envp)
+int	father_son(t_input *input, char **envp)
 {
 	while (input)
 	{
 		prep_father(input);
-		data()->pid = fork();
-		if (data()->pid == -1)
-			exit_pipex(input, 2);
-		if (data()->pid == 0)
+		pipex()->pid = fork();
+		if (pipex()->pid == -1)
+			ft_printf("lol 71\n");									//!!!!!
+			//exit_pipex(input, 2);
+		if (pipex()->pid == 0)
 			son(input, envp);
 		after_father(input);
 		input = input->next;
 	}
-	input = data()->first;
+	input = minis()->input;
 	while (input)
 	{
 		waitpid(-1, NULL, 0);
 		input = input->next;
 	}
-	exit_pipex(NULL, 0);
+	ft_printf("lol 72\n");									//!!!!!
+	//exit_pipex(NULL, 0);
+	return(0);
 }
