@@ -51,9 +51,7 @@ void	execute(void)
 {
 	/* if (!verify_redir(&minis()->input))
 		return ; */
-	if (ft_input_lstsize(&minis()->input) == 1 && ft_strchr(minis()->input->cmd, '='))				// ! REMOVE ANYTHING RELATED TO SESH VARS
-		ft_sesh_vars(minis()->input->cmd, minis()->input->args);
-	else if (ft_input_lstsize(&minis()->input) == 1 && is_builtin(minis()->input->cmd))
+	if (ft_input_lstsize(&minis()->input) == 1 && is_builtin(minis()->input->cmd))
 		ft_exec_builtin(minis()->input->cmd, minis()->input->args);
 	else
 		ft_exec_pipex(minis()->input);					// TODO
