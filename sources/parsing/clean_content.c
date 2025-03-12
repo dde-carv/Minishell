@@ -61,7 +61,7 @@ static void	take_expantions(t_input **lst)
 		(*lst)->arg = sub_expantion((*lst)->arg, get_value((*lst)->arg));
 	if (f && *(*lst)->cmd)
 		args(lst);
-	else
+	else if ((*lst)->arg)
 		(*lst)->args = split_value((*lst)->arg);
 	while ((*lst)->args && (*lst)->args[i])
 	{

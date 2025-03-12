@@ -5,8 +5,11 @@ int		array_len(char **array)
 	int	i;
 
 	i = 0;
-	while (array[i + 1])
-		i++;
+	if (*array)
+	{
+		while (array[i + 1])
+			i++;
+	}
 	return (i);
 }
 
@@ -45,7 +48,10 @@ char	**split_into2(char *arg, char c)
 	splited = (char **)malloc(3 * sizeof(char *));
 	c_p = ft_strchr(arg, c);
 	splited[0] = ft_substr(arg, 0, (c_p - arg));
-	splited[1] = ft_substr((c_p + 1), 0, (ft_strlen(c_p)));
+	if (!*(c_p + 1))
+		splited[1] = ft_strdup("");
+	else
+		splited[1] = ft_substr((c_p + 1), 0, (ft_strlen(c_p)));
 	splited[2] = NULL;
 	return(splited);
 }

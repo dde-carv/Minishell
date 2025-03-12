@@ -8,7 +8,7 @@ void	ft_echo(char **args)
 
 	i = 0;
 	new_flag = 1;
-	if (args[i + 1] && !ft_strcmp(args[i], "-n"))
+	if (!ft_strcmp(args[i], "-n"))
 	{
 		new_flag = 0;
 		i++;

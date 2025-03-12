@@ -16,7 +16,7 @@
 !!		127	Command not found (e.g., typo or missing binary)
 !!		128	Invalid argument to exit
 !!		128+N	Command terminated by signal N (e.g., 130 means Ctrl+C killed it, since signal 2 = SIGINT)
-!!		130	Script terminated by Ctrl+C or Ctrl+D (SIGINT)
+!!		130	Script terminated by Ctrl+C (SIGINT)
 !!		137	Process killed by SIGKILL (e.g., kill -9 <pid>)
 !!		143	SIGTERM (15)	Terminated gracefully (kill <pid>)
 !!		255	Exit status out of range (Bash allows 0-255)

@@ -19,7 +19,11 @@ static void	ft_chdir_path(char *path)
 	char	*final_path;
 	char	*error_msg;
 
+	if (!*path)
+		return ;
 	pwd = getcwd(NULL, 0);
+	if (hashmap_search(minis()->env, "OLDPWD"))
+		hashmap_delete(minis()->env, "OLDPWD");
 	insert_in_table("OLDPWD", pwd, minis()->env);
 	free(pwd);
 	final_path = ft_strdup(path);
@@ -46,14 +50,17 @@ static void	ft_chdir_path(char *path)
 static void	ft_chdir_oldpwd(char *path)
 {
 	ft_printf("%s\n", path);
-	ft_chdir_path(path);
+	if (*path)
+		ft_chdir_path(path);
 }
 
 static void	ft_chdir_home(void)
 {
 	char	*path;
 
-	path = ft_strdup(hashmap_search(minis()->env, "HOME"));
+	path = NULL;
+	if (hashmap_search(minis()->env, "HOME"))
+		path = ft_strdup(hashmap_search(minis()->env, "HOME"));
 	if (!path)
 	{
 		error_mess("cd", NO_HOME, 1);
@@ -94,7 +101,7 @@ void	ft_cd(char *path)
 void	ft_verify_cd(char **path) // protect to if file is put to trash
 {
 	minis()->error_status = 0;
-	if (path[1])
+	if (array_len(path) >= 1)
 	{
 		error_mess("cd", TOO_MANY_ARGS, 1);
 		return ;

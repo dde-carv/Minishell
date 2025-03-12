@@ -13,7 +13,7 @@ typedef enum s_type
 
 typedef struct s_fd
 {
-	int			fd;
+	int			fd[2];			// ! Can lead to problems keep an eye on this fd array
 	char		*file_n;
 	t_type		type;
 	struct s_fd	*next;
@@ -29,6 +29,7 @@ typedef struct s_input
 	int				l_write;
 	int				l_read;
 	struct s_input	*next;
+	struct s_input	*prev;
 }					t_input;
 
 /************************* Parsing *************************/

@@ -7,10 +7,10 @@ static char	*ft_get_last(char *path)
 	char	*last;
 	char	**prompt;
 
+	if (!*path || !path)
+		return (NULL);
 	if (!ft_strcmp(path, "/"))
-	{
 		return (last = ft_strdup("/"));
-	}
 	prompt = ft_split(path, '/');
 	i = -1;
 	while (prompt[++i]);
@@ -42,8 +42,10 @@ void	set_input(void)
 	char	*last_HOME;
 	char	*full_promp;
 
+	last_HOME = NULL;
 	last = ft_getprompt();
-	last_HOME = ft_get_last(hashmap_search(minis()->env, "HOME"));
+	if (hashmap_search(minis()->env, "HOME"))
+		last_HOME = ft_get_last(hashmap_search(minis()->env, "HOME"));
 	if (!ft_strcmp(last, last_HOME))
 	{
 		free(last);
