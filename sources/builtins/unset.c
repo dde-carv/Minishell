@@ -1,7 +1,7 @@
 
 #include "minishell.h"
 
-void	ft_unset(char **args) //* when parsing is finished remember to create a function to select what command is going to be executed(there are some that are going to take more then one arg and need to split)
+void	ft_unset(char **args)
 {
 	int	i;
 

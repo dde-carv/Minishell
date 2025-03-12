@@ -7,12 +7,17 @@ void	shlvl_update(void)
 	char *nbr;
 	char *tmp;
 
-	tmp = ft_strdup(hashmap_search(minis()->env, "SHLVL"));
-	hashmap_delete(minis()->env, "SHLVL");
-	n = ft_atoi(tmp);
-	n = n + 1;
-	nbr = ft_itoa(n);
-	insert_in_table("SHLVL", nbr, minis()->env);
-	free(tmp);
-	free(nbr);
+	if (hashmap_search(minis()->env, "SHLVL"))
+	{
+		tmp = ft_strdup(hashmap_search(minis()->env, "SHLVL"));
+		hashmap_delete(minis()->env, "SHLVL");
+		n = ft_atoi(tmp);
+		n = n + 1;
+		nbr = ft_itoa(n);
+		insert_in_table("SHLVL", nbr, minis()->env);
+		free(tmp);
+		free(nbr);
+	}
+	else
+		insert_in_table("SHLVL", "0", minis()->env);
 }

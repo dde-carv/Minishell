@@ -42,7 +42,7 @@ void	ft_exec_builtin(char *cmd, char **args)
 	else if (!(ft_strcmp(cmd, "unset\0")))
 		ft_unset(args);
 	else if (!(ft_strcmp(cmd, "env\0")))
-		print_env(1);
+		ft_verify_env(args);
 	else if (!(ft_strcmp(cmd, "exit\0")))
 		ft_exit(args);
 }
