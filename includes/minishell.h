@@ -35,7 +35,6 @@ typedef struct s_global
 	t_hashmap	*table;
 	t_hashmap	*env;
 	t_hashmap	*non_value_vars;
-	t_hashmap	*sesion_vars;
 	t_minishell	*ms;
 }				t_global;
 
