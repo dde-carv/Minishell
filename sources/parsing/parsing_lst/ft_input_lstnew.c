@@ -11,13 +11,13 @@ t_input	*ft_input_lstnew(char *cmd, char *arg)
 	if (!input->cmd)
 	{
 		free(input);
-		exit(0);
+		return (NULL);
 	}
 	input->arg = ft_strdup(arg);
 	if (!input->arg)
 	{
 		ft_input_lstdelone(&input);
-		exit(0);
+		return (NULL);
 	}
 	input->l_read = 0;
 	input->l_write = 1;

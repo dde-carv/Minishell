@@ -47,8 +47,8 @@ char	*sub_expantion(char *str, char *value)
 	char	*s;
 	int		j;
 
-	if (value == NULL)
-		return (ft_strdup(""));
+	if (!value)
+		value = "";
 	new = ft_calloc(ft_strlen(str) + ft_strlen(value) + 1, sizeof(char));
 	if (!new)
 		return (ft_strdup(""));

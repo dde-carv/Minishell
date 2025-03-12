@@ -7,8 +7,6 @@ static char	*lookup_var_value(char *var_name)
 	value = NULL;
 	if (hashmap_search(minis()->env, var_name))
 		value = hashmap_search(minis()->env, var_name);
-	else if (hashmap_search(minis()->sesion_vars, var_name))
-		value = hashmap_search(minis()->sesion_vars, var_name);
 	return (value);
 }
 
