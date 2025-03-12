@@ -15,5 +15,4 @@ void	shlvl_update(void)
 	insert_in_table("SHLVL", nbr, minis()->env);
 	free(tmp);
 	free(nbr);
-
 }

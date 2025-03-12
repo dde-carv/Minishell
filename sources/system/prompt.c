@@ -51,7 +51,10 @@ void	set_input(void)
 		free(last);
 		last = ft_strdup("~");
 	}
-	full_promp = ft_strjoin_var(5, BOLD_CYAN, last, BOLD_YELLOW, " $ ", RESET_COLOR);
+	if (minis()->error_status == 0)
+		full_promp = ft_strjoin_var(5, BOLD_CYAN, last, BOLD_YELLOW, " $ ", RESET_COLOR);
+	else
+		full_promp = ft_strjoin_var(5, BOLD_CYAN, last, BOLD_RED, " $ ", RESET_COLOR);
 	minis()->ms->promp = ft_strdup(full_promp);
 	free(last);
 	free(last_HOME);
