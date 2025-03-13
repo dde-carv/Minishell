@@ -6,7 +6,7 @@
 /*   By: dde-carv <dde-carv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 13:05:09 by dde-carv          #+#    #+#             */
-/*   Updated: 2025/03/11 14:20:49 by dde-carv         ###   ########.fr       */
+/*   Updated: 2025/03/13 12:30:09 by dde-carv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,15 +95,17 @@ void	ft_exec_pipex(t_input *input) // !!! DON'T forget to update the $_ variable
 	while (tmp)
 	{
 		tmp->path = ft_check_path(tmp->cmd, pipex()->paths);
-		ft_printf("ola pipes\n");										//!!
-		if (pipe(tmp->fd->fd) == -1)
-			return ;
-			//return (exit_pipex(tmp, 69)); // * Still need to work on this
+		ft_printf("full cmd: %s\n", tmp->path);										//!!!!
+		//pipe(tmp->fd->fd);// == -1;
+		/* if (pipe(tmp->fd->fd) == -1)
+		return ; */
+		//return (exit_pipex(tmp, 69)); // * Still need to work on this
 		tmp = tmp->next;
 	}
+	ft_printf("full cmd: %s\n", tmp->path);										//!!!!
 	env = hashmap_to_array();
-	if (father_son(input, env) == -1)
-		minis()->error_status = 1; //?????
+	/* if (father_son(input, env) == -1)
+		minis()->error_status = 1; //????? */
 	free_array(pipex()->paths);
 	free_array(env);
 }
