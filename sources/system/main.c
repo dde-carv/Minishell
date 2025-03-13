@@ -27,7 +27,7 @@ int	main(int ac, char **av, char **env)
 	{
 		set_input();
 
-		if (!*minis()->ms->line) 
+		if (!*minis()->ms->line)
 			continue ;
 
 		parse_input();	// !! Fazer review do parsing pq no echo se os meus argumentos forem "$HOME $lol $SHLVL" ou seja uma variavel valida e uma nao valida, o meu array e null quando devia ter as expansoes das variaveis validas
