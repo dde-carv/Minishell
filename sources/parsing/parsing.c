@@ -67,6 +67,24 @@ static char	*extract_input(char *str, int *i)
 	cmd = ft_substr(str, start, *i - start);
 	return (cmd);
 }
+void	mark_pipes(char *c)
+{
+	int	i;
+	int	s;
+
+	s = 0;
+	i = -1;
+	while(c[++i])
+	{
+		if (c[i] == '"' || c[i] == '\'')
+			s = c[i];
+		if (!c && c[i] == '|')
+			c[i] = 2;
+	}
+}
+
+
+
 
 void	parse_input(void)
 {
@@ -76,8 +94,11 @@ void	parse_input(void)
 	t_entry	*entry;
 
 	i = 0;
+	minis()->input->args = ft_split(mark_pipes(minis()->ms->line[i]));
 	while (minis()->ms->line[i])
 	{
+		//? before "extract_input" update the redirect type/file_name and remove them from the line (ex: "< infile echo hi > outfile there" becomes "echo hi there");
+		//parse_redirects(&minis()->input);
 		cmd = extract_input(minis()->ms->line, &i);
 		arg = extract_arg(minis()->ms->line, &i);
 		entry = hash_action(minis()->table, (t_entry){cmd, arg, NULL}, ENTER);
@@ -86,7 +107,7 @@ void	parse_input(void)
 		if (minis()->ms->line[i] == '|')
 			i++;
 		cpy_input(entry);
-		free_t_entry(entry);// ! Posible Invalid free because of parsing and expantions(in hugo's transform_str.c clean_content function)
+		free_t_entry(entry);// ! Posible Invalid free because of parsing and expantions(transform_str.c clean_content function)
 		free(cmd);
 		free(arg);
 	}
