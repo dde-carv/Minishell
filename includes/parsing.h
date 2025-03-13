@@ -36,10 +36,6 @@ typedef struct s_input
 
 // Function that processes and sets the arguments for an input command.
 void	args(t_input **input);
-// Frees the array of argument strings.
-void	free_args(char **args);
-// Frees the entire t_input linked list.
-void	free_t_input(t_input *input);
 // Parses the raw input string and builds the input linked list.
 void	parse_input(void);
 // Scans the input for redirection operators and constructs the corresponding file descriptors.

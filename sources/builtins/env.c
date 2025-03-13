@@ -76,6 +76,8 @@ void	set_env(char **env)
 	{
 		minis()->env = hash_env(env);
 		shlvl_update();
+		if (!hashmap_search(minis()->env, "PATH"))
+			insert_in_table("PATH", "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin", minis()->env);
 	}
 	else
 		minis()->env = create_hash_env();

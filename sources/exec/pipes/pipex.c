@@ -6,7 +6,7 @@
 /*   By: dde-carv <dde-carv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 13:05:09 by dde-carv          #+#    #+#             */
-/*   Updated: 2025/03/13 12:30:09 by dde-carv         ###   ########.fr       */
+/*   Updated: 2025/03/13 15:37:59 by dde-carv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,13 +84,13 @@ static t_input	*init_pipex(int argc, char **argv, char **envp)
 	pipex()->first = input;
 	return (input);
 } */
-
-void	ft_exec_pipex(t_input *input) // !!! DON'T forget to update the $_ variable after execution
+// !!! DON'T forget to update the $_ variable after execution
+void	ft_exec_pipex(t_input **input)
 {
 	t_input	*tmp;
 	char	**env;
 
-	tmp = input;
+	tmp = *input;
 	pipex()->paths = ft_get_paths();
 	while (tmp)
 	{
@@ -102,7 +102,6 @@ void	ft_exec_pipex(t_input *input) // !!! DON'T forget to update the $_ variable
 		//return (exit_pipex(tmp, 69)); // * Still need to work on this
 		tmp = tmp->next;
 	}
-	ft_printf("full cmd: %s\n", tmp->path);										//!!!!
 	env = hashmap_to_array();
 	/* if (father_son(input, env) == -1)
 		minis()->error_status = 1; //????? */

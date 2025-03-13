@@ -24,8 +24,8 @@ BUILTINS_DIR	=	$(SRC_DIR)builtins/env.c \
 
 EXEC_DIR		=	$(SRC_DIR)exec/executer.c \
 					$(SRC_DIR)exec/pipes/pipex.c \
-					$(SRC_DIR)exec/pipes/family.c \
 					$(SRC_DIR)exec/pipes/path_utils.c \
+#					$(SRC_DIR)exec/pipes/family.c \
 #					$(SRC_DIR)exec/fds.c
 
 HASHMAP_DIR		=	$(SRC_DIR)hashmap/hash.c \

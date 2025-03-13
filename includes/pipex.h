@@ -6,7 +6,7 @@
 /*   By: dde-carv <dde-carv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 11:18:46 by dde-carv          #+#    #+#             */
-/*   Updated: 2025/03/11 14:01:42 by dde-carv         ###   ########.fr       */
+/*   Updated: 2025/03/13 15:14:12 by dde-carv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,6 @@ void	here_doc_main(int argc, char **argv); */
 int		father_son(t_input *input, char **envp);
 char	*ft_check_path(char *cmd, char **paths);
 char	**ft_get_paths(void);
-void	ft_exec_pipex(t_input *input);
+void	ft_exec_pipex(t_input **input);
 
 #endif
