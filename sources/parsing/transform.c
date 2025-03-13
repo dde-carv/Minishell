@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-void	transform_str(void)
+void	transform_input(void)
 {
 	if (!is_valid())
 	{
@@ -9,6 +9,6 @@ void	transform_str(void)
 		return ;
 	}
 	clean_content();
-	if (minis()->input->cmd && *minis()->input->cmd)
-		execute();
+	/* if (minis()->input->cmd && *minis()->input->cmd)
+		execute(); */
 }
