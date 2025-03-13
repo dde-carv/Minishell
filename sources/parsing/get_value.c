@@ -25,6 +25,8 @@ char	*get_value(char *s)
 		{
 			if (s[i + 1] == '?')
 				return ("");
+			else if (s[i + 1] == '_')
+				return (hashmap_search(minis()->env, "_"));
 			j = i + 1;
 			while (s[j] && ft_isalnum(s[j])
 				&& (ft_isalpha(s[i + 1]) || s[i + 1] == '?'))

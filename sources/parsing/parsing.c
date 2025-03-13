@@ -67,6 +67,7 @@ static char	*extract_input(char *str, int *i)
 	cmd = ft_substr(str, start, *i - start);
 	return (cmd);
 }
+
 void	mark_pipes(char *c)
 {
 	int	i;
@@ -83,9 +84,6 @@ void	mark_pipes(char *c)
 	}
 }
 
-
-
-
 void	parse_input(void)
 {
 	int		i;
@@ -94,7 +92,8 @@ void	parse_input(void)
 	t_entry	*entry;
 
 	i = 0;
-	minis()->input->args = ft_split(mark_pipes(minis()->ms->line[i]));
+	/* mark_pipes(&minis()->ms->line[i]);
+	minis()->input->args = ft_split(minis()->ms->line, ' '); */
 	while (minis()->ms->line[i])
 	{
 		//? before "extract_input" update the redirect type/file_name and remove them from the line (ex: "< infile echo hi > outfile there" becomes "echo hi there");
@@ -107,7 +106,7 @@ void	parse_input(void)
 		if (minis()->ms->line[i] == '|')
 			i++;
 		cpy_input(entry);
-		free_t_entry(entry);// ! Posible Invalid free because of parsing and expantions(in hugo's transform_str.c clean_content function)
+		free_t_entry(entry);// ! Posible Invalid free because of parsing and expantions(in transform_str.c clean_content function)
 		free(cmd);
 		free(arg);
 	}

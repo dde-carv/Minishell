@@ -15,7 +15,7 @@ void	expantions(char **s)
 	{
 		update_quote_state(str[i], &in_quotes);
 		if (str[i] == '$' && (!in_quotes || in_quotes == '"')
-			&& str[i + 1] && (ft_isalpha(str[i + 1]) || str[i + 1] == '?'))
+			&& str[i + 1] && (ft_isalpha(str[i + 1]) || str[i + 1] == '?' || str[i + 1] == '_'))
 			str[i] = 2;
 	}
 }

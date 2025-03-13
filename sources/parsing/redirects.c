@@ -62,9 +62,9 @@ static char	*build_new_str(t_input *cmd, const char *s)
 			type = get_redirection_type(s, &i);
 			fname = extract_filename(s, &i);
 			ft_fd_add_back(&cmd->fd, ft_fd_new(fname, -1, type));
-			// skip over the redirection and filename
+			/* // skip over the redirection and filename
 			while (start <= i)
-				start++;
+				start++; */
 		}
 		else
 			new_str[ft_strlen(new_str)] = s[i];
