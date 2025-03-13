@@ -85,6 +85,7 @@ void	parse_redirection(t_input **cmd, char **str)
 
 void	parse_redirects(t_input **cmd)
 {
+	ft_printf("-->%s<--\n", (*cmd)->cmd);
 	if (has_redirection((*cmd)->cmd))
 		parse_redirection(cmd, &(*cmd)->cmd); //, &(*cmd)->arg // ! if there is a redirect in the command search the arg for the first pos for the file name (Ex: "< lol cat"; cmd: "<" arg: "lol cat"; you want to parse "< lol")
 	if (has_redirection((*cmd)->arg))
