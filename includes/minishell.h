@@ -106,8 +106,6 @@ void	ft_strjoin_to_array(char *str, char **array);
 void	print_array_fd(char **array, int fd);
 // Splites the string given by the first occurence of 'c'
 char	**split_into2(char *arg, char c);
-// Sets the sesion variables
-void	ft_sesh_vars(char *first, char **rest);
 
 /************************** error **************************/
 

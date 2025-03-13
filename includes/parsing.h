@@ -13,7 +13,7 @@ typedef enum s_type
 
 typedef struct s_fd
 {
-	int			fd[2];			// ! Can lead to problems keep an eye on this fd array
+	int			fd;
 	char		*file_n;
 	t_type		type;
 	struct s_fd	*next;
@@ -36,10 +36,6 @@ typedef struct s_input
 
 // Function that processes and sets the arguments for an input command.
 void	args(t_input **input);
-// Frees the array of argument strings.
-void	free_args(char **args);
-// Frees the entire t_input linked list.
-void	free_t_input(t_input *input);
 // Parses the raw input string and builds the input linked list.
 void	parse_input(void);
 // Scans the input for redirection operators and constructs the corresponding file descriptors.
@@ -49,7 +45,7 @@ void	update_quote_state(char c, char *in_quotes);
 // Cleans leading/trailing spaces and other unwanted characters from the input.
 void	clean_content(void);
 // Applies necessary transformations to the input string before execution.
-void	transform_str(void);
+void	transform_input(void);
 // Processes any environment variable expansions present in the string.
 void	expantions(char **s);
 // Replaces the expansion marker in the string with its actual value.

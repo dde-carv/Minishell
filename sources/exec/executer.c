@@ -54,5 +54,5 @@ void	execute(void)
 	if (ft_input_lstsize(&minis()->input) == 1 && is_builtin(minis()->input->cmd))
 		ft_exec_builtin(minis()->input->cmd, minis()->input->args);
 	else
-		ft_exec_pipex(minis()->input);					// TODO
+		ft_exec_pipex(&minis()->input);					// TODO
 }

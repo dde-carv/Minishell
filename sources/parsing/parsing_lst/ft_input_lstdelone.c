@@ -5,10 +5,9 @@ void	ft_input_lstdelone(t_input **lst)
 	t_input	*temp;
 
 	temp = *lst;
-	if (temp->arg)
-		free(temp->arg);
-	if (temp->cmd)
-		free(temp->cmd);
-	free_args(temp->args);
+	free_pointer(temp->cmd);
+	free_pointer(temp->arg);
+	free_pointer(temp->path);
+	free_array(temp->args);
 	free(temp);
 }

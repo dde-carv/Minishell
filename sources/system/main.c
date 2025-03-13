@@ -43,7 +43,7 @@ int	main(int ac, char **av, char **env)
 			current_input = current_input->next;
 		}
 
-		transform_str();
+		transform_input();
 
 		// Print the cleaned commands for verification
 		ft_printf("\nAfter transform:\n");

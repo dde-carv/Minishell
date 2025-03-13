@@ -44,13 +44,13 @@ int	handle_fd(t_input **input)
 	{
 		//take_quotes(&fd->file_n); // !! Can create problems if expansions don't take all the quotes
 		if (fd->type == TRUNCATE)
-			fd->fd[1] = open(fd->file_n, O_CREAT | O_TRUNC | O_WRONLY, 0644);
+			fd->fd = open(fd->file_n, O_CREAT | O_TRUNC | O_WRONLY, 0644);
 		if (fd->type == APPEND)
-			fd->fd[1] = open(fd->file_n, O_CREAT | O_APPEND | O_WRONLY, 0664);
+			fd->fd = open(fd->file_n, O_CREAT | O_APPEND | O_WRONLY, 0664);
 		if (fd->type == REVERSE)
-			fd->fd[0] = open(fd->file_n, O_RDONLY, 0644);
+			fd->fd = open(fd->file_n, O_RDONLY, 0644);
 		if (fd->type == HEREDOC)
-			fd->fd[0] = 42000;
+			fd->fd = 42000;
 		if (fd->fd == -1)
 			break ;
 		fd = fd->next;

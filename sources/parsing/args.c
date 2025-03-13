@@ -36,8 +36,8 @@ static void	join_args(t_input **input, char **s)
 	j = 0;
 	while (s[j++])
 		str[i++] = ft_strdup(s[j]);
-	free_args(s);
-	free_args((*input)->args);
+	free_array(s);
+	free_array((*input)->args);
 	(*input)->args = str;
 }
 
@@ -56,34 +56,4 @@ void	args(t_input **input)
 	free(s[i]);
 	free(s);
 	join_args(input, split_value((*input)->arg));
-}
-
-void	free_args(char **args)
-{
-	int	i;
-
-	if (!args)
-		return ;
-	i = 0;
-	while (args[i])
-	{
-		free(args[i]);
-		i++;
-	}
-	free(args);
-}
-
-void	free_t_input(t_input *input)
-{
-	if (input->cmd)
-		free(input->cmd);
-	if (input->arg)
-		free(input->arg);
-	if (input->path)
-		free(input->path);
-	if (input->args)
-		free_array(input->args);
-	if (input->next)
-		free_t_input(input->next);
-	free(input);
 }

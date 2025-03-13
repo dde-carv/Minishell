@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-void	transform_str(void)
+void	transform_input(void)
 {
 	if (!is_valid())
 	{

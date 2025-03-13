@@ -9,7 +9,6 @@ static char	*ft_gethome(char *path)
 	partial_path = ft_substr(path, 1, ft_strlen(path));
 	full_path = ft_strjoin(hashmap_search(minis()->env, "HOME"), partial_path);
 	free(partial_path);
-	ft_printf("%s\n", full_path);
 	return (full_path);
 }
 
@@ -93,7 +92,7 @@ void	ft_cd(char *path)
 	free(current_path);
 }
 
-void	ft_verify_cd(char **path) // protect to if file is put to trash
+void	ft_verify_cd(char **path) // !! Need to protect if the folder is deleted
 {
 	minis()->error_status = 0;
 	if (array_len(path) >= 1)
