@@ -88,8 +88,8 @@ void	ft_unset(char **args);
 int		ft_export(char **args);
 // Function that creates a prompt, reads a line and add it to the history
 void	set_input(void);
-// Function that will print env variables
-void	print_env(int fd);
+// Function that verifies if arguments are valid for env
+void	ft_verify_env(char **args);
 // Function that verifies if arguments are valid for cd
 void	ft_verify_cd(char **path);
 // Puts env and session vars hashmaps into an array
