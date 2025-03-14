@@ -17,6 +17,6 @@ void	free_array(char **array)
 		i = -1;
 		while (array[++i])
 			free(array[i]);
-		free(array);
 	}
+	free(array);
 }
