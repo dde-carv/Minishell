@@ -68,7 +68,7 @@ static char	*extract_input(char *str, int *i)
 	return (cmd);
 }
 
-void	mark_pipes(char *str)
+/* void	mark_pipes(char *str)
 {
 	int	i;
 	int	s;
@@ -82,7 +82,7 @@ void	mark_pipes(char *str)
 		if (!str && str[i] == '|')
 			str[i] = 2;
 	}
-}
+} */
 
 void	parse_input(void)
 {

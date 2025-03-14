@@ -43,14 +43,14 @@ static char	*build_new_str(t_input *cmd, const char *s)
 {
 	t_type	type;
 	int		i;
-	int		start;
+	//int		start;
 	char	in_quotes;
 	char	*new_str;
 	char	*fname;
 
 	i = -1;
 	in_quotes = 0;
-	start = 0;
+	//start = 0;
 	new_str = ft_calloc(ft_strlen(s) + 1, sizeof(char));
 	if (!new_str)
 		exit(1);

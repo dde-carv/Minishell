@@ -4,19 +4,25 @@
 void	free_pointer(char *str)
 {
 	if (str)
+	{
 		free(str);
-	str = NULL;
+		str = NULL;
+	}
 }
 
 void	free_array(char **array)
 {
 	int	i;
 
-	if (*array)
+	if (array)
 	{
 		i = -1;
-		while (array[++i])
-			free(array[i]);
+		if (array[0])
+		{
+			while (array[++i])
+				free_pointer(array[i]);
+		}
+		free(array);
+		array = NULL;
 	}
-	free(array);
 }

@@ -39,7 +39,7 @@ void	args(t_input **input);
 // Parses the raw input string and builds the input linked list.
 void	parse_input(void);
 // Scans the input for redirection operators and constructs the corresponding file descriptors.
-void	parse_redirects(char *line);
+void	parse_redirects(t_input **cmd);
 // Updates the quote state.
 void	update_quote_state(char c, char *in_quotes);
 // Cleans leading/trailing spaces and other unwanted characters from the input.
