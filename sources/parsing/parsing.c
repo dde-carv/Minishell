@@ -68,19 +68,19 @@ static char	*extract_input(char *str, int *i)
 	return (cmd);
 }
 
-void	mark_pipes(char *c)
+void	mark_pipes(char *str)
 {
 	int	i;
 	int	s;
 
 	s = 0;
 	i = -1;
-	while(c[++i])
+	while(str[++i])
 	{
-		if (c[i] == '"' || c[i] == '\'')
-			s = c[i];
-		if (!c && c[i] == '|')
-			c[i] = 2;
+		if (str[i] == '"' || str[i] == '\'')
+			s = str[i];
+		if (!str && str[i] == '|')
+			str[i] = 2;
 	}
 }
 
@@ -96,7 +96,7 @@ void	parse_input(void)
 	minis()->input->args = ft_split(minis()->ms->line, ' '); */
 	while (minis()->ms->line[i])
 	{
-		//? before "extract_input" update the redirect type/file_name and remove them from the line (ex: "< infile echo hi > outfile there" becomes "echo hi there");
+		//? before "cmd = extract_input(minis()->ms->line, &i)" update the redirect type/file_name into the t_fd struct and then remove them from the line (ex: "< infile echo hi > outfile there" becomes "echo hi there");
 		//parse_redirects(&minis()->input);
 		cmd = extract_input(minis()->ms->line, &i);
 		arg = extract_arg(minis()->ms->line, &i);

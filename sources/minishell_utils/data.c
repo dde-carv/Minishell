@@ -13,11 +13,12 @@ t_global	*minis(void)
 	static t_minishell	ms;
 	static t_hashmap	env;
 	static t_hashmap	non_value_vars;
+	static t_input		input;
 
 	if (!data.ms)
 	{
 		data.ms = &ms;
-		data.input = NULL;
+		data.input = &input;
 		data.env = &env;
 		data.non_value_vars = &non_value_vars;
 	}
