@@ -57,7 +57,7 @@ t_input	*ft_newcmd(char *cmd, char *path, int is_last)
 static char	*full_path(char *cmd)
 {
 	if (access(cmd, F_OK | X_OK) == 0)
-		return (ft_strdup(cmd));
+		return (cmd);
 	error_mess(cmd, NO_FILE_OR_DIR, 127);
 	return (NULL);
 }
