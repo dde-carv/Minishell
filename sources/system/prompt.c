@@ -60,7 +60,6 @@ void	set_input(void)
 	free(minis()->ms->promp);
 	if ((minis()->ms->line) == NULL)
 	{
-		minis()->error_status = 0;
 		ft_printf("exit\n");
 		exit_minishell();
 	}
