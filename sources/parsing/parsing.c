@@ -92,12 +92,8 @@ void	parse_input(void)
 	t_entry	*entry;
 
 	i = 0;
-	/* mark_pipes(&minis()->ms->line[i]);
-	minis()->input->args = ft_split(minis()->ms->line, ' '); */
 	while (minis()->ms->line[i])
 	{
-		//? before "cmd = extract_input(minis()->ms->line, &i)" update the redirect type/file_name into the t_fd struct and then remove them from the line (ex: "< infile echo hi > outfile there" becomes "echo hi there");
-		//parse_redirects(&minis()->input);
 		cmd = extract_input(minis()->ms->line, &i);
 		arg = extract_arg(minis()->ms->line, &i);
 		entry = hash_action(minis()->table, (t_entry){cmd, arg, NULL}, ENTER);

@@ -55,6 +55,7 @@ PARSING_DIR		=	$(SRC_DIR)parsing/args.c \
 					$(SRC_DIR)parsing/bools.c \
 					$(SRC_DIR)parsing/clean_content.c \
 					$(SRC_DIR)parsing/parsing_lst/ft_fd_new.c \
+					$(SRC_DIR)parsing/parsing_lst/ft_fd_del.c \
 					$(SRC_DIR)parsing/parsing_lst/ft_fd_add_back.c \
 					$(SRC_DIR)parsing/parsing_lst/ft_input_lstnew.c \
 					$(SRC_DIR)parsing/parsing_lst/ft_input_lstsize.c \

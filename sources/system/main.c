@@ -10,6 +10,15 @@
 	line_split = ft_split(line, ' ');
 } */
 
+void print_fds(t_fd *fd)
+{
+	while (fd)
+	{
+		ft_printf("File: %s, FD: %d, Type: %d\n", fd->file_n, fd->fd, fd->type);
+		fd = fd->next;
+	}
+}
+
 int	main(int ac, char **av, char **env)
 {
 	(void)av;
@@ -56,6 +65,24 @@ int	main(int ac, char **av, char **env)
 			current_input = current_input->next;
 		}
 
+		// Test environment for parse_redirects
+		ft_printf("\n=== Test redirects ===\n");
+		current_input = minis()->input;
+		while (current_input)
+		{
+			ft_printf("\nBefore parse_redirects:\n");
+			ft_printf("Command: %s, Argument: %s\n",
+				current_input->cmd, current_input->arg);
+
+			parse_redirects(&current_input);
+
+			ft_printf("\nAfter parse_redirects:\n");
+			ft_printf("Command: %s, Argument: %s\n",
+				current_input->cmd, current_input->arg);
+			print_fds(current_input->fd);
+			current_input = current_input->next;
+		}
+
 		//if (!ft_strcmp(minis()->ms->line, "exit")
 		//	&& (ft_strlen(minis()->ms->line)) == 4)
 		//	break;
@@ -73,5 +100,5 @@ int	main(int ac, char **av, char **env)
 
 // valgrind --suppressions=readline.supp --show-leak-kinds=all --leak-check=full --track-origins=yes ./minishell
 
-
-/* echo "pwd $HOME" | whoami | uname -a | echo Hello, $USER | curl --version | echo "Shell: $SHELL'" | echo "Path: $PATH, Home: '$HOME'" | echo "Hello, World!" | echo $? | echo $_*/
+// echo "pwd $HOME" | whoami | uname -a | echo Hello, $USER | curl --version | echo "Shell: $SHELL'" | echo "Path: $PATH, Home: '$HOME'" | echo "Hello, World!" | echo $? | echo $_
+// < infile echo hello > outfile world
