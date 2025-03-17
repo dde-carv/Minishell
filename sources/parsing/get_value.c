@@ -24,7 +24,7 @@ char	*get_value(char *s)
 		if (s[i] == 2)
 		{
 			if (s[i + 1] == '?')
-				return ("");
+				return ("   ");
 			else if (s[i + 1] == '_')
 				return (hashmap_search(minis()->env, "_"));
 			j = i + 1;

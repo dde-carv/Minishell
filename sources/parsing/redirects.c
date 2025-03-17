@@ -43,14 +43,12 @@ static char	*build_new_str(t_input *cmd, const char *s)
 {
 	t_type	type;
 	int		i;
-	//int		start;
 	char	in_quotes;
 	char	*new_str;
 	char	*fname;
 
 	i = -1;
 	in_quotes = 0;
-	//start = 0;
 	new_str = ft_calloc(ft_strlen(s) + 1, sizeof(char));
 	if (!new_str)
 		exit(1);
@@ -62,9 +60,7 @@ static char	*build_new_str(t_input *cmd, const char *s)
 			type = get_redirection_type(s, &i);
 			fname = extract_filename(s, &i);
 			ft_fd_add_back(&cmd->fd, ft_fd_new(fname, -1, type));
-			/* // skip over the redirection and filename
-			while (start <= i)
-				start++; */
+			//free(fname);
 		}
 		else
 			new_str[ft_strlen(new_str)] = s[i];
@@ -90,68 +86,28 @@ void	parse_redirection(t_input **cmd, char **str)
 
 void	parse_redirects(t_input **cmd)
 {
-	// ft_printf("-->%s<--\n", (*cmd)->cmd);
-	if (has_redirection((*cmd)->cmd))
-		parse_redirection(cmd, &(*cmd)->cmd); //, &(*cmd)->arg // ! if there is a redirect in the command search the arg for the first pos for the file name (Ex: "< lol cat"; cmd: "<" arg: "lol cat"; you want to parse "< lol")
-	if (has_redirection((*cmd)->arg))
-		parse_redirection(cmd, &(*cmd)->arg);
-}
+	char	*combined_str;
+	char	*processed_str;
+	char	*space_pos;
 
-/* static void	parse_redirection(t_input **cmd, char **str)
-{
-	char	in_quotes;
-	char	*new_str;
-	char	*redir;
-	t_type	type;
-	int		new_str_len;
-	int		start;
-	int		i;
-
-	i = 0;
-	in_quotes = 0;
-	new_str_len = ft_strlen(*str);
-	new_str = ft_calloc(new_str_len + 1, sizeof(char));
-	if (!new_str)
-		exit(1);
-	while ((*str)[i])
+	combined_str = ft_strjoin_var(3, (*cmd)->cmd, " ", (*cmd)->arg);
+	processed_str = build_new_str(*cmd, combined_str);
+	free(combined_str);
+	space_pos = ft_strchr(processed_str, ' ');
+	if (space_pos)
 	{
-		update_quote_state(*str[i], &in_quotes);
-		if (((*str)[i] == '<' || (*str)[i] == '>') && !in_quotes)
-		{
-			start = i;
-			if ((*str)[i] == '>' && (*str)[i + 1] == '>')
-			{
-				type = APPEND;
-				i++;
-			}
-			else if ((*str)[i] == '<' && (*str)[i + 1] == '<')
-			{
-				type = HEREDOC;
-				i++;
-			}
-			else if ((*str)[i] == '>')
-				type = TRUNCATE;
-			else
-				type = REVERSE;
-			i++;
-			while ((*str)[i] == ' ')
-				i++;
-			start = i;
-			while ((*str)[i] && (*str)[i] != ' '
-				&& (*str)[i] != '<' && (*str)[i] != '>')
-				i++;
-			redir = ft_substr(*str, start, i - start);
-			ft_fd_add_back(&(*cmd)->fd, ft_fd_new(redir, -1, type));
-		}
-		else
-		{
-			new_str[ft_strlen(new_str)] = (*str)[i];
-			i++;
-		}
+		*space_pos = '\0';
+		free((*cmd)->cmd);
+		(*cmd)->cmd = ft_strdup(processed_str);
+		free((*cmd)->arg);
+		(*cmd)->arg = ft_strdup(space_pos + 1);
 	}
-	free(*str);
-	i = ft_strlen(new_str) - 1;
-	while (i > 0 && new_str[i] == ' ')
-		new_str[i--] = 0;
-	*str = new_str;
-} */
+	else
+	{
+		free((*cmd)->cmd);
+		(*cmd)->cmd = ft_strdup(processed_str);
+		free((*cmd)->arg);
+		(*cmd)->arg = ft_strdup("");
+	}
+	free(processed_str);
+}

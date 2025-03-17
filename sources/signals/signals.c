@@ -1,12 +1,3 @@
-#ifdef __APPLE__
-int rl_replace_line(const char *text, int clear_undo)
-{
-	(void)text;
-	(void)clear_undo;
-	return 0;
-}
-#endif
-
 #include "minishell.h"
 
 //extern int rl_replace_line(const char *text, int clear_undo);
@@ -28,10 +19,10 @@ void	sig_handler(int signum, siginfo_t *sig, void *s)
 	(void)sig;
 	if (signum == SIGINT)
 	{
-		rl_replace_line("", 0);
-		ft_printf("\n");
+		rl_replace_line("", 0); // It clears the current input line
+		ft_printf("\n"); // It prints a newline
 		rl_on_new_line();
-		rl_redisplay();
+		rl_redisplay(); // It updates the readline display
 		minis()->signal = 1;
 		minis()->error_status = 130;
 	}

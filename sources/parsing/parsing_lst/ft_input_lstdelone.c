@@ -9,5 +9,6 @@ void	ft_input_lstdelone(t_input **lst)
 	free_pointer(temp->arg);
 	free_pointer(temp->path);
 	free_array(temp->args);
+	ft_fd_del(&temp->fd);
 	free(temp);
 }
