@@ -9,6 +9,6 @@ void	transform_input(void)
 		return ;
 	}
 	clean_content();
-	if (minis()->input->cmd && *minis()->input->cmd)
-		execute();
+	/* if (minis()->input->cmd && *minis()->input->cmd)
+		execute(); */
 }
