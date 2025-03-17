@@ -65,7 +65,7 @@ int	main(int ac, char **av, char **env)
 			current_input = current_input->next;
 		}
 
-		// Test environment for parse_redirects
+	/* 	// Test environment for parse_redirects
 		ft_printf("\n=== Test redirects ===\n");
 		current_input = minis()->input;
 		while (current_input)
@@ -81,7 +81,7 @@ int	main(int ac, char **av, char **env)
 				current_input->cmd, current_input->arg);
 			print_fds(current_input->fd);
 			current_input = current_input->next;
-		}
+		} */
 
 		//if (!ft_strcmp(minis()->ms->line, "exit")
 		//	&& (ft_strlen(minis()->ms->line)) == 4)

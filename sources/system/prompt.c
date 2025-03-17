@@ -51,16 +51,19 @@ void	set_input(void)
 		free(last);
 		last = ft_strdup("~");
 	}
-	if (minis()->error_status == 0)
-		full_promp = ft_strjoin_var(5, BOLD_CYAN, last, BOLD_YELLOW, " $ ", RESET_COLOR);
-	else
-		full_promp = ft_strjoin_var(5, BOLD_CYAN, last, BOLD_RED, " $ ", RESET_COLOR);
+	full_promp = ft_strjoin_var(5, BOLD_CYAN, last, BOLD_YELLOW, " $ ", RESET_COLOR);
 	minis()->ms->promp = ft_strdup(full_promp);
 	free(last);
 	free(last_HOME);
 	minis()->ms->line = readline(minis()->ms->promp);
 	free(full_promp);
 	free(minis()->ms->promp);
+	if ((minis()->ms->line) == NULL)
+	{
+		minis()->error_status = 0;
+		ft_printf("exit\n");
+		exit_minishell();
+	}
 	if (*(minis()->ms->line) != '\0')
 		add_history(minis()->ms->line);
 }

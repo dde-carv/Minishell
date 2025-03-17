@@ -15,7 +15,8 @@ void	expantions(char **s)
 	{
 		update_quote_state(str[i], &in_quotes);
 		if (str[i] == '$' && (!in_quotes || in_quotes == '"')
-			&& str[i + 1] && (ft_isalpha(str[i + 1]) || str[i + 1] == '?' || str[i + 1] == '_'))
+			&& str[i + 1] && (ft_isalnum(str[i + 1])
+			|| str[i + 1] == '?' || str[i + 1] == '_'))
 			str[i] = 2;
 	}
 }
@@ -36,7 +37,14 @@ static void	expand_error_status(char **sp, char *new, int *j)
 static void	expand_value(char **sp, char *new, int *j, char *value)
 {
 	while (**sp && (ft_isalnum(**sp) || **sp == '_' || **sp == '?'))
+	{
+		if (ft_isdigit(**sp))
+		{
+			(*sp)++;
+			break ;
+		}
 		(*sp)++;
+	}
 	while (*value)
 		new[(*j)++] = *value++;
 }

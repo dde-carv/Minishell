@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   path_utils.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: dde-carv <dde-carv@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/06 11:54:40 by dde-carv          #+#    #+#             */
-/*   Updated: 2025/03/13 15:41:03 by dde-carv         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../../../includes/pipex.h"
 
 /* static t_input	*ft_lastcmd(t_input *input)
@@ -69,7 +57,7 @@ t_input	*ft_newcmd(char *cmd, char *path, int is_last)
 static char	*full_path(char *cmd)
 {
 	if (access(cmd, F_OK | X_OK) == 0)
-			return (cmd);
+		return (ft_strdup(cmd));
 	error_mess(cmd, NO_FILE_OR_DIR, 127);
 	return (NULL);
 }
