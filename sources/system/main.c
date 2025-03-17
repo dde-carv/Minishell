@@ -83,9 +83,9 @@ int	main(int ac, char **av, char **env)
 			current_input = current_input->next;
 		}
 
-		//if (!ft_strcmp(minis()->ms->line, "exit")
-		//	&& (ft_strlen(minis()->ms->line)) == 4)
-		//	break;
+		if (!ft_strcmp(minis()->ms->line, "exit")
+		&& (ft_strlen(minis()->ms->line)) == 4)
+			break;
 
 		//ft_printf("\n=== exec built ===\n");
 		// start_minishell(...); // TODO: this is to innitialize and start important things
