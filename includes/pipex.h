@@ -6,7 +6,7 @@
 /*   By: dde-carv <dde-carv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 11:18:46 by dde-carv          #+#    #+#             */
-/*   Updated: 2025/03/14 11:52:50 by dde-carv         ###   ########.fr       */
+/*   Updated: 2025/03/17 10:34:00 by dde-carv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,14 @@
 	struct s_cmd	*prev;
 }		t_cmd; */
 
-typedef struct s_pipe
+typedef struct s_fds
 {
 	int			fd[2];
+}		t_fds;
+
+typedef struct s_pipe
+{
+	t_fds		*fds;
 	int			pid;
 	int			flag;
 	int			fd_in;
