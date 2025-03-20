@@ -28,7 +28,7 @@ int	main(int ac, char **av, char **env)
 	set_env(env);
 
 	// Disable readline's own signal handlers.
-	//rl_catch_signals = 0;
+	rl_catch_signals = 0;
 	// Install our own handlers once.
 	load_signals();
 	minis()->error_status = 0;

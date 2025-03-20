@@ -21,31 +21,32 @@ static t_type	get_redirection_type(const char *str, int *i)
 	return (type);
 }
 
-static char	*extract_filename(const char *s, int *i)
+static void	handle_redirection(t_input *cmd, const char *s, int *i)
 {
+	t_type	type;
+	char	*fname;
 	int		start;
 	int		len;
-	char	*fname;
 
-	while (s[*i] && (s[*i] == ' '
-		|| s[*i] == '<' || s[*i] == '>'))
+	type = get_redirection_type(s, i);
+	while (s[*i] && (s[*i] == ' ' || s[*i] == '<' || s[*i] == '>'))
 		(*i)++;
 	start = *i;
-	while (s[*i] && s[*i] != ' '
-		&& s[*i] != '<' && s[*i] != '>')
+	while (s[*i] && s[*i] != ' ' && s[*i] != '<' && s[*i] != '>')
 		(*i)++;
 	len = *i - start;
 	fname = ft_substr(s, start, len);
-	return (fname);
+	ft_fd_add_back(&cmd->fd, ft_fd_new(fname, -1, type));
+	while (s[*i] && s[*i] == ' ')
+		(*i)++;
+	(*i)--;
 }
 
 static char	*build_new_str(t_input *cmd, const char *s)
 {
-	t_type	type;
 	int		i;
 	char	in_quotes;
 	char	*new_str;
-	char	*fname;
 
 	i = -1;
 	in_quotes = 0;
@@ -54,19 +55,12 @@ static char	*build_new_str(t_input *cmd, const char *s)
 		exit(1);
 	while (s[++i])
 	{
-		ft_printf("<-- %c -->", s[i]);
 		update_quote_state(s[i], &in_quotes);
 		if ((s[i] == '<' || s[i] == '>') && !in_quotes)
-		{
-			type = get_redirection_type(s, &i);
-			fname = extract_filename(s, &i);
-			ft_fd_add_back(&cmd->fd, ft_fd_new(fname, -1, type));
-			//free(fname);
-		}
+			handle_redirection(cmd, s, &i);
 		else
 			new_str[ft_strlen(new_str)] = s[i];
 	}
-	new_str[ft_strlen(new_str)] = '\0';
 	return (new_str);
 }
 

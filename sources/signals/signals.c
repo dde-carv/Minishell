@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-//extern int rl_replace_line(const char *text, int clear_undo);
+int			g_sig = 0;
 
 void	load_signals(void)
 {
@@ -10,7 +10,21 @@ void	load_signals(void)
 	sig.sa_flags = SA_SIGINFO | SA_RESTART;
 	sig.sa_sigaction = sig_handler;
 	sigaction(SIGINT, &sig, NULL);
-	signal(SIGQUIT, SIG_IGN);
+	if (minis()->signal == 1)
+		signal(SIGQUIT, SIG_IGN);
+	if (minis()->signal == 2)
+	{
+		sig.sa_sigaction = sig_handler_here;
+		sigaction(SIGINT, &sig, NULL);
+		signal(SIGQUIT, SIG_IGN);
+	}
+	if (minis()->signal == 3)
+	{
+		sig.sa_sigaction = sig_handler_pipe;
+		sigaction(SIGINT, &sig, NULL);
+		sigaction(SIGQUIT, &sig, NULL);
+	}
+	rl_event_hook = 0;
 }
 
 void	sig_handler(int signum, siginfo_t *sig, void *s)
@@ -19,12 +33,11 @@ void	sig_handler(int signum, siginfo_t *sig, void *s)
 	(void)sig;
 	if (signum == SIGINT)
 	{
-		rl_replace_line("", 0); // It clears the current input line
-		ft_printf("\n"); // It prints a newline
+		rl_replace_line("", 0);
+		ft_printf("\n");
 		rl_on_new_line();
-		rl_redisplay(); // It updates the readline display
+		rl_redisplay();
 		minis()->signal = 1;
-		minis()->error_status = 130;
 	}
 	if (signum == SIGQUIT)
 		return ;
@@ -36,12 +49,25 @@ void	sig_handler_here(int signum, siginfo_t *sig, void *s)
 	(void)sig;
 	if (signum == SIGINT)
 	{
-		rl_replace_line("", 0);
-		rl_on_new_line();
-		rl_redisplay();
-		minis()->signal = 1;
-		minis()->error_status = 130;
+		g_sig = 1;
+		rl_done = 1;
 	}
 	if (signum == SIGQUIT)
 		return ;
+}
+
+void	sig_handler_pipe(int signum, siginfo_t *sig, void *s)
+{
+	(void)s;
+	(void)sig;
+	if (signum == SIGINT)
+	{
+		ft_putstr_fd("\n", STDOUT_FILENO);
+		minis()->error_status = 130;
+	}
+	if (signum == SIGQUIT)
+	{
+		ft_putstr_fd("Quit (core dumped)\n", STDOUT_FILENO);
+		minis()->error_status = 131;
+	}
 }
