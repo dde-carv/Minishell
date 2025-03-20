@@ -6,7 +6,7 @@
 /*   By: dde-carv <dde-carv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 11:18:46 by dde-carv          #+#    #+#             */
-/*   Updated: 2025/03/19 16:19:53 by dde-carv         ###   ########.fr       */
+/*   Updated: 2025/03/20 14:43:59 by dde-carv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,13 @@ typedef struct s_fds
 typedef struct s_pipe
 {
 	t_fds		*fds;
+	size_t		argc;
 	int			*pids;
-	int			argc;
 	int			flag;
 //	int			fd_in;
 //	int			fd_out;
-	char		**paths;
+	char		**cmd_paths;
+	char		**env_paths;
 }		t_pipe;
 
 /* t_pipe	*data(void);
@@ -57,7 +58,8 @@ void	here_doc_main(int argc, char **argv); */
 
 int		ft_father_son(t_input *input, char **envp);
 char	*ft_check_path(char *cmd, char **paths);
-char	**ft_get_paths(void);
-void	ft_exec_pipex(t_input **input);
+void	get_cmd_path(t_pipe *pipex, t_input *input);
+char	**ft_get_env_paths(void);
+void	ft_exec_pipex(void);
 
 #endif

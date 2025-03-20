@@ -7,7 +7,7 @@ static void	print_env(int fd)
 
 	env_array = hashmap_to_array();
 	print_array_fd(env_array, fd);
-	free_array(env_array);
+	free_array((void **)env_array);
 }
 
 void	ft_verify_env(char **args)

@@ -1,12 +1,5 @@
 #include "minishell.h"
 
-t_pipe	*pipex(void)
-{
-	static t_pipe	pipex;
-
-	return (&pipex);
-}
-
 t_global	*minis(void)
 {
 	static t_global		data;
