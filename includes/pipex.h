@@ -6,7 +6,7 @@
 /*   By: dde-carv <dde-carv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 11:18:46 by dde-carv          #+#    #+#             */
-/*   Updated: 2025/03/17 11:34:42 by dde-carv         ###   ########.fr       */
+/*   Updated: 2025/03/19 16:19:53 by dde-carv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,11 @@ typedef struct s_fds
 typedef struct s_pipe
 {
 	t_fds		*fds;
-	int			pid;
+	int			*pids;
+	int			argc;
 	int			flag;
-	int			fd_in;
-	int			fd_out;
+//	int			fd_in;
+//	int			fd_out;
 	char		**paths;
 }		t_pipe;
 
