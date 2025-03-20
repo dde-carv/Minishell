@@ -36,8 +36,8 @@ static void	join_args(t_input **input, char **s)
 	j = 0;
 	while (s[j++])
 		str[i++] = ft_strdup(s[j]);
-	free_array(s);
-	free_array((*input)->args);
+	free_array((void **)s);
+	free_array((void **)(*input)->args);
 	(*input)->args = str;
 }
 

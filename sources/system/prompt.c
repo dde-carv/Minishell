@@ -15,7 +15,7 @@ static char	*ft_get_last(char *path)
 	i = -1;
 	while (prompt[++i]);
 	last = ft_strdup(prompt[i - 1]);
-	free_array(prompt);
+	free_array((void **)prompt);
 	return (last);
 }
 

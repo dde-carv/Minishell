@@ -82,7 +82,37 @@ char	*ft_check_path(char *cmd, char **paths)
 	return (NULL);
 }
 
-char	**ft_get_paths()
+static char	*get_cmd(t_input *n, int i)
+{
+	t_input	*tmp;
+	int		j;
+
+	tmp = n;
+	j = -1;
+	while (++j < i && tmp)
+		tmp = tmp->next;
+	if (!tmp)
+		return (NULL);
+	return (tmp->cmd);
+}
+
+void	get_cmd_path(t_pipe *pipex, t_input *input)
+{
+	int	i;
+	int	n;
+
+	i = 0;
+	n = ft_input_lstsize(&input);
+	while (i < n)
+	{
+		pipex->cmd_paths[i] = ft_check_path(get_cmd(input, i), pipex->env_paths);
+		i++;
+	}
+	pipex->cmd_paths[i] = NULL;
+	print_array_fd(pipex->cmd_paths, 1);
+}
+
+char	**ft_get_env_paths()
 {
 	char	**paths;
 

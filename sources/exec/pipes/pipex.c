@@ -6,7 +6,7 @@
 /*   By: dde-carv <dde-carv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 13:05:09 by dde-carv          #+#    #+#             */
-/*   Updated: 2025/03/19 16:17:41 by dde-carv         ###   ########.fr       */
+/*   Updated: 2025/03/20 16:14:09 by dde-carv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,27 +85,49 @@ static t_input	*init_pipex(int argc, char **argv, char **envp)
 	return (input);
 } */
 
-static void	init_pipex()
+/* static void	init_pipex(t_pipe *pipex)
 {
-	pipex()->paths = ft_get_paths();
-}
+	int	i;
+
+	pipex->env_paths = ft_get_env_paths();
+	pipex->argc = ft_input_lstsize(&minis()->input);
+	pipex->pids = ft_calloc(sizeof(size_t), pipex->argc);
+	if (!pipex->pids)
+		return ;
+	pipex->cmd_paths = ft_calloc(sizeof(char *), pipex->argc);
+	if (!pipex->cmd_paths)
+		return (free(pipex->pids));
+	i = pipex->argc;
+	if (i > 1)
+		i -= 1;
+	pipex->fds = ft_calloc(sizeof(t_fds), i);
+	if (!pipex->fds)
+		return (free(pipex->pids), free(pipex->cmd_paths));
+	get_cmd_path(pipex, minis()->input);
+	//ft_printf("input lst size: %d\n", pipex->argc);
+} */
 
 // !!! DON'T forget to update the $_ variable after execution
-void	ft_exec_pipex(t_input **input)
+void	ft_exec_pipex(void)
 {
-	t_input	*tmp;
+	//t_input	*tmp;
+	t_pipe	pipex;
 	char	**env;
 
-	tmp = *input;
-	init_pipex();
-	while (tmp)
+	pipex = (t_pipe){0};
+	/* if (!check_for_hd(minis()->input))
+		return ; */
+	//init_pipex(&pipex); //? If enougth lines also allocate the command paths
+/* 	while (tmp)
 	{
-		tmp->path = ft_check_path(tmp->cmd, pipex()->paths);
+		tmp->path = ft_check_path(tmp->cmd, pipex.env_paths);
 		tmp = tmp->next;
-	}
+	} */
 	env = hashmap_to_array();
 	/* if (ft_father_son(input, env) == -1)
 		minis()->error_status = 1; //????? */
-	free_array(pipex()->paths);
-	free_array(env);
+	/* free_array((void **)pipex.env_paths);
+	free_array((void **)pipex.cmd_paths);
+	free_array((void **)pipex.pids); */
+	free_array((void **)env);
 }

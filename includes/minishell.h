@@ -43,9 +43,9 @@ typedef struct s_global
 // Exits the program in a clean way
 void	exit_minishell(void);
 // Frees any char type array given
-void	free_array(char **array);
+void	free_array(void **array);
 // Frees any char type string given
-void	free_pointer(char *str);
+void	free_pointer(void *str);
 
 /*************************** env ***************************/
 
@@ -62,8 +62,6 @@ t_hashmap	*create_hash_env(void);
 
 // Function that calls "global" struct
 t_global	*minis(void);
-// Function that calls "pipe" struct
-t_pipe	*pipex(void);
 
 /************************ executer *************************/
 
