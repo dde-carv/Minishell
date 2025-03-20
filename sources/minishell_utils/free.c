@@ -1,7 +1,7 @@
 
 #include "minishell.h"
 
-void	free_pointer(char *str)
+void	free_pointer(void *str)
 {
 	if (str)
 	{
@@ -10,7 +10,7 @@ void	free_pointer(char *str)
 	}
 }
 
-void	free_array(char **array)
+void	free_array(void **array)
 {
 	int	i;
 

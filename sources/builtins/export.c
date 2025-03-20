@@ -19,7 +19,7 @@ static int	print_export(void)
 	quick_sort(export, 0, array_len(export));
 	ft_strjoin_to_array("declare -x ", export);
 	print_array_fd(export, 1);
-	free_array(export);
+	free_array((void **)export);
 	return(0);
 }
 
@@ -47,7 +47,7 @@ static void	add_to_env(char *arg)
 	if (hashmap_search(minis()->env, values[0]))
 		hashmap_delete(minis()->env, values[0]);
 	insert_in_table(values[0], values[1], minis()->env);
-	free_array(values);
+	free_array((void **)values);
 }
 
 static int	add_var(char **args, int i)

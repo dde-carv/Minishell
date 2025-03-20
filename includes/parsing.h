@@ -24,7 +24,7 @@ typedef struct s_input
 	char			*cmd;
 	char			*arg;
 	char			**args;
-	char			*path;
+	char			*path; //!! This is going to be moved to pipex.h
 	t_fd			*fd;
 	int				l_write;
 	int				l_read;
