@@ -54,6 +54,7 @@ static char	*build_new_str(t_input *cmd, const char *s)
 		exit(1);
 	while (s[++i])
 	{
+		ft_printf("<-- %c -->", s[i]);
 		update_quote_state(s[i], &in_quotes);
 		if ((s[i] == '<' || s[i] == '>') && !in_quotes)
 		{
@@ -65,6 +66,7 @@ static char	*build_new_str(t_input *cmd, const char *s)
 		else
 			new_str[ft_strlen(new_str)] = s[i];
 	}
+	new_str[ft_strlen(new_str)] = '\0';
 	return (new_str);
 }
 
