@@ -79,7 +79,7 @@ char	*ft_check_path(char *cmd, char **paths)
 		free(path_cmd);
 	}
 	error_mess(cmd, NO_FILE_OR_DIR, 127);
-	return (NULL);
+	return (ft_strdup(""));
 }
 
 static char	*get_cmd(t_input *n, int i)
@@ -109,7 +109,6 @@ void	get_cmd_path(t_pipe *pipex, t_input *input)
 		i++;
 	}
 	pipex->cmd_paths[i] = NULL;
-	print_array_fd(pipex->cmd_paths, 1);
 }
 
 char	**ft_get_env_paths()
