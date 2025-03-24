@@ -6,7 +6,7 @@
 /*   By: dde-carv <dde-carv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 11:18:46 by dde-carv          #+#    #+#             */
-/*   Updated: 2025/03/21 11:52:37 by dde-carv         ###   ########.fr       */
+/*   Updated: 2025/03/24 16:05:39 by dde-carv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,12 @@ void	exit_pipex(t_pipe *pipex);
 void	get_cmd_path(t_pipe *pipex, t_input *input);
 char	**ft_get_env_paths(void);
 void	ft_exec_pipex(void);
+void	get_fds(t_input *input, char *cmd_path);
+void	fd_close(t_pipe *pipex);
+void	ft_close(int fd);
+void	close_one_fd(t_pipe *pipex);
+void	pos_execute(t_pipe *pipex);
+void	fd_close_all(t_input *input);
+void	close_fd(t_input *input);
 
 #endif

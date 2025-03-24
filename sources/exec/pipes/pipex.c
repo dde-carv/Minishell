@@ -6,7 +6,7 @@
 /*   By: dde-carv <dde-carv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 13:05:09 by dde-carv          #+#    #+#             */
-/*   Updated: 2025/03/21 16:38:01 by dde-carv         ###   ########.fr       */
+/*   Updated: 2025/03/24 17:01:17 by dde-carv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ static t_input	*init_pipex(int argc, char **argv, char **envp)
 	pipex()->first = input;
 	return (input);
 } */
+
 static void	exec_one(t_pipe *pipex) //!! Still need work
 {
 	if (ft_strcmp("", pipex->cmd_paths[0]) == 0)
@@ -94,11 +95,16 @@ static void	exec_one(t_pipe *pipex) //!! Still need work
 		return ;
 	pipex->pids[0] = fork();
 	if (pipex->pids[0] < 0)
-		return (ft_printf("Error in fork 1cmd creation"), free_array(pipex->pids), (void)pipex);
+		return (ft_printf("Error in fork 1cmd creation"), free_array((void **)pipex->pids), (void)pipex);
 	if (pipex->pids[0] == 0)
 	{
-
+		get_fds(minis()->input, pipex->cmd_paths[0]);
+		// ? Verify if builtin is needed here
+		fd_close(pipex);
+		fd_close_all(minis()->input);
+		execve(pipex->cmd_paths[0], minis()->input->args, pipex->env);
 	}
+	return ;
 }
 
 static void	execute_pipes(t_pipe *pipex)
@@ -145,6 +151,6 @@ void	ft_exec_pipex(void)
 	/* if (ft_father_son(input, env) == -1)
 		minis()->error_status = 1; //????? */
 	execute_pipes(&pipex);
-	//pos_execute(); // !! wait for pids and closes fds
-	exit_pipex(&pipex);
+	pos_execute(&pipex); // !! wait for pids and closes fds
+	//exit_pipex(&pipex);
 }
