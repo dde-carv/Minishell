@@ -54,6 +54,8 @@ void	ft_exec_builtin(char *cmd, char **args)
 		ft_exit(args);
 }
 
+// !! Args is NULL if there is a redirections (Verify if it is only on the mac)
+
 void	execute(void)
 {
 	if (!verify_redir(&minis()->input))
