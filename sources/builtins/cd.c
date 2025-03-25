@@ -47,7 +47,7 @@ static void	ft_chdir_path(char *path)
 
 static void	ft_chdir_oldpwd(char *path)
 {
-	ft_printf("%s\n", path);
+	ft_putendl_fd(path, minis()->input->l_write);
 	if (*path)
 		ft_chdir_path(path);
 }

@@ -16,5 +16,5 @@ void	ft_verify_env(char **args)
 	if (args[0])
 		return (error_mess("env: ", TOO_MANY_ARGS, 1));
 	else
-		print_env(1);
+		print_env(minis()->input->l_write);
 }

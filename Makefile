@@ -26,6 +26,7 @@ EXEC_DIR		=	$(SRC_DIR)exec/executer.c \
 					$(SRC_DIR)exec/fds.c \
 					$(SRC_DIR)exec/pipes/pipex.c \
 					$(SRC_DIR)exec/pipes/path_utils.c \
+					$(SRC_DIR)exec/pipes/pipex_utils.c \
 					$(SRC_DIR)exec/pipes/exit_pipex.c \
 					$(SRC_DIR)exec/pipes/fd_close.c \
 					$(SRC_DIR)exec/pipes/fd_open.c \

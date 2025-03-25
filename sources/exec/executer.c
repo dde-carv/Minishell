@@ -1,6 +1,13 @@
 
 #include "minishell.h"
 
+static int	ret(t_input *cmd)
+{
+	if (!cmd)
+		return (1);
+	return (minis()->error_status= 1, ft_putstr_fd("Error near >", 2), 0);
+}
+
 // Verify if everything went well with redirections
 static int	verify_redir(t_input **input)
 {
@@ -16,7 +23,7 @@ static int	verify_redir(t_input **input)
 		}
 		tmp = tmp->next;
 	}
-	return (1);
+	return (ret(tmp));
 }
 
 // Verify is command given is a builtin

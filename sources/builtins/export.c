@@ -18,7 +18,7 @@ static int	print_export(void)
 	export = hashmap_quotes_array_and_non_value_vars();
 	quick_sort(export, 0, array_len(export));
 	ft_strjoin_to_array("declare -x ", export);
-	print_array_fd(export, 1);
+	print_array_fd(export, minis()->input->l_write);
 	free_array((void **)export);
 	return(0);
 }
