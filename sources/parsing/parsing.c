@@ -90,7 +90,7 @@ void	parse_input(void)
 	char	*cmd;
 	char	*arg;
 	t_entry	*entry;
-	t_input *current_input;
+	//t_input *current_input;
 
 	i = 0;
 	while (minis()->ms->line[i])
@@ -111,10 +111,10 @@ void	parse_input(void)
 		cpy_input(&(t_entry){"", "", NULL});
 	
 	// Apply redirection parsing to each command segment
-	current_input = minis()->input;
+/* 	current_input = minis()->input;
 	while (current_input)
 	{
 		parse_redirects(&current_input);
 		current_input = current_input->next;
-	}
+	} */
 }

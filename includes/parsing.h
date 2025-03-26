@@ -54,6 +54,9 @@ char	*sub_expantion(char *str, char *value);
 char	*get_value(char *s);
 // Splits the input string into tokens based on specific delimiters.
 char	**split_value(char *str);
+
+void	take_quotes(char **str);
+
 // Verifies that all quotes in the string are properly closed.
 bool	closed_quotes(char *str);
 // Checks if the string contains an environment variable expansion.

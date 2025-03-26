@@ -35,6 +35,8 @@ bool	closed_quotes(char *str)
 		return (1);
 	while (str[++i])
 		update_quote_state(str[i], &in_quotes);
+	if (in_quotes)
+		ft_putendl_fd("error open quotes", 2);
 	return (in_quotes == 0);
 }
 

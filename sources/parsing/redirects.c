@@ -47,10 +47,11 @@ static char	*build_new_str(t_input *cmd, const char *s)
 	int		i;
 	char	in_quotes;
 	char	*new_str;
-
+	
 	i = -1;
 	in_quotes = 0;
 	new_str = ft_calloc(ft_strlen(s) + 1, sizeof(char));
+	//ft_printf("->%d<-\n", s);
 	if (!new_str)
 		exit(1);
 	while (s[++i])
@@ -85,25 +86,44 @@ void	parse_redirects(t_input **cmd)
 	char	*combined_str;
 	char	*processed_str;
 	char	*space_pos;
+	char	*trimmed;
 
 	combined_str = ft_strjoin_var(3, (*cmd)->cmd, " ", (*cmd)->arg);
 	processed_str = build_new_str(*cmd, combined_str);
 	free(combined_str);
-	space_pos = ft_strchr(processed_str, ' ');
-	if (space_pos)
-	{
-		*space_pos = '\0';
-		free((*cmd)->cmd);
-		(*cmd)->cmd = ft_strdup(processed_str);
-		free((*cmd)->arg);
-		(*cmd)->arg = ft_strdup(space_pos + 1);
-	}
-	else
-	{
-		free((*cmd)->cmd);
-		(*cmd)->cmd = ft_strdup(processed_str);
-		free((*cmd)->arg);
-		(*cmd)->arg = ft_strdup("");
-	}
+
+	// Trim any extra spaces so that the args get split correctly
+	trimmed = ft_strtrim(processed_str, " ");
 	free(processed_str);
+    processed_str = trimmed;
+
+    space_pos = ft_strchr(processed_str, ' ');
+    if (space_pos)
+    {
+        *space_pos = '\0';
+        free((*cmd)->cmd);
+        (*cmd)->cmd = ft_strdup(processed_str);
+        free((*cmd)->arg);
+        (*cmd)->arg = ft_strdup(space_pos + 1);
+    }
+    else
+    {
+        free((*cmd)->cmd);
+        (*cmd)->cmd = ft_strdup(processed_str);
+        free((*cmd)->arg);
+        (*cmd)->arg = ft_strdup("");
+    }
+    free(processed_str);
+
+	/* char *clean_cmd;
+	char *clean_arg;
+
+	clean_cmd = build_new_str(*cmd, (*cmd)->cmd);
+	clean_arg = build_new_str(*cmd, (*cmd)->arg);
+	free((*cmd)->cmd);
+	free((*cmd)->arg);
+	(*cmd)->cmd = ft_strdup(clean_cmd);
+	(*cmd)->arg = ft_strdup(clean_arg);
+	free(clean_cmd);
+	free(clean_arg); */
 }

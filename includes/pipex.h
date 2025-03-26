@@ -1,14 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: dde-carv <dde-carv@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/23 11:18:46 by dde-carv          #+#    #+#             */
-/*   Updated: 2025/03/25 14:20:50 by dde-carv         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #ifndef PIPEX_H
 # define PIPEX_H
@@ -18,6 +7,8 @@
 # include <sys/wait.h>
 # include <fcntl.h>
 # include <unistd.h>
+
+# define CHARS "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
 
 /* typedef struct s_cmd
 {
@@ -70,5 +61,8 @@ void	pos_execute(t_pipe *pipex);
 void	fd_close_all(t_input *input);
 void	close_fd(t_input *input);
 void	true_execve(char *path, char **envp);
+int		check_for_hd(t_input *input);
+
+int	good_files(t_input *cmd);
 
 #endif

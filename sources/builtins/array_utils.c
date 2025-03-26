@@ -7,7 +7,7 @@ int		array_len(char **array)
 	i = 0;
 	if (*array)
 	{
-		while (array[i + 1])
+		while (array[i])
 			i++;
 	}
 	return (i);

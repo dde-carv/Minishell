@@ -51,7 +51,7 @@ void	ft_echo(char **args)
 
 	i = 0;
 	new_flag = 1;
-	print_array_fd(args, 1);
+	//print_array_fd(args, 1);
 	if (!ft_strcmp(args[i], "-n"))
 	{
 		new_flag = 0;

@@ -92,7 +92,7 @@ void	ft_cd(char *path)
 void	ft_verify_cd(char **path) // !! Need to protect if the folder is deleted
 {
 	minis()->error_status = 0;
-	if (array_len(path) >= 1)
+	if (array_len(path) > 1)
 		return (error_mess("cd", TOO_MANY_ARGS, 1));
 	else
 		ft_cd(path[0]);

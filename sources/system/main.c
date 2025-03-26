@@ -40,6 +40,7 @@ int	main(int ac, char **av, char **env)
 			continue ;
 
 		parse_input();
+		//new_parse();
 		// Reset input for the transform test
 /* 		ft_printf("\n=== Test transform ===\n");
 

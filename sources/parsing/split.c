@@ -49,26 +49,35 @@ static int	end_word(char *str, int start)
 // Create an array of tokens
 char	**split_value(char *str)
 {
-	char	**result;
+	char	**tokens;
 	int		word_index;
 	int		words;
 	int		start;
 	int		end;
 
 	words = words_count(str);
-	result = ft_calloc(words + 1, sizeof(char *));
-	if (!result)
+	//ft_printf("->%d<-\n", words);
+	if (words == 0 && ft_strlen(str) > 0)
+		words = 1;
+	tokens = ft_calloc(words + 1, sizeof(char *));
+	if (!tokens)
 		return (NULL);
 	word_index = 0;
 	start = 0;
+	if (words == 1)
+    {
+        tokens[0] = ft_strdup(str);
+        tokens[1] = NULL;
+        return (tokens);
+    }
 	while (word_index < words)
 	{
 		while (str[start] == ' ')
 			start++;
 		end = end_word(str, start); // Mark the end of the token
-		result[word_index++] = ft_substr(str, start, end - start); // Extract token using a substring function
+		tokens[word_index++] = ft_substr(str, start, end - start); // Extract token using a substring function
 		start = end;
 	}
-	result[word_index] = NULL;
-	return (result);
+	tokens[word_index] = NULL;
+	return (tokens);
 }
