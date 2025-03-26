@@ -74,7 +74,7 @@ static t_input	*init_pipex(int argc, char **argv, char **envp)
 	return (input);
 } */
 
-static void	start_first(t_pipe *pipex)
+/* static void	start_first(t_pipe *pipex)
 {
 	int	i;
 
@@ -85,13 +85,30 @@ static void	start_first(t_pipe *pipex)
 		return ;
 	pipex->pids[i] = fork();
 	if (pipex->pids[i] < 0)
-		return (ft_printf("Error in fork 1cmd creation"), free_pointer(pipex->pids), (void)pipex);
+		return (ft_printf("Error in fork 1 pipe creation"), free_pointer(pipex->pids), (void)pipex);
 	if (pipex->pids[i] == 0)
 	{
 		// ?? verify signals
 		first_child(pipex, minis()->input);
 	}
-}
+} */
+
+/* void	start_rest(t_pipe *pipex, t_input *input, char *cmd_path, int i)
+{
+	if (!good_files(minis()->input) || !*minis()->input->cmd)
+		return ;
+	pipex->pids[i] = fork();
+	if (pipex->pids[i] < 0)
+		return (ft_printf("Error in fork rest pipe creation"), free_pointer(pipex->pids), (void)pipex);
+	if (pipex->pids[i] == 0)
+	{
+		get_fds(input, cmd_path);
+		l_fd_update(input, pipex, i); // TODO
+		if (is_builtin(input->cmd))
+			return (minis()->pipex = pipex, minis()->pipe_flag = i, ft_exec_builtin(minis()->input->cmd, minis()->input->args));
+
+	}
+} */
 
 //!! Still need work
 static void	exec_one(t_pipe *pipex)
@@ -122,11 +139,21 @@ static void	execute_pipes(t_pipe *pipex)
 {
 	//int		i;
 	//int		j;
-	//t_input	*cmd;
+	//t_input	*tmp;
 
 	if (pipex->argc == 1)
 		return (exec_one(pipex));
-	start_first(pipex);
+/* 	start_first(pipex);
+	tmp = minis()->input;
+	i = 0;
+	j = pipex->argc - 1;
+	while (++i < j && tmp)
+	{
+		tmp = tmp->next;
+		if (pipe(pipex->fds[i].fd) < 0)
+			return (ft_printf("Fail pipe creation(2)"), (void)pipex);
+		start_rest(pipex, i, pipex->cmd_paths[i], tmp);
+	} */
 }
 
 static void	init_pipex(t_pipe *pipex)

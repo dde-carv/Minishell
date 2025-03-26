@@ -9,7 +9,11 @@ void	first_child(t_pipe *pipex, t_input *input)
 		if (dup2(pipex->fds[0].fd[1], STDOUT_FILENO) < 0)
 			return (ft_printf("Error in get_fds dup2(3)"), (void)pipex);
 	}
-
+	if (is_builtin(input->cmd))
+		return (minis()->pipex = pipex, minis()->pipe_flag = 0, ft_exec_builtin(minis()->input->cmd, minis()->input->args));
+	close_one_fd(pipex);
+	fd_close_all(minis()->input);
+	true_execve(pipex->cmd_paths[0], pipex->env);
 }
 
 int	good_files(t_input *cmd)
