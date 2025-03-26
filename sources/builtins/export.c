@@ -1,6 +1,19 @@
 
 #include "minishell.h"
 
+static int	matrix_len(char **matrix)
+{
+	int	i;
+
+	i = 0;
+	if (*matrix)
+	{
+		while (matrix[i + 1])
+			i++;
+	}
+	return (i);
+}
+
 static int	valid_var(char *str)
 {
 	if (!ft_isupper(*str) && !ft_islower(*str))
@@ -16,7 +29,7 @@ static int	print_export(void)
 	char	**export;
 
 	export = hashmap_quotes_array_and_non_value_vars();
-	quick_sort(export, 0, array_len(export));
+	quick_sort(export, 0, matrix_len(export));
 	ft_strjoin_to_array("declare -x ", export);
 	print_array_fd(export, minis()->input->l_write);
 	free_array((void **)export);

@@ -72,6 +72,8 @@ void	ft_exec_builtin(char *cmd, char **args);
 
 int		handle_fd(t_input **input);
 
+int	is_builtin(char *cmd);
+
 /************************* builtin *************************/
 
 // Function that replicates cd (change directory)
