@@ -1,14 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: dde-carv <dde-carv@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/08 13:05:09 by dde-carv          #+#    #+#             */
-/*   Updated: 2025/03/25 15:19:30 by dde-carv         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #include "../../../includes/pipex.h"
 
@@ -85,18 +74,39 @@ static t_input	*init_pipex(int argc, char **argv, char **envp)
 	return (input);
 } */
 
+static void	start_first(t_pipe *pipex)
+{
+	int	i;
+
+	i = 0;
+	if (pipe(pipex->fds[0].fd) < 0)
+		return (ft_printf("Error in pipe first pipe creation"), (void)pipex);
+	if (!good_files(minis()->input) || !*minis()->input->cmd)
+		return ;
+	pipex->pids[i] = fork();
+	if (pipex->pids[i] < 0)
+		return (ft_printf("Error in fork 1cmd creation"), free_pointer(pipex->pids), (void)pipex);
+	if (pipex->pids[i] == 0)
+	{
+		// ?? verify signals
+		first_child(pipex, minis()->input);
+	}
+}
+
 //!! Still need work
 static void	exec_one(t_pipe *pipex)
 {
 	if (ft_strcmp("", pipex->cmd_paths[0]) == 0)
-		return (pipex->argc -= 1, (void)pipex);
+		return ;
 	if (pipe(pipex->fds[0].fd) < 0)
 		return (ft_printf("Error in pipe 1cmd creation"), (void)pipex);
 	if (!*minis()->input->cmd)
-		return ;
+		return (close_one_fd(pipex));
+	if (!good_files(minis()->input))
+		return (close_one_fd(pipex), (void)pipex);
 	pipex->pids[0] = fork();
 	if (pipex->pids[0] < 0)
-		return (ft_printf("Error in fork 1cmd creation"), free_array((void **)pipex->pids), (void)pipex);
+		return (ft_printf("Error in fork 1cmd creation"), free_pointer(pipex->pids), (void)pipex);
 	if (pipex->pids[0] == 0)
 	{
 		get_fds(minis()->input, pipex->cmd_paths[0]);
@@ -116,6 +126,7 @@ static void	execute_pipes(t_pipe *pipex)
 
 	if (pipex->argc == 1)
 		return (exec_one(pipex));
+	start_first(pipex);
 }
 
 static void	init_pipex(t_pipe *pipex)
@@ -146,8 +157,8 @@ void	ft_exec_pipex(void)
 	t_pipe	pipex;
 
 	pipex = (t_pipe){0};
-	/* if (!check_for_hd(minis()->input))
-		return ; */
+	if (!check_for_hd(minis()->input))
+		return ;
 	init_pipex(&pipex);
 	/* if (ft_father_son(input, env) == -1)
 		minis()->error_status = 1; //????? */
