@@ -31,7 +31,9 @@ typedef struct s_global
 {
 	int			error_status;
 	int			signal;
+	int			pipe_flag;
 	t_input		*input;
+	t_pipe		*pipex;
 	t_hashmap	*table;
 	t_hashmap	*env;
 	t_hashmap	*non_value_vars;
@@ -72,7 +74,7 @@ void	ft_exec_builtin(char *cmd, char **args);
 
 int		handle_fd(t_input **input);
 
-int	is_builtin(char *cmd);
+int		is_builtin(char *cmd);
 
 /************************* builtin *************************/
 
