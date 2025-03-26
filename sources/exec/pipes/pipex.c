@@ -6,7 +6,7 @@
 /*   By: dde-carv <dde-carv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 13:05:09 by dde-carv          #+#    #+#             */
-/*   Updated: 2025/03/24 17:01:17 by dde-carv         ###   ########.fr       */
+/*   Updated: 2025/03/25 15:19:30 by dde-carv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,8 @@ static t_input	*init_pipex(int argc, char **argv, char **envp)
 	return (input);
 } */
 
-static void	exec_one(t_pipe *pipex) //!! Still need work
+//!! Still need work
+static void	exec_one(t_pipe *pipex)
 {
 	if (ft_strcmp("", pipex->cmd_paths[0]) == 0)
 		return (pipex->argc -= 1, (void)pipex);
@@ -102,7 +103,7 @@ static void	exec_one(t_pipe *pipex) //!! Still need work
 		// ? Verify if builtin is needed here
 		fd_close(pipex);
 		fd_close_all(minis()->input);
-		execve(pipex->cmd_paths[0], minis()->input->args, pipex->env);
+		true_execve(pipex->cmd_paths[0], pipex->env);
 	}
 	return ;
 }

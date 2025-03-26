@@ -4,6 +4,24 @@
 static int	get_read_file(t_fd *fd)
 {
 	t_fd	*f_d;
+	char	*file_n;
+
+	f_d = fd;
+	file_n = NULL;
+	while (f_d)
+	{
+		if (f_d->type == HEREDOC || f_d->type == REVERSE)
+			file_n = f_d->file_n;
+		f_d = f_d->next;
+	}
+	if (!file_n)
+		return (0);
+	return(open(file_n, O_RDONLY, 0644));
+}
+
+static int	get_write_file(t_fd *fd)
+{
+	t_fd	*f_d;
 	t_type	type;
 	char	*file_n;
 
@@ -23,24 +41,6 @@ static int	get_read_file(t_fd *fd)
 	if (type == APPEND)
 		return (open(file_n, O_CREAT | O_APPEND | O_WRONLY, 0644));
 	return(open(file_n, O_CREAT | O_TRUNC | O_WRONLY, 0644));
-}
-
-static int	get_write_file(t_fd *fd)
-{
-	t_fd	*f_d;
-	char	*file_n;
-
-	f_d = fd;
-	file_n = NULL;
-	while (f_d)
-	{
-		if (f_d->type == HEREDOC || f_d->type == REVERSE)
-			file_n = f_d->file_n;
-		f_d = f_d->next;
-	}
-	if (!file_n)
-		return (0);
-	return(open(file_n, O_RDONLY, 0644));
 }
 
 void	get_fds(t_input *input, char *cmd_path)

@@ -6,7 +6,7 @@
 /*   By: dde-carv <dde-carv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 14:53:43 by dde-carv          #+#    #+#             */
-/*   Updated: 2025/03/24 16:57:43 by dde-carv         ###   ########.fr       */
+/*   Updated: 2025/03/25 13:21:02 by dde-carv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,20 +78,18 @@ static void	ft_free_rest(t_input **input, char **paths)
 
 void	exit_pipex(t_pipe *pipex)
 {
-	//(void)pipex;
-	printf("Exiting pipex: %p\n", pipex);
 	free_array((void **)pipex->env_paths);
 	free_array((void **)pipex->cmd_paths);
-	free_array((void **)pipex->pids);
-	free_array((void **)pipex->fds);
 	free_array((void **)pipex->env);
+	free_pointer((void **)pipex->pids);
+	free_pointer((void **)pipex->fds);
 }
 
 void	pos_execute(t_pipe *pipex)
 {
 	size_t	i;
 
-	i = 0;
+	i = -1;
 	fd_close(pipex);
 	while(++i < pipex->argc)
 		waitpid(pipex->pids[i], NULL, 0);

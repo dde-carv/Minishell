@@ -6,7 +6,7 @@
 /*   By: dde-carv <dde-carv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 11:18:46 by dde-carv          #+#    #+#             */
-/*   Updated: 2025/03/24 16:05:39 by dde-carv         ###   ########.fr       */
+/*   Updated: 2025/03/25 14:20:50 by dde-carv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,9 @@ void	ft_addcmd(t_cmd **input, t_cmd *new);
 t_cmd	*ft_newcmd(char *cmd, char *path, int is_last);
 char	*check_path(char *cmd, char **paths);
 char	**get_path(char **envp);
-void	here_doc_main(int argc, char **argv); */
+void	here_doc_main(int argc, char **argv);
+int		ft_father_son(t_input *input, char **envp); */
 
-int		ft_father_son(t_input *input, char **envp);
 char	*ft_check_path(char *cmd, char **paths);
 void	exit_pipex(t_pipe *pipex);
 void	get_cmd_path(t_pipe *pipex, t_input *input);
@@ -69,5 +69,6 @@ void	close_one_fd(t_pipe *pipex);
 void	pos_execute(t_pipe *pipex);
 void	fd_close_all(t_input *input);
 void	close_fd(t_input *input);
+void	true_execve(char *path, char **envp);
 
 #endif
