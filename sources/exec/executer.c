@@ -2,7 +2,7 @@
 #include "minishell.h"
 
 // Verify if everything went well with redirections
-/* static int	verify_redir(t_input **input)
+static int	verify_redir(t_input **input)
 {
 	t_input	*tmp;
 
@@ -17,7 +17,7 @@
 		tmp = tmp->next;
 	}
 	return (1);
-} */
+}
 
 // Verify is command given is a builtin
 static int	is_builtin(char *cmd)
@@ -49,9 +49,9 @@ void	ft_exec_builtin(char *cmd, char **args)
 
 void	execute(void)
 {
-	/* if (!verify_redir(&minis()->input))
-		return ; */
-	if (ft_input_lstsize(&minis()->input) == 1 && is_builtin(minis()->input->cmd))
+	if (!verify_redir(&minis()->input))
+		return ;
+	else if (ft_input_lstsize(&minis()->input) == 1 && is_builtin(minis()->input->cmd))
 		ft_exec_builtin(minis()->input->cmd, minis()->input->args);
 	else
 		ft_exec_pipex();					// TODO

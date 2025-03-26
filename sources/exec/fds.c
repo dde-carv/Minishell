@@ -21,15 +21,20 @@ static int	get_last_r(t_fd *fd)
 {
 	t_fd	*f_d;
 	int		file_d;
+	int		here_flag;
 
 	f_d = fd;
 	file_d = 1;
+	here_flag = 0;
 	while (f_d)
 	{
-		if (f_d->type == TRUNCATE)
+		if (f_d->type == REVERSE && !here_flag)
 			file_d = f_d->fd;
-		else if (f_d->type == APPEND)
-			file_d = 42000;
+		else if (f_d->type == HEREDOC)
+		{
+			file_d = f_d->fd;
+			here_flag = 1;
+		}
 		f_d = f_d->next;
 	}
 	return (file_d);
@@ -42,7 +47,6 @@ int	handle_fd(t_input **input)
 	fd = (*input)->fd;
 	while (fd)
 	{
-		//take_quotes(&fd->file_n); // !! Can create problems if expansions don't take all the quotes
 		if (fd->type == TRUNCATE)
 			fd->fd = open(fd->file_n, O_CREAT | O_TRUNC | O_WRONLY, 0644);
 		if (fd->type == APPEND)
@@ -51,14 +55,9 @@ int	handle_fd(t_input **input)
 			fd->fd = open(fd->file_n, O_RDONLY, 0644);
 		if (fd->type == HEREDOC)
 			fd->fd = 42000;
-		if (fd->fd == -1)
-			break ;
+		if (fd && fd->fd == -1)
+			error_mess(fd->file_n, NO_FILE_OR_DIR, 1);
 		fd = fd->next;
-	}
-	if (fd && fd->fd == -1)
-	{
-		error_mess(fd->file_n, NO_FILE_OR_DIR, 1);
-		return (0);
 	}
 	(*input)->l_write = get_last_w((*input)->fd);
 	(*input)->l_read = get_last_r((*input)->fd);

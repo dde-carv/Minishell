@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit.c                                             :+:      :+:    :+:   */
+/*   exit_pipex.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dde-carv <dde-carv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 14:53:43 by dde-carv          #+#    #+#             */
-/*   Updated: 2025/03/11 11:41:46 by dde-carv         ###   ########.fr       */
+/*   Updated: 2025/03/24 16:57:43 by dde-carv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/pipex.h"
 
-void	free_all_cmds(char **cmds)
+/* void	free_all_cmds(char **cmds)
 {
 	int	i;
 
@@ -51,11 +51,10 @@ static void	ft_free_rest(t_input **input, char **paths)
 		free(paths[i]);
 	if (paths)
 		free(paths);
-}
+} */
 
-void	exit_pipex(t_input *input, int error)
-{
-	if (pipex()->flag == 42)
+/*
+{	if (pipex()->flag == 42)
 		unlink(".temp");
 	if (pipex()->fd_in != -1)
 		close(pipex()->fd_in);
@@ -75,4 +74,26 @@ void	exit_pipex(t_input *input, int error)
 	input = pipex()->first;
 	ft_free_rest(&input, pipex()->paths);
 	exit(0);
+} */
+
+void	exit_pipex(t_pipe *pipex)
+{
+	//(void)pipex;
+	printf("Exiting pipex: %p\n", pipex);
+	free_array((void **)pipex->env_paths);
+	free_array((void **)pipex->cmd_paths);
+	free_array((void **)pipex->pids);
+	free_array((void **)pipex->fds);
+	free_array((void **)pipex->env);
+}
+
+void	pos_execute(t_pipe *pipex)
+{
+	size_t	i;
+
+	i = 0;
+	fd_close(pipex);
+	while(++i < pipex->argc)
+		waitpid(pipex->pids[i], NULL, 0);
+	exit_pipex(pipex);
 }

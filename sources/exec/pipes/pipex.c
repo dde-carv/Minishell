@@ -6,7 +6,7 @@
 /*   By: dde-carv <dde-carv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 13:05:09 by dde-carv          #+#    #+#             */
-/*   Updated: 2025/03/20 16:14:09 by dde-carv         ###   ########.fr       */
+/*   Updated: 2025/03/24 17:01:17 by dde-carv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,39 @@ static t_input	*init_pipex(int argc, char **argv, char **envp)
 	return (input);
 } */
 
-/* static void	init_pipex(t_pipe *pipex)
+static void	exec_one(t_pipe *pipex) //!! Still need work
+{
+	if (ft_strcmp("", pipex->cmd_paths[0]) == 0)
+		return (pipex->argc -= 1, (void)pipex);
+	if (pipe(pipex->fds[0].fd) < 0)
+		return (ft_printf("Error in pipe 1cmd creation"), (void)pipex);
+	if (!*minis()->input->cmd)
+		return ;
+	pipex->pids[0] = fork();
+	if (pipex->pids[0] < 0)
+		return (ft_printf("Error in fork 1cmd creation"), free_array((void **)pipex->pids), (void)pipex);
+	if (pipex->pids[0] == 0)
+	{
+		get_fds(minis()->input, pipex->cmd_paths[0]);
+		// ? Verify if builtin is needed here
+		fd_close(pipex);
+		fd_close_all(minis()->input);
+		execve(pipex->cmd_paths[0], minis()->input->args, pipex->env);
+	}
+	return ;
+}
+
+static void	execute_pipes(t_pipe *pipex)
+{
+	//int		i;
+	//int		j;
+	//t_input	*cmd;
+
+	if (pipex->argc == 1)
+		return (exec_one(pipex));
+}
+
+static void	init_pipex(t_pipe *pipex)
 {
 	int	i;
 
@@ -94,7 +126,7 @@ static t_input	*init_pipex(int argc, char **argv, char **envp)
 	pipex->pids = ft_calloc(sizeof(size_t), pipex->argc);
 	if (!pipex->pids)
 		return ;
-	pipex->cmd_paths = ft_calloc(sizeof(char *), pipex->argc);
+	pipex->cmd_paths = ft_calloc(sizeof(char *), pipex->argc + 1);
 	if (!pipex->cmd_paths)
 		return (free(pipex->pids));
 	i = pipex->argc;
@@ -104,30 +136,21 @@ static t_input	*init_pipex(int argc, char **argv, char **envp)
 	if (!pipex->fds)
 		return (free(pipex->pids), free(pipex->cmd_paths));
 	get_cmd_path(pipex, minis()->input);
-	//ft_printf("input lst size: %d\n", pipex->argc);
-} */
+	pipex->env = hashmap_to_array();
+}
 
 // !!! DON'T forget to update the $_ variable after execution
 void	ft_exec_pipex(void)
 {
-	//t_input	*tmp;
 	t_pipe	pipex;
-	char	**env;
 
 	pipex = (t_pipe){0};
 	/* if (!check_for_hd(minis()->input))
 		return ; */
-	//init_pipex(&pipex); //? If enougth lines also allocate the command paths
-/* 	while (tmp)
-	{
-		tmp->path = ft_check_path(tmp->cmd, pipex.env_paths);
-		tmp = tmp->next;
-	} */
-	env = hashmap_to_array();
+	init_pipex(&pipex);
 	/* if (ft_father_son(input, env) == -1)
 		minis()->error_status = 1; //????? */
-	/* free_array((void **)pipex.env_paths);
-	free_array((void **)pipex.cmd_paths);
-	free_array((void **)pipex.pids); */
-	free_array((void **)env);
+	execute_pipes(&pipex);
+	pos_execute(&pipex); // !! wait for pids and closes fds
+	//exit_pipex(&pipex);
 }

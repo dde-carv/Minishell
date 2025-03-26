@@ -23,10 +23,14 @@ BUILTINS_DIR	=	$(SRC_DIR)builtins/env.c \
 					$(SRC_DIR)builtins/quick_sort.c \
 
 EXEC_DIR		=	$(SRC_DIR)exec/executer.c \
+					$(SRC_DIR)exec/fds.c \
 					$(SRC_DIR)exec/pipes/pipex.c \
 					$(SRC_DIR)exec/pipes/path_utils.c \
+					$(SRC_DIR)exec/pipes/exit_pipex.c \
+					$(SRC_DIR)exec/pipes/fd_close.c \
+					$(SRC_DIR)exec/pipes/fd_open.c \
+
 #					$(SRC_DIR)exec/pipes/family.c \
-#					$(SRC_DIR)exec/fds.c
 
 HASHMAP_DIR		=	$(SRC_DIR)hashmap/hash.c \
 					$(SRC_DIR)hashmap/hashmap_free.c \

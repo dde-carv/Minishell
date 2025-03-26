@@ -70,6 +70,8 @@ void	execute(void);
 // Function to call the builtins
 void	ft_exec_builtin(char *cmd, char **args);
 
+int		handle_fd(t_input **input);
+
 /************************* builtin *************************/
 
 // Function that replicates cd (change directory)
