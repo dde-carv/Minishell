@@ -78,7 +78,7 @@ char	*ft_check_path(char *cmd, char **paths)
 			return (path_cmd);
 		free(path_cmd);
 	}
-	error_mess(cmd, NO_FILE_OR_DIR, 127);
+	error_mess(cmd, NOT_FOUND, 127);
 	return (ft_strdup(""));
 }
 

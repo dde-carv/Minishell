@@ -67,7 +67,7 @@ void	ft_exit(char **args)
 	int	len;
 
 	len = get_argc(args);
-	ft_printf("exit\n");
+	ft_printf("exit");
 	if (len > 1)
 	{
 		error_mess("exit", TOO_MANY_ARGS, 2);
