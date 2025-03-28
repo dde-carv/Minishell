@@ -127,7 +127,7 @@ int	check_for_hd(t_input *input)
 	// ?? verify signals
 	while (tmp)
 	{
-		if (tmp->l_read == 42000)
+		if (tmp->l_read == 1000)
 			tmp->l_read = here_doc(tmp->fd);
 		// ?? verify signals
 		tmp = tmp->next;

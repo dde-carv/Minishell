@@ -76,23 +76,32 @@ static t_input	*init_pipex(int argc, char **argv, char **envp)
 
 void	start_rest(t_pipe *pipex, t_input *input, char *cmd_path, int i)
 {
-	if (!good_files(minis()->input) || !*minis()->input->cmd)
-	return ;
+	if (!check_valid(input, pipex->last_path))
+		return ;
 	pipex->pids[i] = fork();
 	if (pipex->pids[i] < 0)
 		return (ft_printf("Error in fork rest pipe creation"), free_pointer(pipex->pids), (void)pipex);
 	if (pipex->pids[i] == 0)
 	{
 		get_fds(input, cmd_path);
+		if (input->l_write < 3)
+		{
+		if (dup2(pipex->fds[0].fd[1], STDOUT_FILENO) < 0)
+			return (ft_printf("Error in get_fds dup2(3)"), (void)pipex);
+		}
+		if (input->l_read < 3)
+		{
+		if (dup2(pipex->fds[0].fd[0], STDIN_FILENO) < 0)
+			return (ft_printf("Error in get_fds dup2(3)"), (void)pipex);
+		}
 		fd_update(input, pipex, i);
 		if (is_builtin(input->cmd))
 			return (minis()->pipex = pipex, minis()->pipe_flag = i, \
-				ft_exec_builtin(minis()->input->cmd, minis()->input->args));
+				ft_exec_builtin(input->cmd, input->args));
 		fd_close_m(pipex, i);
-		fd_close_all(minis()->input);
-		true_execve(pipex->cmd_paths[0], pipex->env);
+		fd_close_all(input);
+		true_execve(cmd_path, input, pipex->env);
 	}
-	return ;
 }
 
 static void	start_first(t_pipe *pipex, t_input *input)
@@ -102,7 +111,7 @@ static void	start_first(t_pipe *pipex, t_input *input)
 	i = 0;
 	if (pipe(pipex->fds[0].fd) < 0)
 		return (ft_printf("Error in pipe first pipe creation"), (void)pipex);
-	if (!good_files(input) || !*input->cmd)
+	if (!check_valid(input, pipex->last_path))
 		return ;
 	pipex->pids[i] = fork();
 	if (pipex->pids[i] < 0)
@@ -117,24 +126,24 @@ static void	start_first(t_pipe *pipex, t_input *input)
 //!! Still need work
 static void	exec_one(t_pipe *pipex, t_input *input)
 {
-	if (ft_strcmp("", pipex->cmd_paths[0]) == 0)
+	if (ft_strcmp("", pipex->last_path) == 0)
 		return ;
 	if (pipe(pipex->fds[0].fd) < 0)
 		return (ft_printf("Error in pipe 1cmd creation"), (void)pipex);
 	if (!*input->cmd)
 		return (close_one_fd(pipex));
-	if (!good_files(input))
+	if (!check_valid(input, pipex->last_path))
 		return (close_one_fd(pipex), (void)pipex);
 	pipex->pids[0] = fork();
 	if (pipex->pids[0] < 0)
 		return (ft_printf("Error in fork 1cmd creation"), free_pointer(pipex->pids), (void)pipex);
 	if (pipex->pids[0] == 0)
 	{
-		get_fds(input, pipex->cmd_paths[0]);
+		get_fds(input, pipex->last_path);
 		// ? Verify if builtin is needed here
-		fd_close(pipex);
+		close_one_fd(pipex);
 		fd_close_all(input);
-		true_execve(pipex->cmd_paths[0], pipex->env);
+		true_execve(pipex->last_path, input, pipex->env);
 	}
 	return ;
 }
@@ -150,7 +159,7 @@ static void	execute_pipes(t_pipe *pipex, t_input *input)
 	start_first(pipex, input);
 	tmp = input;
 	i = 0;
-	j = pipex->argc - 1;
+	j = pipex->argc - 1; // ?? "pipex->argc" or "pipex->argc -1" ??
 	while (++i < j && tmp)
 	{
 		tmp = tmp->next;
@@ -158,6 +167,7 @@ static void	execute_pipes(t_pipe *pipex, t_input *input)
 			return (ft_printf("Fail pipe creation(2)"), (void)pipex);
 		start_rest(pipex, tmp, pipex->cmd_paths[i], i);
 	}
+	rest_children(pipex, pipex->last_path, input);
 }
 
 static void	init_pipex(t_pipe *pipex)
@@ -169,7 +179,7 @@ static void	init_pipex(t_pipe *pipex)
 	pipex->pids = ft_calloc(sizeof(size_t), pipex->argc);
 	if (!pipex->pids)
 		return ;
-	pipex->cmd_paths = ft_calloc(sizeof(char *), pipex->argc + 1);
+	pipex->cmd_paths = ft_calloc(sizeof(char *), pipex->argc);
 	if (!pipex->cmd_paths)
 		return (free(pipex->pids));
 	i = pipex->argc;
@@ -192,5 +202,5 @@ void	ft_exec_pipex(void)
 		return ;
 	init_pipex(&pipex);
 	execute_pipes(&pipex, minis()->input);
-	pos_execute(&pipex); // !! wait for pids and closes fds
+	pos_execute(&pipex);
 }

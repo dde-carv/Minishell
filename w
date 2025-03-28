@@ -1,0 +1,13 @@
+in
+includes
+infile
+libft
+Makefile
+minishell
+objects
+out
+outfile
+p
+readline.supp
+sources
+w

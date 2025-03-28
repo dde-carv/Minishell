@@ -1,29 +1,20 @@
 
 #include "minishell.h"
 
-static int	ret(t_input *cmd)
+static int verify_files(t_fd *fd)
 {
-	if (!cmd)
+	t_fd	*tmp;
+
+	if (!fd)
 		return (1);
-	return (minis()->error_status= 1, ft_putstr_fd("Error near >", 2), 0);
-}
-
-// Verify if everything went well with redirections
-static int	verify_redir(t_input **input)
-{
-	t_input	*tmp;
-
-	tmp = *input;
+	tmp = fd;
 	while (tmp)
 	{
-		if (tmp->fd)
-		{
-			if (!handle_fd(&tmp))
-				return (0);
-		}
+		if (tmp->fd == -1)
+			return (minis()->error_status = 1, 0);
 		tmp = tmp->next;
 	}
-	return (ret(tmp));
+	return (1);
 }
 
 // Verify is command given is a builtin
@@ -54,11 +45,11 @@ void	ft_exec_builtin(char *cmd, char **args)
 		ft_exit(args);
 }
 
-// !! Args is NULL if there is a redirections (Verify if it is only on the mac)
-
 void	execute(void)
 {
-	if (!verify_redir(&minis()->input))
+	//change_cmd(&minis()->input);
+	handle_fd(&minis()->input);
+	if (ft_input_lstsize(&minis()->input) == 1 && !verify_files(minis()->input->fd))
 		return ;
 	else if (ft_input_lstsize(&minis()->input) == 1 && is_builtin(minis()->input->cmd))
 		ft_exec_builtin(minis()->input->cmd, minis()->input->args);

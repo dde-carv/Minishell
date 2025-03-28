@@ -25,7 +25,7 @@ void	free_array(void **array)
 	while (array[++i])
 		free_pointer(array[i]);
 	free(array);
-	array = NULL;
+	//array = NULL;
 
 /* 	int	i;
 

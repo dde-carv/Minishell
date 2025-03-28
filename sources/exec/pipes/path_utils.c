@@ -60,7 +60,7 @@ static char	*full_path(char *cmd)
 	if (access(cmd, F_OK | X_OK) == 0)
 		return (ft_strdup(cmd));
 	error_mess(cmd, NO_FILE_OR_DIR, 127);
-	return (NULL);
+	return (ft_strdup(""));
 }
 
 char	*ft_check_path(char *cmd, char **paths)
@@ -103,13 +103,14 @@ void	get_cmd_path(t_pipe *pipex, t_input *input)
 	int	n;
 
 	i = 0;
-	n = ft_input_lstsize(&input);
+	n = ft_input_lstsize(&input) - 1;
 	while (i < n)
 	{
 		pipex->cmd_paths[i] = ft_check_path(get_cmd(input, i), pipex->env_paths);
 		i++;
 	}
 	pipex->cmd_paths[i] = NULL;
+	pipex->last_path = ft_check_path(get_cmd(input, n), pipex->env_paths);
 }
 
 char	**ft_get_env_paths()

@@ -31,6 +31,7 @@ typedef struct s_pipe
 	size_t		argc;
 	int			*pids;
 	int			flag;
+	char		*last_path;
 //	int			fd_in;
 //	int			fd_out;
 	char		**env;
@@ -60,7 +61,7 @@ void	close_one_fd(t_pipe *pipex);
 void	pos_execute(t_pipe *pipex);
 void	fd_close_all(t_input *input);
 void	close_fd(t_input *input);
-void	true_execve(char *path, char **envp);
+void	true_execve(char *path, t_input *input, char **envp);
 int		check_for_hd(t_input *input);
 
 int	good_files(t_input *cmd);
@@ -70,5 +71,9 @@ void	fd_update(t_input *input, t_pipe *pipex, int i);
 void	fd_close_m(t_pipe *pipex, int i);
 
 void	first_child(t_pipe *pipex, t_input *input);
+
+void	rest_children(t_pipe *pipex, char *cmd_path, t_input *input);
+
+int		check_valid(t_input *input, char *cmd_path);
 
 #endif
