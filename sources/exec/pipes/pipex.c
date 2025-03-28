@@ -95,14 +95,14 @@ void	start_rest(t_pipe *pipex, t_input *input, char *cmd_path, int i)
 	return ;
 }
 
-static void	start_first(t_pipe *pipex)
+static void	start_first(t_pipe *pipex, t_input *input)
 {
 	int	i;
 
 	i = 0;
 	if (pipe(pipex->fds[0].fd) < 0)
 		return (ft_printf("Error in pipe first pipe creation"), (void)pipex);
-	if (!good_files(minis()->input) || !*minis()->input->cmd)
+	if (!good_files(input) || !*input->cmd)
 		return ;
 	pipex->pids[i] = fork();
 	if (pipex->pids[i] < 0)
@@ -110,45 +110,45 @@ static void	start_first(t_pipe *pipex)
 	if (pipex->pids[i] == 0)
 	{
 		// ?? verify signals
-		first_child(pipex, minis()->input);
+		first_child(pipex, input);
 	}
 }
 
 //!! Still need work
-static void	exec_one(t_pipe *pipex)
+static void	exec_one(t_pipe *pipex, t_input *input)
 {
 	if (ft_strcmp("", pipex->cmd_paths[0]) == 0)
 		return ;
 	if (pipe(pipex->fds[0].fd) < 0)
 		return (ft_printf("Error in pipe 1cmd creation"), (void)pipex);
-	if (!*minis()->input->cmd)
+	if (!*input->cmd)
 		return (close_one_fd(pipex));
-	if (!good_files(minis()->input))
+	if (!good_files(input))
 		return (close_one_fd(pipex), (void)pipex);
 	pipex->pids[0] = fork();
 	if (pipex->pids[0] < 0)
 		return (ft_printf("Error in fork 1cmd creation"), free_pointer(pipex->pids), (void)pipex);
 	if (pipex->pids[0] == 0)
 	{
-		get_fds(minis()->input, pipex->cmd_paths[0]);
+		get_fds(input, pipex->cmd_paths[0]);
 		// ? Verify if builtin is needed here
 		fd_close(pipex);
-		fd_close_all(minis()->input);
+		fd_close_all(input);
 		true_execve(pipex->cmd_paths[0], pipex->env);
 	}
 	return ;
 }
 
-static void	execute_pipes(t_pipe *pipex)
+static void	execute_pipes(t_pipe *pipex, t_input *input)
 {
 	int		i;
 	int		j;
 	t_input	*tmp;
 
 	if (pipex->argc == 1)
-		return (exec_one(pipex));
-	start_first(pipex);
-	tmp = minis()->input;
+		return (exec_one(pipex, input));
+	start_first(pipex, input);
+	tmp = input;
 	i = 0;
 	j = pipex->argc - 1;
 	while (++i < j && tmp)
@@ -191,6 +191,6 @@ void	ft_exec_pipex(void)
 	if (!check_for_hd(minis()->input))
 		return ;
 	init_pipex(&pipex);
-	execute_pipes(&pipex);
+	execute_pipes(&pipex, minis()->input);
 	pos_execute(&pipex); // !! wait for pids and closes fds
 }
