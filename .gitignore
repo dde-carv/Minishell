@@ -7,6 +7,8 @@ obj/
 .dist/
 .DS_Store
 infile
+in
 outfile
+out
 minishell
 a.out

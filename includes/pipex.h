@@ -65,4 +65,10 @@ int		check_for_hd(t_input *input);
 
 int	good_files(t_input *cmd);
 
+void	fd_update(t_input *input, t_pipe *pipex, int i);
+
+void	fd_close_m(t_pipe *pipex, int i);
+
+void	first_child(t_pipe *pipex, t_input *input);
+
 #endif

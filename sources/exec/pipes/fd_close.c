@@ -13,6 +13,19 @@ void	close_one_fd(t_pipe *pipex)
 	ft_close(pipex->fds[0].fd[1]);
 }
 
+void	fd_close_m(t_pipe *pipex, int i)
+{
+	int	k;
+
+	k = 0;
+	while (k <= i)
+	{
+		ft_close(pipex->fds[k].fd[0]);
+		ft_close(pipex->fds[k].fd[1]);
+		k++;
+	}
+}
+
 void	fd_close(t_pipe *pipex)
 {
 	size_t	i;
