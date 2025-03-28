@@ -24,7 +24,6 @@ void	load_signals(void)
 		sigaction(SIGINT, &sig, NULL);
 		sigaction(SIGQUIT, &sig, NULL);
 	}
-	rl_event_hook = 0;
 }
 
 void	sig_handler(int signum, siginfo_t *sig, void *s)
@@ -33,8 +32,8 @@ void	sig_handler(int signum, siginfo_t *sig, void *s)
 	(void)sig;
 	if (signum == SIGINT)
 	{
-		rl_replace_line("", 0);
-		ft_printf("\n");
+		//rl_replace_line("", 0);
+		ft_putstr_fd("^C\n", STDOUT_FILENO);
 		rl_on_new_line();
 		rl_redisplay();
 		minis()->signal = 1;
