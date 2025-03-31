@@ -59,7 +59,7 @@ static char	*full_path(char *cmd)
 {
 	if (access(cmd, F_OK | X_OK) == 0)
 		return (ft_strdup(cmd));
-	error_mess(cmd, NO_FILE_OR_DIR, 127);
+	//error_mess(cmd, NO_FILE_OR_DIR, 127);
 	return (ft_strdup(""));
 }
 
@@ -79,7 +79,7 @@ char	*ft_check_path(char *cmd, char **paths)
 			return (path_cmd);
 		free(path_cmd);
 	}
-	error_mess(cmd, NOT_FOUND, 127);
+	//error_mess(cmd, NOT_FOUND, 127);
 	return (ft_strdup(""));
 }
 
@@ -111,6 +111,11 @@ void	get_cmd_path(t_pipe *pipex, t_input *input)
 	}
 	pipex->cmd_paths[i] = NULL;
 	pipex->last_path = ft_check_path(get_cmd(input, n), pipex->env_paths);
+
+/* 	printf("----> cmd array <----\n");
+	print_array_fd(pipex->cmd_paths, 1);
+	printf("----> last  cmd <----\n%s\n", pipex->last_path); */
+
 }
 
 char	**ft_get_env_paths()

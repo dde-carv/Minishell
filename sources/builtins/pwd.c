@@ -1,7 +1,7 @@
 
 #include "minishell.h"
 
-void	ft_pwd(void)
+void	ft_pwd(int fd)
 {
 	char	*cwd;
 
@@ -10,6 +10,6 @@ void	ft_pwd(void)
 	if(!cwd)
 		return (error_mess("pwd", NO_FILE_OR_DIR, 1), (void)cwd);
 	else
-		ft_putendl_fd(cwd, minis()->input->l_write);
+		ft_putendl_fd(cwd, fd);
 	free(cwd);
 }

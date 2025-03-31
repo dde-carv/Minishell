@@ -84,20 +84,10 @@ void	start_rest(t_pipe *pipex, t_input *input, char *cmd_path, int i)
 	if (pipex->pids[i] == 0)
 	{
 		get_fds(input, cmd_path);
-		if (input->l_write < 3)
-		{
-		if (dup2(pipex->fds[0].fd[1], STDOUT_FILENO) < 0)
-			return (ft_printf("Error in get_fds dup2(3)"), (void)pipex);
-		}
-		if (input->l_read < 3)
-		{
-		if (dup2(pipex->fds[0].fd[0], STDIN_FILENO) < 0)
-			return (ft_printf("Error in get_fds dup2(3)"), (void)pipex);
-		}
 		fd_update(input, pipex, i);
-		if (is_builtin(input->cmd))
+		if (is_builtin(input->cmd)) // !! still need to corect this bc of if there is a builtin in a pipeline to send to stdout
 			return (minis()->pipex = pipex, minis()->pipe_flag = i, \
-				ft_exec_builtin(input->cmd, input->args));
+				ft_exec_builtin(input->cmd, input->args, STDOUT_FILENO));
 		fd_close_m(pipex, i);
 		fd_close_all(input);
 		true_execve(cmd_path, input, pipex->env);
@@ -118,16 +108,16 @@ static void	start_first(t_pipe *pipex, t_input *input)
 		return (ft_printf("Error in fork 1 pipe creation"), free_pointer(pipex->pids), (void)pipex);
 	if (pipex->pids[i] == 0)
 	{
-		// ?? verify signals
+		minis()->signal = 3;
+		load_signals();
 		first_child(pipex, input);
 	}
 }
 
-//!! Still need work
 static void	exec_one(t_pipe *pipex, t_input *input)
 {
 	if (ft_strcmp("", pipex->last_path) == 0)
-		return ;
+		return (error_mess(input->cmd, NOT_FOUND, 127));
 	if (pipe(pipex->fds[0].fd) < 0)
 		return (ft_printf("Error in pipe 1cmd creation"), (void)pipex);
 	if (!*input->cmd)
@@ -159,7 +149,7 @@ static void	execute_pipes(t_pipe *pipex, t_input *input)
 	start_first(pipex, input);
 	tmp = input;
 	i = 0;
-	j = pipex->argc - 1; // ?? "pipex->argc" or "pipex->argc -1" ??
+	j = pipex->argc - 1; // ?? "pipex->argc" or "pipex->argc - 1" ??
 	while (++i < j && tmp)
 	{
 		tmp = tmp->next;
@@ -174,6 +164,10 @@ static void	init_pipex(t_pipe *pipex)
 {
 	int	i;
 
+	minis()->signal = 3;
+	load_signals();
+	minis()->error_status = 0;
+	pipex->env = hashmap_to_array();
 	pipex->env_paths = ft_get_env_paths();
 	pipex->argc = ft_input_lstsize(&minis()->input);
 	pipex->pids = ft_calloc(sizeof(size_t), pipex->argc);
@@ -189,7 +183,6 @@ static void	init_pipex(t_pipe *pipex)
 	if (!pipex->fds)
 		return (free(pipex->pids), free(pipex->cmd_paths));
 	get_cmd_path(pipex, minis()->input);
-	pipex->env = hashmap_to_array();
 }
 
 // !!! DON'T forget to update the $_ variable after execution
