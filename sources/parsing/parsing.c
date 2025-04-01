@@ -68,29 +68,13 @@ static char	*extract_input(char *str, int *i)
 	return (cmd);
 }
 
-/* void	mark_pipes(char *str)
-{
-	int	i;
-	int	s;
-
-	s = 0;
-	i = -1;
-	while(str[++i])
-	{
-		if (str[i] == '"' || str[i] == '\'')
-			s = str[i];
-		if (!str && str[i] == '|')
-			str[i] = 2;
-	}
-} */
-
 void	parse_input(void)
 {
 	int		i;
 	char	*cmd;
 	char	*arg;
 	t_entry	*entry;
-	//t_input *current_input;
+	/* t_input *current_input; */
 
 	i = 0;
 	while (minis()->ms->line[i])
@@ -103,13 +87,13 @@ void	parse_input(void)
 		if (minis()->ms->line[i] == '|')
 			i++;
 		cpy_input(entry);
-		free_t_entry(entry);// ! Posible Invalid free because of parsing and expantions(in transform_str.c clean_content function)
+		free_t_entry(entry);
 		free(cmd);
 		free(arg);
 	}
 	if (minis()->ms->line[i - 1] == '|')
 		cpy_input(&(t_entry){"", "", NULL});
-	
+
 	// Apply redirection parsing to each command segment
 /* 	current_input = minis()->input;
 	while (current_input)

@@ -1,4 +1,4 @@
-#include "minishell.h"
+/* #include "minishell.h"
 
 static void	helper(t_fd **f, char *name, int *index)
 {
@@ -94,3 +94,4 @@ void	expantion_mark(void)
 	}
 	execute();
 }
+ */

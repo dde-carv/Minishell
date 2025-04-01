@@ -57,6 +57,7 @@ PARSING_DIR		=	$(SRC_DIR)parsing/args.c \
 					$(SRC_DIR)parsing/get_value.c \
 					$(SRC_DIR)parsing/expantion.c \
 					$(SRC_DIR)parsing/redirects.c \
+					$(SRC_DIR)parsing/redirects_utils.c \
 					$(SRC_DIR)parsing/transform.c \
 					$(SRC_DIR)parsing/bools.c \
 					$(SRC_DIR)parsing/change_cmd.c \

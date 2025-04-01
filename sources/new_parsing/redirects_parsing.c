@@ -1,4 +1,4 @@
-#include "minishell.h"
+/* #include "minishell.h"
 
 static int	start_redirect(char *s)
 {
@@ -69,13 +69,14 @@ static void	take_redirect(t_input **cmd)
 
 void	redirects_parsing(void)
 {
-	t_input	*cmd;
+	t_input	*input;
 
-	cmd = minis()->input;
-	while (cmd)
+	input = minis()->input;
+	while (input)
 	{
-		take_redirect(&cmd);
-		cmd = cmd->next;
+		take_redirect(&input);
+		input = input->next;
 	}
 	expantion_mark();
 }
+ */

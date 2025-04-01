@@ -1,13 +1,5 @@
 #include "minishell.h"
 
-void	update_quote_state(char c, char *in_quotes)
-{
-	if ((c == '"' || c == '\'') && !(*in_quotes))
-		*in_quotes = c;
-	else if (c == *in_quotes)
-		*in_quotes = 0;
-}
-
 static void	take_spaces(char **s)
 {
 	int	i;
@@ -19,7 +11,7 @@ static void	take_spaces(char **s)
 		(*s)[i--] = 0;
 }
 
-void	take_quotes(char **str)
+static void	take_quotes(char **str)
 {
 	char	old_in_quotes;
 	char	in_quotes;
@@ -47,23 +39,47 @@ void	take_quotes(char **str)
 	(*str)[j++] = '\0';
 }
 
+static void	process_cmd_tokens(t_input *lst)
+{
+	int		i;
+	char	**tokens;
+
+	tokens = split_value(lst->cmd);
+	if (tokens && tokens[0])
+	{
+		free(lst->cmd);
+		lst->cmd = ft_strdup(tokens[0]);
+		if (tokens[1])
+		{
+			free(tokens[0]);
+			i = -1;
+			while (tokens[++i] && tokens[i + 1])
+				tokens[i] = tokens[i + 1];
+			tokens[i] = NULL;
+		}
+		else
+		{
+			free_array((void **)tokens);
+			tokens = NULL;
+		}
+	}
+	lst->args = tokens;
+}
+
 static void	take_expantions(t_input **lst)
 {
-	bool	f;
 	int		i;
 
 	i = 0;
-	f = needs_split((*lst)->cmd);
 	take_quotes(&(*lst)->cmd);
 	while (is_expantion((*lst)->cmd))
 		(*lst)->cmd = sub_expantion((*lst)->cmd, get_value((*lst)->cmd));
 	while (is_expantion((*lst)->arg))
 		(*lst)->arg = sub_expantion((*lst)->arg, get_value((*lst)->arg));
-	if (f && *(*lst)->cmd)
-		args(lst);
+	if (ft_strchr((*lst)->cmd, ' '))
+		process_cmd_tokens(*lst);
 	else if ((*lst)->arg)
 		(*lst)->args = split_value((*lst)->arg);
-	//print_array_fd((*lst)->args, 1);
 	while ((*lst)->args && (*lst)->args[i])
 	{
 		take_quotes(&(*lst)->args[i]);
@@ -79,31 +95,13 @@ void	clean_content(void)
 	lst = minis()->input;
 	while (lst)
 	{
-		// Debug: before handling redirection
-        /* printf("[DEBUG] Before redirection parsing: cmd = \"%s\", arg = \"%s\"\n",
-            lst->cmd ? lst->cmd : "NULL", lst->arg ? lst->arg : "NULL"); */
 		if (has_redirection(lst->cmd) || has_redirection(lst->arg))
 		{
-            parse_redirects(&lst);
-            // Debug: after redirection processing
-            /* printf("[DEBUG] After redirection parsing: cmd = \"%s\", arg = \"%s\"\n",
-                lst->cmd ? lst->cmd : "NULL", lst->arg ? lst->arg : "NULL"); */
-        }
+			parse_redirects(&lst);
+		}
 		expantions(&lst->cmd);
 		expantions(&lst->arg);
 		take_expantions(&lst);
-		// Debug: after expansion/taking tokens from args
-        /* if (lst->args)
-        {
-            int i = 0;
-            printf("[DEBUG] lst->args after expansion: ");
-            while (lst->args[i])
-            {
-                printf("\"%s\" ", lst->args[i]);
-                i++;
-            }
-            printf("\n");
-        } */
-        lst = lst->next;
+		lst = lst->next;
 	}
 }
