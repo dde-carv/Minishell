@@ -76,7 +76,7 @@ static t_input	*init_pipex(int argc, char **argv, char **envp)
 
 void	start_rest(t_pipe *pipex, t_input *input, char *cmd_path, int i)
 {
-	if (!check_valid(input, pipex->last_path))
+	if (!check_valid(input, cmd_path))
 		return ;
 	pipex->pids[i] = fork();
 	if (pipex->pids[i] < 0)

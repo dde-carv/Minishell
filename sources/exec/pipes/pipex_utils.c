@@ -98,11 +98,34 @@ static char	**full_argv(t_input *input)
 	return (argv);
 }
 
+static char	*ft_get_last(char *path)
+{
+	int		i;
+	char	*last;
+	char	**prompt;
+
+	if (!*path || !path)
+		return (NULL);
+	if (!ft_strcmp(path, "/"))
+		return (last = ft_strdup("/"));
+	prompt = ft_split(path, '/');
+	i = -1;
+	while (prompt[++i]);
+	last = ft_strdup(prompt[i - 1]);
+	free_array((void **)prompt);
+	return (last);
+}
+
 void	true_execve(char *path, t_input *input, char **envp)
 {
 	char	**argv;
 
 	argv = full_argv(input);
+	if (hashmap_search(minis()->env, "_"))
+	{
+		hashmap_delete(minis()->env, "_");
+		insert_in_table("_", argv[array_len(argv)], minis()->env);
+	}
 	if (execve(path, argv, envp) == -1)
 		return (free_array((void **)argv));
 }

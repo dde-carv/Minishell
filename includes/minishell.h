@@ -31,9 +31,9 @@ typedef struct s_global
 {
 	int			error_status;
 	int			signal;
-	int			pipe_flag;
+	int			stdin_back;
+	int			stdout_back;
 	t_input		*input;
-	t_pipe		*pipex;
 	t_hashmap	*table;
 	t_hashmap	*env;
 	t_hashmap	*non_value_vars;
