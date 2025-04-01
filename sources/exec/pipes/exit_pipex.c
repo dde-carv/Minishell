@@ -67,12 +67,12 @@ static void	ft_free_rest(t_input **input, char **paths)
 
 void	exit_pipex(t_pipe *pipex)
 {
-	free_array((void **)pipex->env_paths);
-	free_array((void **)pipex->cmd_paths);
 	free_array((void **)pipex->env);
+	free_array((void **)pipex->cmd_paths);
+	free_array((void **)pipex->env_paths);
+	free_pointer((void **)pipex->last_path);
 	free_pointer((void **)pipex->pids);
 	free_pointer((void **)pipex->fds);
-	free_pointer((void **)pipex->last_path);
 }
 
 void	pos_execute(t_pipe *pipex)
@@ -82,6 +82,6 @@ void	pos_execute(t_pipe *pipex)
 	i = -1;
 	fd_close(pipex);
 	while(++i < pipex->argc)
-		waitpid(pipex->pids[i], NULL, 0);
+		waitpid(pipex->pids[i], &minis()->error_status, 0);
 	exit_pipex(pipex);
 }
