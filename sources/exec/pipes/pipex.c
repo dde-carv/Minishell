@@ -85,9 +85,8 @@ void	start_rest(t_pipe *pipex, t_input *input, char *cmd_path, int i)
 	{
 		get_fds(input, cmd_path);
 		fd_update(input, pipex, i);
-		if (is_builtin(input->cmd)) // !! still need to corect this bc of if there is a builtin in a pipeline to send to stdout
-			return (minis()->pipex = pipex, minis()->pipe_flag = i, \
-				ft_exec_builtin(input->cmd, input->args, STDOUT_FILENO));
+		if (is_builtin(input->cmd))
+			return (ft_exec_builtin(input->cmd, input->args, STDOUT_FILENO));
 		fd_close_m(pipex, i);
 		fd_close_all(input);
 		true_execve(cmd_path, input, pipex->env);
@@ -101,7 +100,7 @@ static void	start_first(t_pipe *pipex, t_input *input)
 	i = 0;
 	if (pipe(pipex->fds[0].fd) < 0)
 		return (ft_printf("Error in pipe first pipe creation"), (void)pipex);
-	if (!check_valid(input, pipex->last_path))
+	if (!check_valid(input, pipex->cmd_paths[0]))
 		return ;
 	pipex->pids[i] = fork();
 	if (pipex->pids[i] < 0)
@@ -196,4 +195,6 @@ void	ft_exec_pipex(void)
 	init_pipex(&pipex);
 	execute_pipes(&pipex, minis()->input);
 	pos_execute(&pipex);
+	minis()->signal = 1;
+	load_signals();
 }
