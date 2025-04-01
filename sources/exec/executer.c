@@ -1,6 +1,31 @@
 
 #include "minishell.h"
 
+static void update_under(void)
+{
+	t_input *tmp;
+
+	tmp = minis()->input;
+	while (tmp->next)
+		tmp = tmp->next;
+	if (*tmp->args)
+	{
+		if (hashmap_search(minis()->env, "_"))
+		{
+			hashmap_delete(minis()->env, "_");
+			insert_in_table("_", tmp->args[array_len(tmp->args) - 1], minis()->env);
+		}
+	}
+	else
+	{
+		if (hashmap_search(minis()->env, "_"))
+		{
+			hashmap_delete(minis()->env, "_");
+			insert_in_table("_", tmp->cmd, minis()->env);
+		}
+	}
+}
+
 static int verify_files(t_fd *fd)
 {
 	t_fd	*tmp;
@@ -48,6 +73,7 @@ void	ft_exec_builtin(char *cmd, char **args, int fd)
 void	execute(void)
 {
 	//change_cmd(&minis()->input);
+	update_under();
 	handle_fd(&minis()->input);
 	if (ft_input_lstsize(&minis()->input) == 1 && !verify_files(minis()->input->fd))
 		return ;

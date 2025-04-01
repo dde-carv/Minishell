@@ -84,7 +84,7 @@ void	parse_redirects(t_input **cmd)
 {
 	char	*combined_str;
 	char	*processed_str;
-	char	*space_pos;
+	//char	*space_pos;
 	char	*trimmed;
 
 	combined_str = ft_strjoin_var(3, (*cmd)->cmd, " ", (*cmd)->arg);
@@ -93,7 +93,7 @@ void	parse_redirects(t_input **cmd)
 	trimmed = ft_strtrim(processed_str, " ");
 	free(processed_str);
 	processed_str = trimmed;
-	space_pos = ft_strchr(processed_str, ' ');
+	//space_pos = ft_strchr(processed_str, ' ');
 	update_cmd_args(cmd, processed_str);
 	free(processed_str);
 }
