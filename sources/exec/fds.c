@@ -54,12 +54,12 @@ int	handle_fd(t_input **input)
 		if (fd->type == REVERSE)
 			fd->fd = open(fd->file_n, O_RDONLY, 0644);
 		if (fd->type == HEREDOC)
-			fd->fd = 42000;
+			fd->fd = 1000;
 		if (fd->fd == -1)
 			error_mess(fd->file_n, NO_FILE_OR_DIR, 1);
 		fd = fd->next;
 	}
 	(*input)->l_write = get_last_w((*input)->fd);
 	(*input)->l_read = get_last_r((*input)->fd);
-	return (1);
+	return (0);
 }

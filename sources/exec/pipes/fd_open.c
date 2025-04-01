@@ -68,7 +68,7 @@ void	fd_update(t_input *input, t_pipe *pipex, int i)
 	}
 	if (input->l_write < 3)
 	{
-		if (dup2(pipex->fds[i - 1].fd[0], STDOUT_FILENO) < 0)
+		if (dup2(pipex->fds[i].fd[1], STDOUT_FILENO) < 0)
 			return (ft_printf("Error in get_fds dup2(5)"), (void)i);
 	}
 }

@@ -59,6 +59,7 @@ PARSING_DIR		=	$(SRC_DIR)parsing/args.c \
 					$(SRC_DIR)parsing/redirects.c \
 					$(SRC_DIR)parsing/transform.c \
 					$(SRC_DIR)parsing/bools.c \
+					$(SRC_DIR)parsing/change_cmd.c \
 					$(SRC_DIR)parsing/clean_content.c \
 					$(SRC_DIR)parsing/parsing_lst/ft_fd_new.c \
 					$(SRC_DIR)parsing/parsing_lst/ft_fd_del.c \
@@ -68,6 +69,8 @@ PARSING_DIR		=	$(SRC_DIR)parsing/args.c \
 					$(SRC_DIR)parsing/parsing_lst/ft_input_lstclear.c \
 					$(SRC_DIR)parsing/parsing_lst/ft_input_lstdelone.c \
 					$(SRC_DIR)parsing/parsing_lst/ft_input_lstadd_back.c
+
+
 
 SIGNALS_DIR		=	$(SRC_DIR)signals/signals.c
 

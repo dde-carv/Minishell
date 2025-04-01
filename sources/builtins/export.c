@@ -24,14 +24,14 @@ static int	valid_var(char *str)
 	return (1);
 }
 
-static int	print_export(void)
+static int	print_export(int fd)
 {
 	char	**export;
 
 	export = hashmap_quotes_array_and_non_value_vars();
 	quick_sort(export, 0, matrix_len(export));
 	ft_strjoin_to_array("declare -x ", export);
-	print_array_fd(export, minis()->input->l_write);
+	print_array_fd(export, fd);
 	free_array((void **)export);
 	return(0);
 }
@@ -78,11 +78,11 @@ static int	add_var(char **args, int i)
 	return (add_var(args, i + 1));
 }
 
-int	ft_export(char **args)
+int	ft_export(char **args, int fd)
 {
 	minis()->error_status = 0;
 	if (args[0])
 		return(add_var(args, 0));
 	else
-		return(print_export());
+		return(print_export(fd));
 }

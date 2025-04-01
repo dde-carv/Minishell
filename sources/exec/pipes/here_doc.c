@@ -65,7 +65,6 @@ static void	exec_hd(t_fd **fd, char *file_n, int f_d)
 				return (free(line), free(limit));
 			return ;
 		}
-		//expand_vars(&line); // !! Ask luis how to do this and the logic
 		ft_putendl_fd(line,f_d);
 		free(line);
 	}
@@ -82,7 +81,7 @@ static char	*random_file_gen(void)
 	chararray = CHARS;
 	srand(time(NULL));
 	len = 15;
-	file_n = ft_calloc(len + 1, 1);
+	file_n = ft_calloc(len + 5, 1);
 	if (!file_n)
 		return (NULL);
 	ft_strcpy(file_n, "/tmp/.");
@@ -124,14 +123,16 @@ int	check_for_hd(t_input *input)
 	t_input	*tmp;
 
 	tmp = input;
-	// ?? verify signals
+	minis()->signal = 2;
+	load_signals();
 	while (tmp)
 	{
-		if (tmp->l_read == 42000)
+		if (tmp->l_read == 1000)
 			tmp->l_read = here_doc(tmp->fd);
 		// ?? verify signals
 		tmp = tmp->next;
 	}
-	// ?? verify signals
+	minis()->signal = 1;
+	load_signals();
 	return(1);
 }

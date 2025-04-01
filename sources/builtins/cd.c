@@ -45,9 +45,9 @@ static void	ft_chdir_path(char *path)
 	free(final_path);
 }
 
-static void	ft_chdir_oldpwd(char *path)
+static void	ft_chdir_oldpwd(char *path, int fd)
 {
-	ft_putendl_fd(path, minis()->input->l_write);
+	ft_putendl_fd(path, fd);
 	if (*path)
 		ft_chdir_path(path);
 }
@@ -68,7 +68,7 @@ static void	ft_chdir_home(void)
 	free(path);
 }
 
-void	ft_cd(char *path)
+void	ft_cd(char *path, int fd)
 {
 	char	*current_path;
 
@@ -79,7 +79,7 @@ void	ft_cd(char *path)
 		if (!hashmap_search(minis()->env, "OLDPWD"))
 			return (error_mess("cd", NO_OLDPWD, 1));
 		current_path = ft_strdup(hashmap_search(minis()->env, "OLDPWD"));
-		ft_chdir_oldpwd(current_path);
+		ft_chdir_oldpwd(current_path, fd);
 	}
 	else
 	{
@@ -89,11 +89,11 @@ void	ft_cd(char *path)
 	free(current_path);
 }
 
-void	ft_verify_cd(char **path) // !! Need to protect if the folder is deleted
+void	ft_verify_cd(char **path, int fd) // !! Need to protect if the folder is deleted
 {
 	minis()->error_status = 0;
 	if (array_len(path) > 1)
 		return (error_mess("cd", TOO_MANY_ARGS, 1));
 	else
-		ft_cd(path[0]);
+		ft_cd(path[0], fd);
 }

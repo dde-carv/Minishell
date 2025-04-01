@@ -72,6 +72,7 @@ void	exit_pipex(t_pipe *pipex)
 	free_array((void **)pipex->env);
 	free_pointer((void **)pipex->pids);
 	free_pointer((void **)pipex->fds);
+	free_pointer((void **)pipex->last_path);
 }
 
 void	pos_execute(t_pipe *pipex)

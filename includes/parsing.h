@@ -90,4 +90,6 @@ t_fd	*ft_fd_new(char *file_n, int fd, t_type type);
 // Function to delete fd nodes
 void	ft_fd_del(t_fd	**fd);
 
+void	change_cmd(t_input **cmd);
+
 #endif

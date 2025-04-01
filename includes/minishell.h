@@ -70,7 +70,7 @@ t_global	*minis(void);
 // Functions that calls if is builtin and execution
 void	execute(void);
 // Function to call the builtins
-void	ft_exec_builtin(char *cmd, char **args);
+void	ft_exec_builtin(char *cmd, char **args, int fd);
 
 int		handle_fd(t_input **input);
 
@@ -79,23 +79,23 @@ int		is_builtin(char *cmd);
 /************************* builtin *************************/
 
 // Function that replicates cd (change directory)
-void	ft_cd(char *path);
+void	ft_cd(char *path, int fd);
 // Function that replicates pwd (print working directory)
-void	ft_pwd(void);
+void	ft_pwd(int fd);
 // Function that replicates echo (prints to stdout the arguments given)
-void	ft_echo(char **args);
+void	ft_echo(char **args, int fd);
 // Function that replicates exit (responsible to exit clean)
 void	ft_exit(char **args);
 // Function that replicates unset (removes variables from env)
 void	ft_unset(char **args);
 // Function that replicates export (adds variables to env)
-int		ft_export(char **args);
+int		ft_export(char **args, int fd);
 // Function that creates a prompt, reads a line and add it to the history
 void	set_input(void);
 // Function that verifies if arguments are valid for env
-void	ft_verify_env(char **args);
+void	ft_verify_env(char **args, int fd);
 // Function that verifies if arguments are valid for cd
-void	ft_verify_cd(char **path);
+void	ft_verify_cd(char **path, int fd);
 // Puts env and session vars hashmaps into an array
 char	**hashmap_quotes_array_and_non_value_vars(void);
 // Puts env variables into an array
