@@ -35,7 +35,7 @@ void	rest_children(t_pipe *pipex, char *cmd_path, t_input *input)
 				return (ft_printf("Error in dup2 rest_children"), (void)cmd_path);
 		}
 		if (is_builtin(tmp->cmd))
-			return (ft_exec_builtin(tmp->cmd, tmp->args, STDOUT_FILENO));
+			return (minis()->pipex = pipex, minis()->pipes = -1, ft_exec_builtin(tmp->cmd, tmp->args, STDOUT_FILENO, 1));
 		fd_close(pipex);
 		fd_close_all(tmp);
 		true_execve(cmd_path, tmp, pipex->env);
@@ -61,7 +61,7 @@ void	first_child(t_pipe *pipex, t_input *input)
 			return (ft_printf("Error in get_fds dup2(3)"), (void)pipex);
 	}
 	if (is_builtin(input->cmd))
-		return (ft_exec_builtin(input->cmd, input->args, STDOUT_FILENO));
+		return(minis()->pipex = pipex, minis()->pipes = 0, ft_exec_builtin(input->cmd, input->args, STDOUT_FILENO, 1));
 	close_one_fd(pipex);
 	fd_close_all(input);
 	true_execve(pipex->cmd_paths[0], input, pipex->env);

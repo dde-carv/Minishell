@@ -1,23 +1,39 @@
 
 #include "minishell.h"
 
+static void	clear_pipes(void)
+{
+	if (minis()->pipes == -1)
+		fd_close(minis()->pipex);
+	else if (minis()->pipes == 0)
+		close_one_fd(minis()->pipex);
+	else
+		fd_close_m(minis()->pipex, minis()->pipes);
+	fd_close_all(minis()->input);
+	exit_pipex(minis()->pipex);
+	free_pointer(minis()->ms->line);
+	ft_input_lstclear(&minis()->input);
+	free_table(minis()->env);
+	free_table(minis()->non_value_vars);
+	free_table(minis()->table);
+	clear_history();
+	exit(minis()->error_status);
+}
+
 void	exit_minishell(void)
 {
+	if (minis()->pipex)
+		clear_pipes();
 	free_pointer(minis()->ms->line);
-	/* if (minis()->ms)
-		free(minis()->ms); */
 	if (minis()->input)
 		ft_input_lstclear(&minis()->input);
-
-		//free_t_input(minis()->input);
-	/* if (minis()->input->args)
-		free_args(minis()->input->args); */
 	if (minis()->env)
 	{
 		free_table(minis()->env);
 		free_table(minis()->non_value_vars);
 		free_table(minis()->table);
 	}
+	clear_history();
 	exit(minis()->error_status);
 }
 

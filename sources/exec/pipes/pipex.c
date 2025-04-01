@@ -86,7 +86,7 @@ void	start_rest(t_pipe *pipex, t_input *input, char *cmd_path, int i)
 		get_fds(input, cmd_path);
 		fd_update(input, pipex, i);
 		if (is_builtin(input->cmd))
-			return (ft_exec_builtin(input->cmd, input->args, STDOUT_FILENO));
+			return (minis()->pipex = pipex, minis()->pipes = i, ft_exec_builtin(input->cmd, input->args, STDOUT_FILENO, 1));
 		fd_close_m(pipex, i);
 		fd_close_all(input);
 		true_execve(cmd_path, input, pipex->env);
