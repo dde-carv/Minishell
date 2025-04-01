@@ -1,4 +1,4 @@
-#include "minishell.h"
+/* #include "minishell.h"
 
 char	*new_cut(char **s, int init, int end)
 {
@@ -32,3 +32,4 @@ void	args_to_cmd(void)
 	free_array((void **)minis()->input->args);
 	redirects_parsing();
 }
+ */

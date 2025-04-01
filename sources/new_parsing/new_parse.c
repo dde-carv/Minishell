@@ -1,4 +1,4 @@
-#include "minishell.h"
+/* #include "minishell.h"
 
 static void	mark_pipes(void)
 {
@@ -74,3 +74,4 @@ void	new_parse(void)
 	minis()->input->args = s;
 	args_to_cmd();
 }
+ */

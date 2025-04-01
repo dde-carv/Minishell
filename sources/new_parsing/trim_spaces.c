@@ -1,4 +1,4 @@
-#include "minishell.h"
+/* #include "minishell.h"
 
 void	trim_spaces(char **s)
 {
@@ -23,3 +23,4 @@ void	trim_front_spaces(char **s)
 	free(*s);
 	*s = str;
 }
+ */

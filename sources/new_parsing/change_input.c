@@ -1,4 +1,4 @@
-#include "minishell.h"
+/* #include "minishell.h"
 
 static char	**new_args(char **args)
 {
@@ -18,24 +18,25 @@ static char	**new_args(char **args)
 	return (free_array((void**)args), s);
 }
 
-static void	new_cmd(t_input **cmd)
+static void	new_input(t_input **input)
 {
 	t_input	*lst;
 
-	lst = *cmd;
+	lst = *input;
 	free(lst->cmd);
 	lst->cmd = ft_strdup(lst->args[0]);
 	lst->args = new_args(lst->args);
 }
 
-void	change_cmd(t_input **cmd)
+void	change_input(t_input **input)
 {
 	t_input	*lst;
 
-	lst = *cmd;
+	lst = *input;
 	while (lst)
 	{
-		new_cmd(&lst);
+		new_input(&lst);
 		lst = lst->next;
 	}
 }
+ */

@@ -1,5 +1,13 @@
 #include "minishell.h"
 
+void	update_quote_state(char c, char *in_quotes)
+{
+	if ((c == '"' || c == '\'') && !(*in_quotes))
+		*in_quotes = c;
+	else if (c == *in_quotes)
+		*in_quotes = 0;
+}
+
 bool	is_valid(void)
 {
 	t_input	*lst;
@@ -17,8 +25,6 @@ bool	is_valid(void)
 			error_mess("minishell", SYNTAX_ERROR, 1);
 			return (0);
 		}
-		/* expantions(&lst->cmd);
-		expantions(&lst->arg); */
 		lst = lst->next;
 	}
 	return (1);
@@ -70,7 +76,7 @@ bool	has_redirection(char *s)
 	return (false);
 }
 
-bool	needs_split(char *s)
+/* bool	needs_split(char *s)
 {
 	char	in_quotes;
 	int		i;
@@ -92,4 +98,4 @@ bool	needs_split(char *s)
 		}
 	}
 	return (false);
-}
+} */

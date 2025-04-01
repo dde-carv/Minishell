@@ -14,7 +14,6 @@ char	*get_value(char *s)
 {
 	int			i;
 	int			j;
-	int			len;
 	char		*var_name;
 	char		*value;
 
@@ -31,8 +30,7 @@ char	*get_value(char *s)
 			while (s[j] && ft_isalnum(s[j])
 				&& (ft_isalpha(s[i + 1]) || s[i + 1] == '?'))
 				j++;
-			len = j - i - 1;
-			var_name = ft_substr(s, i + 1, len);
+			var_name = ft_substr(s, i + 1, j - i - 1);
 			value = lookup_var_value(var_name);
 			free(var_name);
 			return (value);

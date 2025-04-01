@@ -42,6 +42,9 @@ void	parse_input(void);
 void	parse_redirects(t_input **cmd);
 // Updates the quote state.
 void	update_quote_state(char c, char *in_quotes);
+// 
+void	update_cmd_args(t_input **cmd, char *processed_str);
+
 // Cleans leading/trailing spaces and other unwanted characters from the input.
 void	clean_content(void);
 // Applies necessary transformations to the input string before execution.
@@ -55,7 +58,7 @@ char	*get_value(char *s);
 // Splits the input string into tokens based on specific delimiters.
 char	**split_value(char *str);
 
-void	take_quotes(char **str);
+
 
 // Verifies that all quotes in the string are properly closed.
 bool	closed_quotes(char *str);
@@ -63,10 +66,20 @@ bool	closed_quotes(char *str);
 bool	is_expantion(char *str);
 // Validates the overall syntax of the input.
 bool	is_valid(void);
-// Determines if the string requires additional splitting for proper parsing.
-bool	needs_split(char *s);
+/* // Determines if the string requires additional splitting for proper parsing.
+bool	needs_split(char *s); */
 // Determines if the string has any redirections.
 bool	has_redirection(char *s);
+
+/* char	*new_cut(char **s, int init, int end);
+void	change_input(t_input **cmd);
+void	create_args(t_input **input);
+void	expantion_mark(void);
+void	args_to_cmd(void);
+void	new_parse(void);
+void	redirects_parsing(void);
+void	trim_spaces(char **s);
+void	trim_front_spaces(char **s); */
 
 /************************* Parsing list functions *************************/
 
