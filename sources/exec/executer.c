@@ -42,6 +42,23 @@ static int verify_files(t_fd *fd)
 	return (1);
 }
 
+static void	check_redirects(t_input **cmd)
+{
+	t_input	*tmp;
+
+	tmp = *cmd;
+	while (tmp)
+	{
+		if (tmp->fd)
+		{
+			if (!handle_fd(&tmp))
+				return ;
+		}
+		tmp = tmp->next;
+	}
+	return ;
+}
+
 // Verify is command given is a builtin
 int	is_builtin(char *cmd)
 {
@@ -76,7 +93,7 @@ void	execute(void)
 {
 	//change_cmd(&minis()->input);
 	update_under();
-	handle_fd(&minis()->input);
+	check_redirects(&minis()->input);
 	if (ft_input_lstsize(&minis()->input) == 1 && !verify_files(minis()->input->fd))
 		return ;
 	else if (ft_input_lstsize(&minis()->input) == 1 && is_builtin(minis()->input->cmd))

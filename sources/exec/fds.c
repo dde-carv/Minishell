@@ -61,5 +61,5 @@ int	handle_fd(t_input **input)
 	}
 	(*input)->l_write = get_last_w((*input)->fd);
 	(*input)->l_read = get_last_r((*input)->fd);
-	return (0);
+	return (1);
 }

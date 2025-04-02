@@ -129,7 +129,6 @@ static void	exec_one(t_pipe *pipex, t_input *input)
 	if (pipex->pids[0] == 0)
 	{
 		get_fds(input, pipex->last_path);
-		// ? Verify if builtin is needed here
 		close_one_fd(pipex);
 		fd_close_all(input);
 		true_execve(pipex->last_path, input, pipex->env);
@@ -148,7 +147,7 @@ static void	execute_pipes(t_pipe *pipex, t_input *input)
 	start_first(pipex, input);
 	tmp = input;
 	i = 0;
-	j = pipex->argc - 1; // ?? "pipex->argc" or "pipex->argc - 1" ??
+	j = pipex->argc - 1;
 	while (++i < j && tmp)
 	{
 		tmp = tmp->next;
@@ -191,7 +190,7 @@ void	ft_exec_pipex(void)
 
 	pipex = (t_pipe){0};
 	if (!check_for_hd(minis()->input))
-		return ;
+		return (g_sig = 0, (void)pipex);
 	init_pipex(&pipex);
 	execute_pipes(&pipex, minis()->input);
 	pos_execute(&pipex);
