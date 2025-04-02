@@ -10,16 +10,6 @@
 
 # define CHARS "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
 
-/* typedef struct s_cmd
-{
-	int				fd[2];
-	char			*cmd;
-	char			*path;
-	char			**av;
-	struct s_cmd	*next;
-	struct s_cmd	*prev;
-}		t_cmd; */
-
 typedef struct s_fds
 {
 	int			fd[2];
@@ -38,16 +28,6 @@ typedef struct s_pipe
 	char		**cmd_paths;
 	char		**env_paths;
 }		t_pipe;
-
-/* t_pipe	*data(void);
-void	free_all_cmds(char **cmds);
-void	father_son(t_cmd *input, char **envp);
-void	ft_addcmd(t_cmd **input, t_cmd *new);
-t_cmd	*ft_newcmd(char *cmd, char *path, int is_last);
-char	*check_path(char *cmd, char **paths);
-char	**get_path(char **envp);
-void	here_doc_main(int argc, char **argv);
-int		ft_father_son(t_input *input, char **envp); */
 
 char	*ft_check_path(char *cmd, char **paths);
 void	exit_pipex(t_pipe *pipex);

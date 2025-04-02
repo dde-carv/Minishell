@@ -20,27 +20,25 @@ void	rest_children(t_pipe *pipex, char *cmd_path, t_input *input)
 	int	i;
 	t_input	*tmp;
 
-
 	tmp = ft_lstinput_last(input, &i);
-	if (!check_valid(input, cmd_path))
+	if (!check_valid(tmp, cmd_path))
 		return ;
 	pipex->pids[i] = fork();
 	if (pipex->pids[i] < 0)
 		return (ft_printf("Error in fork rest_children pipe creation"), free_pointer(pipex->pids), (void)pipex);
 	if (pipex->pids[i] == 0)
 	{
-		get_fds(input, cmd_path);
+		get_fds(tmp, cmd_path);
 		if (tmp->l_read < 3)
 		{
 			if (dup2(pipex->fds[i - 1].fd[0], STDIN_FILENO) < 0)
 				return (ft_printf("Error in dup2 rest_children"), (void)cmd_path);
 		}
-		if (is_builtin(input->cmd))  // !! still need to corect this bc of if there is a builtin in a pipeline to send to stdout
-			return (minis()->pipex = pipex, minis()->pipe_flag = -1, \
-				ft_exec_builtin(input->cmd, input->args, STDOUT_FILENO));
+		if (is_builtin(tmp->cmd))
+			return (minis()->pipex = pipex, minis()->pipes = -1, ft_exec_builtin(tmp->cmd, tmp->args, STDOUT_FILENO, 1));
 		fd_close(pipex);
-		fd_close_all(input);
-		true_execve(cmd_path, input, pipex->env);
+		fd_close_all(tmp);
+		true_execve(cmd_path, tmp, pipex->env);
 	}
 	return ;
 }
@@ -62,11 +60,10 @@ void	first_child(t_pipe *pipex, t_input *input)
 		if (dup2(pipex->fds[0].fd[1], STDOUT_FILENO) < 0)
 			return (ft_printf("Error in get_fds dup2(3)"), (void)pipex);
 	}
-	if (is_builtin(input->cmd)) // !! still need to corect this bc of if there is a builtin in a pipeline to send to stdout
-		return (minis()->pipex = pipex, minis()->pipe_flag = 0, \
-			ft_exec_builtin(minis()->input->cmd, minis()->input->args, STDOUT_FILENO));
+	if (is_builtin(input->cmd))
+		return(minis()->pipex = pipex, minis()->pipes = 0, ft_exec_builtin(input->cmd, input->args, STDOUT_FILENO, 1));
 	close_one_fd(pipex);
-	fd_close_all(minis()->input);
+	fd_close_all(input);
 	true_execve(pipex->cmd_paths[0], input, pipex->env);
 }
 

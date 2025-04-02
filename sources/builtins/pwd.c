@@ -9,7 +9,6 @@ void	ft_pwd(int fd)
 	cwd = getcwd(NULL, 0);
 	if(!cwd)
 		return (error_mess("pwd", NO_FILE_OR_DIR, 1), (void)cwd);
-	else
-		ft_putendl_fd(cwd, fd);
+	ft_putendl_fd(cwd, fd);
 	free(cwd);
 }

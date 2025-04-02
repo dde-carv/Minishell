@@ -34,6 +34,8 @@ int	main(int ac, char **av, char **env)
 	minis()->error_status = 0;
 	while (1)
 	{
+		if (minis()->signal != 0)
+			minis()->signal = 0;
 		set_input();
 
 		if (!*minis()->ms->line)

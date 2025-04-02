@@ -42,6 +42,14 @@ void	here_doc_main(int argc, char **argv)
 
 
 } */
+int	rl_hook(void)
+{
+	if (g_sig)
+	{
+		rl_done = 1;
+	}
+	return (0);
+}
 
 static void	exec_hd(t_fd **fd, char *file_n, int f_d)
 {
@@ -54,12 +62,13 @@ static void	exec_hd(t_fd **fd, char *file_n, int f_d)
 	free_pointer((*fd)->file_n);
 	(*fd)->file_n = ft_strdup(file_n);
 	(*fd)->fd = f_d;
+	rl_event_hook = rl_hook;
 	while (1)
 	{
 		line = readline("> ");
-		if (!line || ft_strcmp(line, limit) == 0) // ?? verify signals
+		if (!line || ft_strcmp(line, limit) == 0 || g_sig) // ?? verify signals
 		{
-			if (!line) // ?? verify signals
+			if (!line && !g_sig) // ?? verify signals
 				return (free(limit), ft_putendl_fd("", STDOUT_FILENO));
 			if (line)
 				return (free(line), free(limit));
@@ -103,7 +112,7 @@ static int	here_doc(t_fd *fd)
 	file_n = random_file_gen();
 	if (!file_n)
 		return (-1);
-	while (tmp) // ?? verify signals
+	while (tmp && g_sig == 0)
 	{
 		if (tmp->type == HEREDOC)
 		{
@@ -129,10 +138,11 @@ int	check_for_hd(t_input *input)
 	{
 		if (tmp->l_read == 1000)
 			tmp->l_read = here_doc(tmp->fd);
-		// ?? verify signals
+		if (g_sig)
+			break;
 		tmp = tmp->next;
 	}
 	minis()->signal = 1;
 	load_signals();
-	return(1);
+	return(g_sig == 0);
 }

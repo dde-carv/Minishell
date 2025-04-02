@@ -31,9 +31,11 @@ typedef struct s_global
 {
 	int			error_status;
 	int			signal;
-	int			pipe_flag;
-	t_input		*input;
+	/* int			stdin_back;
+	int			stdout_back; */
+	int			pipes;
 	t_pipe		*pipex;
+	t_input		*input;
 	t_hashmap	*table;
 	t_hashmap	*env;
 	t_hashmap	*non_value_vars;
@@ -70,7 +72,7 @@ t_global	*minis(void);
 // Functions that calls if is builtin and execution
 void	execute(void);
 // Function to call the builtins
-void	ft_exec_builtin(char *cmd, char **args, int fd);
+void	ft_exec_builtin(char *cmd, char **args, int fd, int exit_flag);
 
 int		handle_fd(t_input **input);
 

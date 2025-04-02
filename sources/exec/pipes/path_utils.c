@@ -111,11 +111,6 @@ void	get_cmd_path(t_pipe *pipex, t_input *input)
 	}
 	pipex->cmd_paths[i] = NULL;
 	pipex->last_path = ft_check_path(get_cmd(input, n), pipex->env_paths);
-
-/* 	printf("----> cmd array <----\n");
-	print_array_fd(pipex->cmd_paths, 1);
-	printf("----> last  cmd <----\n%s\n", pipex->last_path); */
-
 }
 
 char	**ft_get_env_paths()
