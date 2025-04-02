@@ -120,5 +120,7 @@ char	**ft_get_env_paths()
 	paths = NULL;
 	if (hashmap_search(minis()->env, "PATH"))
 		paths = ft_split(hashmap_search(minis()->env, "PATH"), ':');
+	else
+		paths = ft_split("", ' ');
 	return (paths);
 }

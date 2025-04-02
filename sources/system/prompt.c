@@ -26,6 +26,8 @@ static char	*ft_getprompt(void)
 	char	*last;
 
 	cwd = getcwd(NULL, 0);
+	if(!cwd)
+		cwd = ft_strdup(hashmap_search(minis()->env, "PWD"));
 	if (!ft_strcmp(cwd, "/"))
 	{
 		free(cwd);
