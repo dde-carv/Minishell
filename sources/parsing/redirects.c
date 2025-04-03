@@ -59,7 +59,10 @@ static char	*build_new_str(t_input *cmd, const char *s)
 		if ((s[i] == '<' || s[i] == '>') && !in_quotes)
 			handle_redirection(cmd, s, &i);
 		else
+		{
+			update_quote_state(s[i], &in_quotes);
 			new_str[ft_strlen(new_str)] = s[i];
+		}
 	}
 	return (new_str);
 }
