@@ -33,6 +33,7 @@ typedef struct s_global
 	int			signal;
 	/* int			stdin_back;
 	int			stdout_back; */
+	//int			parent_pid;
 	int			pipes;
 	t_pipe		*pipex;
 	t_input		*input;

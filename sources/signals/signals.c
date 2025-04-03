@@ -32,8 +32,9 @@ void	sig_handler(int signum, siginfo_t *sig, void *s)
 	(void)sig;
 	if (signum == SIGINT)
 	{
-		//rl_replace_line("", 0);
-		ft_putstr_fd("^C\n", STDOUT_FILENO);
+		rl_replace_line("", 0);
+		printf("\n");
+		//write(STDOUT_FILENO, "\n", 1);
 		rl_on_new_line();
 		rl_redisplay();
 		minis()->signal = 1;
