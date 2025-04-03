@@ -63,12 +63,33 @@ static char	*full_path(char *cmd)
 	return (ft_strdup(""));
 }
 
+/* static int	verify_file_dir(char *cmd)
+{
+	DIR			*s;
+	struct stat	st;
+
+	s = opendir(cmd);
+	if (s)
+	{
+		closedir(s);
+		return (0);
+	}
+	if (stat(cmd, &st) == 0)
+	{
+		if (!S_IEXEC)
+			return (0);
+	}
+	return(1);
+} */
+
 char	*ft_check_path(char *cmd, char **paths)
 {
 	int		i;
 	char	*path_cmd;
 
 	path_cmd = NULL;
+/* 	if (!verify_file_dir(cmd))
+		return (ft_strdup("")); */
 	if ((cmd[0] == '/') || (!ft_strncmp(cmd, "./", 2)))
 		return(full_path(cmd));
 	i = -1;
@@ -120,5 +141,7 @@ char	**ft_get_env_paths()
 	paths = NULL;
 	if (hashmap_search(minis()->env, "PATH"))
 		paths = ft_split(hashmap_search(minis()->env, "PATH"), ':');
+	else
+		paths = ft_split("", ' ');
 	return (paths);
 }

@@ -17,12 +17,12 @@ bool	is_valid(void)
 	{
 		if (!closed_quotes(lst->cmd) || !closed_quotes(lst->arg))
 		{
-			error_mess("minishell", SYNTAX_ERROR, 1);
+			error_mess("minishell", SYNTAX_ERROR, 2);
 			return (0);
 		}
 		if (!lst->cmd || !*lst->cmd)
 		{
-			error_mess("minishell", SYNTAX_ERROR, 1);
+			error_mess("minishell", SYNTAX_ERROR, 2);
 			return (0);
 		}
 		lst = lst->next;
@@ -41,8 +41,8 @@ bool	closed_quotes(char *str)
 		return (1);
 	while (str[++i])
 		update_quote_state(str[i], &in_quotes);
-	if (in_quotes)
-		ft_putendl_fd("error open quotes", 2);
+	/* if (in_quotes)
+		ft_putendl_fd("error open quotes", 2); */
 	return (in_quotes == 0);
 }
 

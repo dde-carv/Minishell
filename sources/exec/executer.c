@@ -8,6 +8,8 @@ static void update_under(void)
 	tmp = minis()->input;
 	while (tmp->next)
 		tmp = tmp->next;
+	if (!*tmp->cmd)
+		return ;
 	if (*tmp->args)
 	{
 		if (hashmap_search(minis()->env, "_"))
@@ -42,7 +44,7 @@ static int verify_files(t_fd *fd)
 	return (1);
 }
 
-static void	check_redirects(t_input **cmd)
+static int	check_redirects(t_input **cmd)
 {
 	t_input	*tmp;
 
@@ -52,11 +54,11 @@ static void	check_redirects(t_input **cmd)
 		if (tmp->fd)
 		{
 			if (!handle_fd(&tmp))
-				return ;
+				return (0);
 		}
 		tmp = tmp->next;
 	}
-	return ;
+	return (1);
 }
 
 // Verify is command given is a builtin
@@ -94,6 +96,8 @@ void	execute(void)
 	//change_cmd(&minis()->input);
 	update_under();
 	check_redirects(&minis()->input);
+/* 	if (!check_redirects(&minis()->input)) // !! verify for invlid redirections
+		return; */
 	if (ft_input_lstsize(&minis()->input) == 1 && !verify_files(minis()->input->fd))
 		return ;
 	else if (ft_input_lstsize(&minis()->input) == 1 && is_builtin(minis()->input->cmd))

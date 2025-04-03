@@ -109,6 +109,8 @@ static int	here_doc(t_fd *fd)
 
 	f_d = 0;
 	tmp = fd;
+	if (!*tmp->file_n)
+		return (error_mess("here_doc", SYNTAX_ERROR, 2), -1);
 	file_n = random_file_gen();
 	if (!file_n)
 		return (-1);

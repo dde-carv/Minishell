@@ -56,7 +56,10 @@ int	handle_fd(t_input **input)
 		if (fd->type == HEREDOC)
 			fd->fd = 1000;
 		if (fd->fd == -1)
+		{
 			error_mess(fd->file_n, NO_FILE_OR_DIR, 1);
+			return (0);
+		}
 		fd = fd->next;
 	}
 	(*input)->l_write = get_last_w((*input)->fd);

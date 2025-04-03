@@ -16,10 +16,27 @@ static int	matrix_len(char **matrix)
 
 static int	valid_var(char *str)
 {
+	int		i;
+	char	*full_mess;
+
 	if (!ft_isupper(*str) && !ft_islower(*str))
 	{
-		error_mess("export", INVALID_IDENTIFY, 1);
+		full_mess = ft_strjoin("export: ", str);
+		error_mess(full_mess, INVALID_IDENTIFY, 1);
+		free_pointer(full_mess);
 		return (0);
+	}
+	i = 1;
+	while (str[i] && str[i + 1] != '=')
+	{
+		if (!ft_isalnum(str[i]) && str[i] != '_')
+		{
+			full_mess = ft_strjoin("export: ", str);
+			error_mess(full_mess, INVALID_IDENTIFY, 1);
+			free_pointer(full_mess);
+			return (0);
+		}
+		i++;
 	}
 	return (1);
 }
@@ -68,7 +85,7 @@ static int	add_var(char **args, int i)
 	if (!args[i])
 		return (0);
 	if (!valid_var(args[i]))
-		return (0);
+		return (add_var(args, i + 1));
 	if (!ft_strchr(args[i], '=') && hashmap_search(minis()->env, args[i]))
 		return (0);
 	if (ft_strchr(args[i], '='))

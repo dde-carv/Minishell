@@ -119,8 +119,8 @@ static void	exec_one(t_pipe *pipex, t_input *input)
 		return (error_mess(input->cmd, NOT_FOUND, 127));
 	if (pipe(pipex->fds[0].fd) < 0)
 		return (ft_printf("Error in pipe 1cmd creation"), (void)pipex);
-	if (!*input->cmd)
-		return (close_one_fd(pipex));
+	/* if (!*input->cmd)
+		return (close_one_fd(pipex)); */
 	if (!check_valid(input, pipex->last_path))
 		return (close_one_fd(pipex), (void)pipex);
 	pipex->pids[0] = fork();
