@@ -70,6 +70,19 @@ char	*sub_expantion(char *str, char *value)
 	if (*s == 2)
 	{
 		s++;
+		if (*s == '\'' || *s == '"')
+        {
+            // Preserve the original dollar sign
+            new[j++] = '$';
+            // Copy the quoted token as is
+            char quote = *s;
+            new[j++] = quote;
+            s++;
+            while (*s && *s != quote)
+                new[j++] = *s++;
+            if (*s == quote)
+                new[j++] = *s++;
+		}
 		if (*s == '?')
 			expand_error_status(&s, new, &j);
 		else
