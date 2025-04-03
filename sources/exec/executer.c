@@ -8,6 +8,8 @@ static void update_under(void)
 	tmp = minis()->input;
 	while (tmp->next)
 		tmp = tmp->next;
+	if (!*tmp->cmd)
+		return ;
 	if (*tmp->args)
 	{
 		if (hashmap_search(minis()->env, "_"))
@@ -93,8 +95,9 @@ void	execute(void)
 {
 	//change_cmd(&minis()->input);
 	update_under();
-	if (!check_redirects(&minis()->input)) // !! verify for invlid redirections
-		return;
+	check_redirects(&minis()->input);
+/* 	if (!check_redirects(&minis()->input)) // !! verify for invlid redirections
+		return; */
 	if (ft_input_lstsize(&minis()->input) == 1 && !verify_files(minis()->input->fd))
 		return ;
 	else if (ft_input_lstsize(&minis()->input) == 1 && is_builtin(minis()->input->cmd))
