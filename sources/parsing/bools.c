@@ -22,7 +22,7 @@ bool	is_valid(void)
 		}
 		if (!lst->cmd || !*lst->cmd)
 		{
-			//error_mess("minishell", SYNTAX_ERROR, 2);
+			error_mess(lst->cmd, NOT_FOUND, 127);
 			return (0);
 		}
 		lst = lst->next;
