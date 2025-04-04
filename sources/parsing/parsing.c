@@ -18,7 +18,7 @@ static char	*remove_spaces(char *str)
 
 	end = ft_strlen(str) - 1;
 	start = 0;
-	while (end > start && str[end] == ' ')
+	while (end > start && (str[end] == ' ' || str[end] == '\t'))
 		end--;
 	new_str = ft_substr(str, start, end - start + 1);
 	free(str);
@@ -31,8 +31,8 @@ static char	*extract_arg(const char *str, int *i)
 	char	*arg;
 	int		start;
 
-	in_quotes = 0;
-	while (str[*i] == ' ')
+	in_quotes = 0;	
+	while (str[*i] == ' ' || str[*i] == '\t')
 		(*i)++;
 	start = *i;
 	while (str[*i] && (str[*i] != '|' || in_quotes))
@@ -53,10 +53,10 @@ static char	*extract_input(char *str, int *i)
 	int		start;
 
 	in_quotes = 0;
-	while (str[*i] == ' ')
+	while (str[*i] == ' ' || str[*i] == '\t')
 		(*i)++;
 	start = *i;
-	while (str[*i] && (str[*i] != ' ' || in_quotes) \
+	while (str[*i] && ((str[*i] != ' ' && str[*i] != '\t') || in_quotes) \
 		&& (str[*i] != '|' || in_quotes))
 	{
 		update_quote_state(str[*i], &in_quotes);

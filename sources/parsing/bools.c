@@ -17,12 +17,12 @@ bool	is_valid(void)
 	{
 		if (!closed_quotes(lst->cmd) || !closed_quotes(lst->arg))
 		{
-			error_mess("minishell", SYNTAX_ERROR, 2);
+			error_mess("parsing", SYNTAX_ERROR, 2);
 			return (0);
 		}
 		if (!lst->cmd || !*lst->cmd)
 		{
-			error_mess("minishell", SYNTAX_ERROR, 2);
+			//error_mess("minishell", SYNTAX_ERROR, 2);
 			return (0);
 		}
 		lst = lst->next;

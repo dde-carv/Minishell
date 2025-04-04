@@ -12,7 +12,7 @@ static int	words_count(char *str)
 	i = 0;
 	while (str[i])
 	{
-		while (str[i] == ' ')
+		while (str[i] == ' ' || str[i] == '\t')
 			i++;
 		if (!str[i])
 			return (0);
@@ -38,7 +38,7 @@ static int	end_word(char *str, int start)
 	in_quotes = 0;
 	while (str[i])
 	{
-		if (str[i] == ' ' && !in_quotes)
+		if ((str[i] == ' ' || str[i] == '\t') && !in_quotes)
 			break ;
 		update_quote_state(str[i], &in_quotes);
 		i++;
@@ -65,10 +65,14 @@ char	**split_value(char *str)
 	start = 0;
 	while (word_index < words)
 	{
-		while (str[start] == ' ')
+		while (str[start] == ' ' || str[start] == '\t')
 			start++;
 		end = end_word(str, start);
-		tokens[word_index++] = ft_substr(str, start, end - start);
+		if (end - start == 0)
+			tokens[word_index] = ft_strdup("");
+		else
+			tokens[word_index] = ft_substr(str, start, end - start);
+		word_index++;
 		start = end;
 	}
 	tokens[word_index] = NULL;

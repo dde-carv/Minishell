@@ -33,13 +33,12 @@ static void	handle_redirection(t_input *cmd, const char *s, int *i)
 	type = get_redirection_type(s, i);
 	if (s[*i] == '>' || s[*i] == '<')
         (*i)++;
-	while (s[*i] && s[*i] == ' ')
+	while (s[*i] && (s[*i] == ' ' || s[*i] == '\t'))
 		(*i)++;
 	if (!s[*i] || s[*i] == '<' || s[*i] == '>')
 	{
 		if (minis()->error_status == 0)
             error_mess("minishell", "syntax error", 2);
-        // Force jump to the end of the string to abort further processing
         *i = ft_strlen(s);
         return;
 	}
@@ -64,14 +63,25 @@ static void	handle_redirection(t_input *cmd, const char *s, int *i)
 		len = *i - start;
 		fname = ft_substr(s, start, len);
 	}
-	expantions(&fname);
-	tmp = remove_all_quotes(fname);
-	free(fname);
-	fname = tmp;
-	while (is_expantion(fname))
-        fname = sub_expantion(fname, get_value(fname));
+	// For HEREDOC redirection, do not expand the delimiter.
+    if (type != HEREDOC)
+    {
+        expantions(&fname);
+        tmp = remove_all_quotes(fname);
+        free(fname);
+        fname = tmp;
+        while (is_expantion(fname))
+            fname = sub_expantion(fname, get_value(fname));
+    }
+    else
+    {
+        // Optionally, remove quotes if present for consistency.
+        tmp = remove_all_quotes(fname);
+        free(fname);
+        fname = tmp;
+    }
 	ft_fd_add_back(&cmd->fd, ft_fd_new(fname, -1, type));
-	while (s[*i] && s[*i] == ' ')
+	while (s[*i] && (s[*i] == ' ' || s[*i] == '\t'))
 		(*i)++;
 	(*i)--;
 }
@@ -79,10 +89,12 @@ static void	handle_redirection(t_input *cmd, const char *s, int *i)
 static char	*build_new_str(t_input *cmd, const char *s)
 {
 	int		i;
+	int		pos;
 	char	in_quotes;
 	char	*new_str;
 
 	i = -1;
+	pos = 0;
 	in_quotes = 0;
 	new_str = ft_calloc(ft_strlen(s) + 1, sizeof(char));
 	if (!new_str)
@@ -102,9 +114,10 @@ static char	*build_new_str(t_input *cmd, const char *s)
 		else
 		{
 			update_quote_state(s[i], &in_quotes);
-			new_str[ft_strlen(new_str)] = s[i];
+			new_str[pos++] = s[i];
 		}
 	}
+	new_str[pos] = '\0';
 	return (new_str);
 }
 
@@ -116,7 +129,7 @@ void	parse_redirection(t_input **cmd, char **str)
 	new_str = build_new_str(*cmd, *str);
 	free(*str);
 	i = ft_strlen(new_str) - 1;
-	while (i > 0 && new_str[i] == ' ')
+	while (i > 0 && (new_str[i] == ' ' || new_str[i] == '\t'))
 	{
 		new_str[i] = 0;
 		i--;

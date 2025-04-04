@@ -7,7 +7,7 @@ static void	take_spaces(char **s)
 	i = ft_strlen(*s) - 1;
 	if (i == -1)
 		return ;
-	while (i && (*s)[i] == ' ')
+	while (i && ((*s)[i] == ' ' || (*s)[i] == ' '))
 		(*s)[i--] = 0;
 }
 
