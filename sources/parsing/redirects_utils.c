@@ -29,3 +29,24 @@ void	update_cmd_args(t_input **cmd, char *processed_str)
 		(*cmd)->arg = ft_strdup("");
 	}
 }
+
+char	*remove_all_quotes(char *s)
+{
+	int		i;
+	int		j;
+	char	*result;
+
+	result = ft_calloc(ft_strlen(s) + 1, sizeof(char));
+	if (!result)
+		return (NULL);
+	i = 0;
+	j = 0;
+	while (s[i])
+	{
+		if (s[i] != '\'' && s[i] != '"')
+			result[j++] = s[i];
+		i++;
+	}
+	result[j] = '\0';
+	return (result);
+}

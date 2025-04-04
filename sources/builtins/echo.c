@@ -65,18 +65,35 @@ void	ft_echo(char **args, int fd)
 	minis()->error_status = 0;
 } */
 
+static int	verify_new(char **args, int *i)
+{
+	int		new_flag;
+	char	*last_n;
+
+	new_flag = 1;
+	while (!ft_strncmp(args[*i], "-n", 2))
+	{
+		last_n = ft_strrchr(args[*i], 'n');
+		last_n++;
+		(*i)++;
+		if (!*last_n)
+			new_flag = 0;
+		else
+		{
+			(*i)--;
+			return(new_flag);
+		}
+	}
+	return (new_flag);
+}
+
 void	ft_echo(char **args, int fd)
 {
 	int	i;
 	int	new_flag;
 
 	i = 0;
-	new_flag = 1;
-	if (!ft_strcmp(args[i], "-n"))
-	{
-		new_flag = 0;
-		i++;
-	}
+	new_flag = verify_new(args, &i);
 	while (args && args[i])
 	{
 		if (args[i + 1])

@@ -45,6 +45,8 @@ void	update_quote_state(char c, char *in_quotes);
 // 
 void	update_cmd_args(t_input **cmd, char *processed_str);
 
+char	*remove_all_quotes(char *s);
+
 // Cleans leading/trailing spaces and other unwanted characters from the input.
 void	clean_content(void);
 // Applies necessary transformations to the input string before execution.

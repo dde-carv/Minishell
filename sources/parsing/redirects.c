@@ -25,17 +25,51 @@ static void	handle_redirection(t_input *cmd, const char *s, int *i)
 {
 	t_type	type;
 	char	*fname;
+	char	*tmp;
 	int		start;
 	int		len;
+	char	quote;
 
 	type = get_redirection_type(s, i);
-	while (s[*i] && (s[*i] == ' ' || s[*i] == '<' || s[*i] == '>'))
+	if (s[*i] == '>' || s[*i] == '<')
+        (*i)++;
+	while (s[*i] && s[*i] == ' ')
 		(*i)++;
-	start = *i;
-	while (s[*i] && s[*i] != ' ' && s[*i] != '<' && s[*i] != '>')
-		(*i)++;
-	len = *i - start;
-	fname = ft_substr(s, start, len);
+	if (!s[*i] || s[*i] == '<' || s[*i] == '>')
+	{
+		if (minis()->error_status == 0)
+            error_mess("minishell", "syntax error", 2);
+        // Force jump to the end of the string to abort further processing
+        *i = ft_strlen(s);
+        return;
+	}
+	if (s[*i] == '\'' || s[*i] == '"')
+    {
+        quote = s[*i];
+        (*i)++; // skip the starting quote
+        start = *i;
+        while (s[*i] && s[*i] != quote)
+            (*i)++;
+        len = *i - start;
+        // extract including quotes so that remove_all_quotes works consistently
+        fname = ft_substr(s, start - 1, len + 2);
+        if (s[*i] == quote)
+            (*i)++; // consume the closing quote
+    }
+    else
+    {
+		start = *i;
+		while (s[*i] && s[*i] != ' ' && s[*i] != '<' && s[*i] != '>')
+			(*i)++;
+		len = *i - start;
+		fname = ft_substr(s, start, len);
+	}
+	expantions(&fname);
+	tmp = remove_all_quotes(fname);
+	free(fname);
+	fname = tmp;
+	while (is_expantion(fname))
+        fname = sub_expantion(fname, get_value(fname));
 	ft_fd_add_back(&cmd->fd, ft_fd_new(fname, -1, type));
 	while (s[*i] && s[*i] == ' ')
 		(*i)++;
@@ -57,9 +91,19 @@ static char	*build_new_str(t_input *cmd, const char *s)
 	{
 		update_quote_state(s[i], &in_quotes);
 		if ((s[i] == '<' || s[i] == '>') && !in_quotes)
+		{
 			handle_redirection(cmd, s, &i);
+			if (minis()->error_status != 0)
+            {
+                free(new_str);
+                return (ft_strdup("")); // abort building the string
+            }
+		}
 		else
+		{
+			update_quote_state(s[i], &in_quotes);
 			new_str[ft_strlen(new_str)] = s[i];
+		}
 	}
 	return (new_str);
 }

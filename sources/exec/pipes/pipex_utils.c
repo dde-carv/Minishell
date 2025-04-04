@@ -45,7 +45,7 @@ void	rest_children(t_pipe *pipex, char *cmd_path, t_input *input)
 
 int	check_valid(t_input *input, char *cmd_path)
 {
-	if (!is_builtin(input->cmd) && access(cmd_path, F_OK) != 0)
+	if (!is_builtin(input->cmd) && access(cmd_path, F_OK | X_OK) != 0)
 		return (error_mess(input->cmd, NOT_FOUND, 127) ,0);
 	if (!good_files(input) || !*input->cmd)
 		return (0);

@@ -4,6 +4,8 @@
 
 # include "minishell.h"
 # include <stdio.h>
+# include <sys/types.h>
+# include <dirent.h>
 # include <sys/wait.h>
 # include <fcntl.h>
 # include <unistd.h>
