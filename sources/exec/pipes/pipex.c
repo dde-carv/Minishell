@@ -164,7 +164,6 @@ static void	init_pipex(t_pipe *pipex)
 
 	minis()->signal = 3;
 	load_signals();
-	minis()->error_status = 0;
 	pipex->env = hashmap_to_array();
 	pipex->env_paths = ft_get_env_paths();
 	pipex->argc = ft_input_lstsize(&minis()->input);

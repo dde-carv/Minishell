@@ -47,10 +47,10 @@ int	check_valid(t_input *input, char *cmd_path)
 {
 	if (!is_builtin(input->cmd) && access(cmd_path, F_OK | X_OK) != 0)
 		return (error_mess(input->cmd, NOT_FOUND, 127) ,0);
+	if (!good_files(input) || !*input->cmd)
+		return (0);
 	if (!*input->cmd || !input->cmd)
 		return(error_mess(input->cmd, NOT_FOUND, 127), 0);
-	if (!good_files(input))
-		return (0);
 	return (1);
 }
 
