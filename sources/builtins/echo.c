@@ -72,8 +72,8 @@ static int	verify_new(char **args, int *i)
 
 	j = 0;
 	new_flag = 1;
-	if (!*args[*i] || !args[*i][j])
-		return (new_flag);
+	/* if (!*args[*i] || !args[*i][j])
+		return (new_flag); */
 	while (args[*i] && !ft_strncmp(args[*i], "-n", 2))
 	{
 		j = 1;
@@ -96,8 +96,8 @@ void	ft_echo(char **args, int fd)
 	int	new_flag;
 
 	i = 0;
-	if (!args[i] || !*args[i])
-		return ;
+	/* if (!args[i] || !*args[i])
+		return ; */
 	new_flag = verify_new(args, &i);
 	while (args && args[i])
 	{

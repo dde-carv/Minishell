@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-static void	take_spaces(char **s)
+/* static void	take_spaces(char **s)
 {
 	int	i;
 
@@ -9,7 +9,7 @@ static void	take_spaces(char **s)
 		return ;
 	while (i && ((*s)[i] == ' ' || (*s)[i] == ' '))
 		(*s)[i--] = 0;
-}
+} */
 
 static void	take_quotes(char **str)
 {
@@ -83,7 +83,7 @@ static void	take_expantions(t_input **lst)
 	while ((*lst)->args && (*lst)->args[i])
 	{
 		take_quotes(&(*lst)->args[i]);
-		take_spaces(&(*lst)->args[i]);
+		//take_spaces(&(*lst)->args[i]);
 		i++;
 	}
 }

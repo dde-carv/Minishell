@@ -10,14 +10,26 @@
 	line_split = ft_split(line, ' ');
 } */
 
-void print_fds(t_fd *fd)
+/* static int	update_error(int error_status)
+{
+	int nbr;
+
+	nbr = error_status;
+	if (nbr < 0)
+		return(update_error(256 - nbr));
+	if (nbr >= 256)
+		return(update_error(nbr - 256));
+	return(nbr);
+} */
+
+/* void print_fds(t_fd *fd)
 {
 	while (fd)
 	{
 		ft_printf("\nFile: %s, FD: %d, Type: %d\n", fd->file_n, fd->fd, fd->type);
 		fd = fd->next;
 	}
-}
+} */
 
 static void	handle_sigint(void)
 {
@@ -48,6 +60,7 @@ int	main(int ac, char **av, char **env)
 		//ft_printf("\n=== exec built ===\n");
 		// start_minishell(...); // TODO: this is to innitialize and start important things
 		//ft_printf("%s\n", minis()->ms->line);
+		//minis()->error_status = update_error(minis()->error_status);
 		ft_input_lstclear(&minis()->input);
 		//free(current_input);
 		free_pointer(minis()->ms->line);
@@ -60,4 +73,4 @@ int	main(int ac, char **av, char **env)
 
 // echo "pwd $HOME" | whoami | uname -a | echo Hello, $USER | curl --version | echo "Shell: $SHELL'" | echo "Path: $PATH, Home: '$HOME'" | echo "Hello, World!" | echo $? | echo $_
 // echo "pwd $HOME" | whoami | uname -a | echo Hello, $USER | curl --version | echo "Shell: $SHELL'" | echo "Path: $PATH, Home: '$HOME'" | echo "Hello, World!" | < infile cat hello > outfile | echo $? | echo $_ > lol
-// < infile echo hello > outfile world | echo $_ > outfile
+// < infile cat hello | cat $_ > outfile
