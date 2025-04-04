@@ -32,31 +32,30 @@ static void	handle_redirection(t_input *cmd, const char *s, int *i)
 
 	type = get_redirection_type(s, i);
 	if (s[*i] == '>' || s[*i] == '<')
-        (*i)++;
+		(*i)++;
 	while (s[*i] && (s[*i] == ' ' || s[*i] == '\t'))
 		(*i)++;
 	if (!s[*i] || s[*i] == '<' || s[*i] == '>')
 	{
-		if (minis()->error_status == 0)
-            error_mess("minishell", "syntax error", 2);
-        *i = ft_strlen(s);
-        return;
+		error_mess("minishell", "syntax error", 2);
+		*i = ft_strlen(s);
+		return;
 	}
 	if (s[*i] == '\'' || s[*i] == '"')
-    {
-        quote = s[*i];
-        (*i)++; // skip the starting quote
-        start = *i;
-        while (s[*i] && s[*i] != quote)
-            (*i)++;
-        len = *i - start;
-        // extract including quotes so that remove_all_quotes works consistently
-        fname = ft_substr(s, start - 1, len + 2);
-        if (s[*i] == quote)
-            (*i)++; // consume the closing quote
-    }
-    else
-    {
+	{
+		quote = s[*i];
+		(*i)++; // skip the starting quote
+		start = *i;
+		while (s[*i] && s[*i] != quote)
+			(*i)++;
+		len = *i - start;
+		// extract including quotes so that remove_all_quotes works consistently
+		fname = ft_substr(s, start - 1, len + 2);
+		if (s[*i] == quote)
+			(*i)++; // consume the closing quote
+	}
+	else
+	{
 		start = *i;
 		while (s[*i] && s[*i] != ' ' && s[*i] != '<' && s[*i] != '>')
 			(*i)++;
@@ -64,22 +63,22 @@ static void	handle_redirection(t_input *cmd, const char *s, int *i)
 		fname = ft_substr(s, start, len);
 	}
 	// For HEREDOC redirection, do not expand the delimiter.
-    if (type != HEREDOC)
-    {
-        expantions(&fname);
-        tmp = remove_all_quotes(fname);
-        free(fname);
-        fname = tmp;
-        while (is_expantion(fname))
-            fname = sub_expantion(fname, get_value(fname));
-    }
-    else
-    {
-        // Optionally, remove quotes if present for consistency.
-        tmp = remove_all_quotes(fname);
-        free(fname);
-        fname = tmp;
-    }
+	if (type != HEREDOC)
+	{
+		expantions(&fname);
+		tmp = remove_all_quotes(fname);
+		free(fname);
+		fname = tmp;
+		while (is_expantion(fname))
+			fname = sub_expantion(fname, get_value(fname));
+	}
+	else
+	{
+		// Optionally, remove quotes if present for consistency.
+		tmp = remove_all_quotes(fname);
+		free(fname);
+		fname = tmp;
+	}
 	ft_fd_add_back(&cmd->fd, ft_fd_new(fname, -1, type));
 	while (s[*i] && (s[*i] == ' ' || s[*i] == '\t'))
 		(*i)++;
@@ -106,10 +105,10 @@ static char	*build_new_str(t_input *cmd, const char *s)
 		{
 			handle_redirection(cmd, s, &i);
 			if (minis()->error_status != 0)
-            {
-                free(new_str);
-                return (ft_strdup("")); // abort building the string
-            }
+			{
+				free(new_str);
+				return (ft_strdup("")); // abort building the string
+			}
 		}
 		else
 		{
