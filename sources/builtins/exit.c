@@ -45,7 +45,7 @@ static int	is_str(char *arg)
 	i = 0;
 	while(arg[i])
 	{
-		if(!ft_isdigit(arg[i]))
+		if(!ft_isdigit(arg[i]) && arg[i] != '+' && arg[i] != '-')
 			return (0);
 		i++;
 	}
