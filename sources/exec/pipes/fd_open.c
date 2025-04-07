@@ -1,4 +1,3 @@
-
 #include "../../../includes/pipex.h"
 
 static int	get_read_file(t_fd *fd)
@@ -16,7 +15,7 @@ static int	get_read_file(t_fd *fd)
 	}
 	if (!file_n)
 		return (0);
-	return(open(file_n, O_RDONLY, 0644));
+	return (open(file_n, O_RDONLY, 0644));
 }
 
 static int	get_write_file(t_fd *fd)
@@ -40,7 +39,7 @@ static int	get_write_file(t_fd *fd)
 		return (0);
 	if (type == APPEND)
 		return (open(file_n, O_CREAT | O_APPEND | O_WRONLY, 0644));
-	return(open(file_n, O_CREAT | O_TRUNC | O_WRONLY, 0644));
+	return (open(file_n, O_CREAT | O_TRUNC | O_WRONLY, 0644));
 }
 
 void	get_fds(t_input *input, char *cmd_path)

@@ -1,11 +1,10 @@
-
 #include "minishell.h"
 
 void	shlvl_update(void)
 {
-	int	n;
-	char *nbr;
-	char *tmp;
+	int		n;
+	char	*nbr;
+	char	*tmp;
 
 	if (hashmap_search(minis()->env, "SHLVL"))
 	{
@@ -20,4 +19,32 @@ void	shlvl_update(void)
 	}
 	else
 		insert_in_table("SHLVL", "0", minis()->env);
+}
+
+void	update_under(void)
+{
+	t_input	*tmp;
+
+	tmp = minis()->input;
+	while (tmp->next)
+		tmp = tmp->next;
+	if (!*tmp->cmd)
+		return ;
+	if (*tmp->args)
+	{
+		if (hashmap_search(minis()->env, "_"))
+		{
+			hashmap_delete(minis()->env, "_");
+			insert_in_table("_",
+				tmp->args[array_len(tmp->args) - 1], minis()->env);
+		}
+	}
+	else
+	{
+		if (hashmap_search(minis()->env, "_"))
+		{
+			hashmap_delete(minis()->env, "_");
+			insert_in_table("_", tmp->cmd, minis()->env);
+		}
+	}
 }

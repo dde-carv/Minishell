@@ -1,4 +1,3 @@
-
 #include "minishell.h"
 
 static char	*ft_gethome(char *path)
@@ -22,7 +21,7 @@ static void	ft_chdir_path(char *path)
 		return ;
 	pwd = getcwd(NULL, 0);
 	final_path = ft_strdup(path);
-	if((!ft_strncmp(path, "~", 1)))
+	if (!ft_strncmp(path, "~", 1))
 	{
 		free(final_path);
 		final_path = ft_gethome(path);
@@ -31,20 +30,12 @@ static void	ft_chdir_path(char *path)
 	{
 		free_pointer(pwd);
 		error_msg = ft_strjoin("cd: ", path);
-		return (error_mess(error_msg, NO_FILE_OR_DIR, 1), free(error_msg), free(final_path));
+		return (error_mess(error_msg, NO_FILE_OR_DIR, 1),
+			free(error_msg), free(final_path));
 	}
 	if (hashmap_search(minis()->env, "OLDPWD") || !pwd)
 		hashmap_delete(minis()->env, "OLDPWD");
-	if (pwd)
-	{
-		insert_in_table("OLDPWD", pwd, minis()->env);
-		free_pointer(pwd);
-		pwd = getcwd(NULL, 0);
-		if (hashmap_search(minis()->env, "PWD"))
-			hashmap_delete(minis()->env, "PWD");
-		insert_in_table("PWD", pwd, minis()->env);
-		free_pointer(pwd);
-	}
+	update_env_cd(pwd);
 	free_pointer(final_path);
 }
 
@@ -90,13 +81,4 @@ void	ft_cd(char *path, int fd)
 		ft_chdir_path(current_path);
 	}
 	free(current_path);
-}
-
-void	ft_verify_cd(char **path, int fd) // !! Need to protect if the folder is deleted
-{
-	minis()->error_status = 0;
-	if (array_len(path) > 1)
-		return (error_mess("cd", TOO_MANY_ARGS, 1));
-	else
-		ft_cd(path[0], fd);
 }

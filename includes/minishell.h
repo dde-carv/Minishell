@@ -60,6 +60,8 @@ void	set_env(char **env);
 t_hashmap	*hash_env(char **env);
 // Updates the shell level when entering a new session
 void	shlvl_update(void);
+// Updates env variables during execution
+void	update_under(void);
 // Creates some env variables and put them in a hash table
 t_hashmap	*create_hash_env(void);
 
@@ -93,12 +95,16 @@ void	ft_exit(char **args);
 void	ft_unset(char **args);
 // Function that replicates export (adds variables to env)
 int		ft_export(char **args, int fd);
+// Function to validate and add to export or env
+int	add_var(char **args, int i);
 // Function that creates a prompt, reads a line and add it to the history
 void	set_input(void);
 // Function that verifies if arguments are valid for env
 void	ft_verify_env(char **args, int fd);
 // Function that verifies if arguments are valid for cd
 void	ft_verify_cd(char **path, int fd);
+// Function that updates the env with the new PWD and OLDPWD
+void	update_env_cd(char *pwd);
 // Puts env and session vars hashmaps into an array
 char	**hashmap_quotes_array_and_non_value_vars(void);
 // Puts env variables into an array

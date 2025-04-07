@@ -10,9 +10,11 @@ CFLAGS	=	-Wall -Werror -Wextra -g
 RM		=	@rm -f
 
 BUILTINS_DIR	=	$(SRC_DIR)builtins/env.c \
+					$(SRC_DIR)builtins/cd_utils.c \
 					$(SRC_DIR)builtins/print_env.c \
 					$(SRC_DIR)builtins/env_update.c \
 					$(SRC_DIR)builtins/array_utils.c \
+					$(SRC_DIR)builtins/export_utils.c \
 					$(SRC_DIR)builtins/hashmap_to_array.c \
 					$(SRC_DIR)builtins/cd.c \
 					$(SRC_DIR)builtins/pwd.c \
@@ -26,10 +28,12 @@ EXEC_DIR		=	$(SRC_DIR)exec/executer.c \
 					$(SRC_DIR)exec/fds.c \
 					$(SRC_DIR)exec/pipes/exit_pipex.c \
 					$(SRC_DIR)exec/pipes/fd_close.c \
+					$(SRC_DIR)exec/pipes/fd_close_1.c \
 					$(SRC_DIR)exec/pipes/fd_open.c \
 					$(SRC_DIR)exec/pipes/here_doc.c \
 					$(SRC_DIR)exec/pipes/path_utils.c \
 					$(SRC_DIR)exec/pipes/pipex_utils.c \
+					$(SRC_DIR)exec/pipes/pipex_utils_1.c \
 					$(SRC_DIR)exec/pipes/pipex.c \
 
 #					$(SRC_DIR)exec/pipes/family.c \
