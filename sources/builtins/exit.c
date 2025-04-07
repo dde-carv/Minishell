@@ -24,6 +24,20 @@
 
 #include "minishell.h"
 
+/* static void	check_arg(char *arg)
+{
+	if (!arg)
+		return ;
+	if (!is_str(arg))
+	{
+		minis()->error_status = 2;
+		error_mess("exit", NUM_ARG_REQUIRED, 2);
+		return ;
+	}
+	minis()->error_status = ft_atoi(arg);
+	return ;
+} */
+
 static int	is_str(char *arg)
 {
 	int i;
@@ -38,20 +52,6 @@ static int	is_str(char *arg)
 	return (1);
 }
 
-static void	check_arg(char *arg)
-{
-	if (!arg)
-		return ;
-	if (!is_str(arg))
-	{
-		minis()->error_status = 2;
-		error_mess("exit", NUM_ARG_REQUIRED, 2);
-		return ;
-	}
-	minis()->error_status = ft_atoi(arg);
-	return ;
-}
-
 static int	get_argc(char **argv)
 {
 	int	argc;
@@ -62,7 +62,7 @@ static int	get_argc(char **argv)
 	return (argc);
 }
 
-void	ft_exit(char **args)
+/* void	ft_exit(char **args)
 {
 	int	len;
 
@@ -75,5 +75,68 @@ void	ft_exit(char **args)
 	}
 	check_arg(args[0]);
 	exit_minishell();
+} */
+
+
+void	ft_exit(char **args)
+{
+	int		len;
+	char	*full_mess;
+
+	len = get_argc(args);
+	ft_printf("exit\n");
+	if (len == 0)
+		exit_minishell();
+	if (len == 1)
+	{
+		if (!is_str(args[0]))
+		{
+			full_mess = ft_strjoin_var(2, "exit: ", args[0]);
+			error_mess(full_mess, NUM_ARG_REQUIRED, 2);
+			free_pointer(full_mess);
+			exit_minishell();
+		}
+		minis()->error_status = ft_atoi(args[0]) % 256;
+		exit_minishell();
+	}
+	error_mess("exit", TOO_MANY_ARGS, 1);
 }
 
+
+/* static int	is_str(char *arg)
+{
+	int i;
+
+	i = 0;
+	while(arg[i])
+	{
+		if(!ft_isdigit(arg[i]) && )
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+static void	check_args(char **args, int len)
+{
+	int	i;
+	int	*nbrs;
+
+	i = 0;
+	while (args[i] && i < len)
+	{
+
+		i++;
+	}
+	return ;
+}
+
+void	ft_exit(char **args)
+{
+	int	len;
+
+	len = array_len(args);
+	ft_printf("exit\n");
+	check_args(args, len);
+	exit_minishell();
+} */

@@ -26,7 +26,7 @@ static int	valid_var(char *str)
 		free_pointer(full_mess);
 		return (0);
 	}
-	i = 1;
+	i = 0;
 	while (str[i] && str[i + 1] != '=')
 	{
 		if (!ft_isalnum(str[i]) && str[i] != '_')

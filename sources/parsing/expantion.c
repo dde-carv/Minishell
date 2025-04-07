@@ -14,13 +14,17 @@ void	expantions(char **s)
 	while (str[++i])
 	{
 		update_quote_state(str[i], &in_quotes);
-		if (str[i] == '$' && (!in_quotes || in_quotes == '"')
-			&& str[i + 1] && (ft_isalnum(str[i + 1])
-				|| str[i + 1] == '?' || str[i + 1] == '_'))
-			str[i] = 2;
-		else if (str[i] == '$' && (str[i + 1] == '\''
-				|| str[i + 1] == '"'))
-			str[i] = 2;
+		// Check that there is a next character before testing it.
+		if (str[i] == '$' && str[i + 1] &&
+			(str[i + 1] == '\'' || str[i + 1] == '"'))
+		{
+			//ft_memmove(&str[i], &str[i + 1], ft_strlen(&str[i + 1]) + 1);
+			continue; // re-check current index after shifting
+		}
+		if (str[i] == '$' && str[i + 1] &&
+			(!in_quotes || in_quotes == '"') &&
+			(ft_isalnum(str[i + 1]) || str[i + 1] == '?' || str[i + 1] == '_'))
+			str[i] = 2; // marker for variable expansion
 	}
 }
 
@@ -71,17 +75,17 @@ char	*sub_expantion(char *str, char *value)
 	{
 		s++;
 		if (*s == '\'' || *s == '"')
-        {
-            // Preserve the original dollar sign
-            new[j++] = '$';
-            // Copy the quoted token as is
-            char quote = *s;
-            new[j++] = quote;
-            s++;
-            while (*s && *s != quote)
-                new[j++] = *s++;
-            if (*s == quote)
-                new[j++] = *s++;
+		{
+			// Preserve the original dollar sign
+			new[j++] = '$';
+			// Copy the quoted token as is
+			char quote = *s;
+			new[j++] = quote;
+			s++;
+			while (*s && *s != quote)
+				new[j++] = *s++;
+			if (*s == quote)
+				new[j++] = *s++;
 		}
 		if (*s == '?')
 			expand_error_status(&s, new, &j);

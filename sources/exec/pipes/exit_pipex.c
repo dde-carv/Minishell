@@ -77,11 +77,18 @@ void	exit_pipex(t_pipe *pipex)
 
 void	pos_execute(t_pipe *pipex)
 {
+	int		status;
 	size_t	i;
 
 	i = -1;
 	fd_close(pipex);
 	while(++i < pipex->argc)
-		waitpid(pipex->pids[i], &minis()->error_status, 0);
+	{
+		waitpid(pipex->pids[i], &status, 0);
+		if (WIFEXITED(status))
+			minis()->error_status = WEXITSTATUS(status);
+		else if (WIFSIGNALED(status))
+			minis()->error_status = 128 + WTERMSIG(status);
+	}
 	exit_pipex(pipex);
 }
