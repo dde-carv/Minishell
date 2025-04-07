@@ -1,4 +1,3 @@
-
 #include "minishell.h"
 
 static char	*find_var_v(char *var)
@@ -61,7 +60,8 @@ t_hashmap	*create_hash_env(void)
 
 	pwd = getcwd(NULL, 0);
 	table = create_table(200);
-	insert_in_table("PATH", "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin", table);
+	insert_in_table("PATH",
+		"/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin", table);
 	insert_in_table("PWD", pwd, table);
 	insert_in_table("SHLVL", "1", table);
 	insert_in_table("_", "/usr/bin/env", table);
@@ -77,7 +77,9 @@ void	set_env(char **env)
 		minis()->env = hash_env(env);
 		shlvl_update();
 		if (!hashmap_search(minis()->env, "PATH"))
-			insert_in_table("PATH", "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin", minis()->env);
+			insert_in_table("PATH",
+				"/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+				minis()->env);
 	}
 	else
 		minis()->env = create_hash_env();

@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-int		array_len(char **array)
+int	array_len(char **array)
 {
 	int	i;
 
@@ -53,5 +53,5 @@ char	**split_into2(char *arg, char c)
 	else
 		splited[1] = ft_substr((c_p + 1), 0, (ft_strlen(c_p)));
 	splited[2] = NULL;
-	return(splited);
+	return (splited);
 }

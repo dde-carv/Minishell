@@ -1,18 +1,4 @@
-
 #include "minishell.h"
-
-static int	matrix_len(char **matrix)
-{
-	int	i;
-
-	i = 0;
-	if (*matrix)
-	{
-		while (matrix[i + 1])
-			i++;
-	}
-	return (i);
-}
 
 static int	valid_var(char *str)
 {
@@ -39,18 +25,6 @@ static int	valid_var(char *str)
 		i++;
 	}
 	return (1);
-}
-
-static int	print_export(int fd)
-{
-	char	**export;
-
-	export = hashmap_quotes_array_and_non_value_vars();
-	quick_sort(export, 0, matrix_len(export));
-	ft_strjoin_to_array("declare -x ", export);
-	print_array_fd(export, fd);
-	free_array((void **)export);
-	return(0);
 }
 
 static void	add_to_non_value_vars(char *arg)
@@ -80,7 +54,7 @@ static void	add_to_env(char *arg)
 	free_array((void **)values);
 }
 
-static int	add_var(char **args, int i)
+int	add_var(char **args, int i)
 {
 	if (!args[i])
 		return (0);
@@ -93,13 +67,4 @@ static int	add_var(char **args, int i)
 	else
 		add_to_non_value_vars(args[i]);
 	return (add_var(args, i + 1));
-}
-
-int	ft_export(char **args, int fd)
-{
-	minis()->error_status = 0;
-	if (args[0])
-		return(add_var(args, 0));
-	else
-		return(print_export(fd));
 }
