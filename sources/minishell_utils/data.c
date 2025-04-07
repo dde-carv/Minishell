@@ -11,6 +11,7 @@ t_global	*minis(void)
 	{
 		data.ms = &ms;
 		data.input = NULL;
+		data.pipex = NULL;
 		data.env = &env;
 		data.non_value_vars = &non_value_vars;
 	}
