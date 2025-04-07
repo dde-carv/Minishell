@@ -42,10 +42,13 @@ int	main(int ac, char **av, char **env)
 	(void)av;
 
 	if (ac > 1)
-		return (0);
+	return (0);
 	set_env(env);
-
+	
+	rl_catch_signals = 1;
+	minis()->signal = 1;
 	load_signals();
+
 	minis()->error_status = 0;
 	while (1)
 	{
