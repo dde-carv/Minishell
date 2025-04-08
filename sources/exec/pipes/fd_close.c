@@ -1,9 +1,9 @@
-
 #include "../../../includes/pipex.h"
 
 void	ft_close(int fd)
 {
-	if (fd > 0 && fd != STDERR_FILENO && fd != STDIN_FILENO && fd != STDOUT_FILENO)
+	if (fd > 0 && fd != STDERR_FILENO && \
+		fd != STDIN_FILENO && fd != STDOUT_FILENO)
 		close(fd);
 }
 
@@ -57,18 +57,6 @@ void	close_fd(t_input *input)
 			ft_close(input->l_read);
 		if (input->l_write >= 3)
 			ft_close(input->l_write);
-		tmp = tmp->next;
-	}
-}
-
-void	fd_close_all(t_input *input)
-{
-	t_input	*tmp;
-
-	tmp = input;
-	while(tmp)
-	{
-		close_fd(tmp);
 		tmp = tmp->next;
 	}
 }

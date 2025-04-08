@@ -46,6 +46,12 @@ void	close_fd(t_input *input);
 void	true_execve(char *path, t_input *input, char **envp);
 int		check_for_hd(t_input *input);
 
+void	start_rest(t_pipe *pipex, t_input *input, char *cmd_path, int i);
+void	start_first(t_pipe *pipex, t_input *input);
+void	exec_one(t_pipe *pipex, t_input *input);
+void	execute_pipes(t_pipe *pipex, t_input *input);
+void	init_pipex(t_pipe *pipex);
+
 int	good_files(t_input *cmd);
 
 void	fd_update(t_input *input, t_pipe *pipex, int i);

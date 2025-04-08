@@ -1,4 +1,3 @@
-
 #include "minishell.h"
 
 static int	partition(char **array, int left, int right)
