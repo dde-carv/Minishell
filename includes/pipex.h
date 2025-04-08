@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pipex.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dde-carv <dde-carv@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/08 10:17:11 by dde-carv          #+#    #+#             */
+/*   Updated: 2025/04/08 10:17:12 by dde-carv         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PIPEX_H
 # define PIPEX_H
 
@@ -42,23 +54,16 @@ void	fd_close_all(t_input *input);
 void	close_fd(t_input *input);
 void	true_execve(char *path, t_input *input, char **envp);
 int		check_for_hd(t_input *input);
-
 void	start_rest(t_pipe *pipex, t_input *input, char *cmd_path, int i);
 void	start_first(t_pipe *pipex, t_input *input);
 void	exec_one(t_pipe *pipex, t_input *input);
 void	execute_pipes(t_pipe *pipex, t_input *input);
 void	init_pipex(t_pipe *pipex);
-
 int		good_files(t_input *cmd);
-
 void	fd_update(t_input *input, t_pipe *pipex, int i);
-
 void	fd_close_m(t_pipe *pipex, int i);
-
 void	first_child(t_pipe *pipex, t_input *input);
-
 void	rest_children(t_pipe *pipex, char *cmd_path, t_input *input);
-
 int		check_valid(t_input *input, char *cmd_path);
 
 #endif
