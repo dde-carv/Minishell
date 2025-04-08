@@ -6,7 +6,7 @@
 #    By: dde-carv <dde-carv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/08 10:17:48 by dde-carv          #+#    #+#              #
-#    Updated: 2025/04/08 10:17:49 by dde-carv         ###   ########.fr        #
+#    Updated: 2025/04/08 11:57:58 by dde-carv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -76,7 +76,6 @@ PARSING_DIR		=	$(SRC_DIR)parsing/args.c \
 					$(SRC_DIR)parsing/redirects_utils.c \
 					$(SRC_DIR)parsing/transform.c \
 					$(SRC_DIR)parsing/bools.c \
-					$(SRC_DIR)parsing/change_cmd.c \
 					$(SRC_DIR)parsing/clean_content.c \
 					$(SRC_DIR)parsing/parsing_lst/ft_fd_new.c \
 					$(SRC_DIR)parsing/parsing_lst/ft_fd_del.c \
