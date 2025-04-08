@@ -6,20 +6,21 @@
 /*   By: dde-carv <dde-carv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 10:20:55 by dde-carv          #+#    #+#             */
-/*   Updated: 2025/04/08 10:20:56 by dde-carv         ###   ########.fr       */
+/*   Updated: 2025/04/08 11:46:13 by dde-carv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	verify_null(char *full_promp, char *last_home, char *last)
+static void	verify_line(void)
 {
 	if ((minis()->ms->line) == NULL)
 	{
 		ft_printf("exit\n");
-		return (free(full_promp), free(minis()->ms->promp),
-			free(last_home), free(last), exit_minishell());
+		exit_minishell();
 	}
+	if (*(minis()->ms->line) != '\0')
+		add_history(minis()->ms->line);
 }
 
 static char	*ft_get_last(char *path)
@@ -34,7 +35,7 @@ static char	*ft_get_last(char *path)
 		return (last = ft_strdup("/"));
 	prompt = ft_split(path, '/');
 	i = -1;
-	while (prompt[i])
+	while (prompt[++i])
 		++i;
 	last = ft_strdup(prompt[i - 1]);
 	free_array((void **)prompt);
@@ -78,10 +79,10 @@ void	set_input(void)
 	full_promp = ft_strjoin_var(5, BOLD_CYAN, last,
 			BOLD_YELLOW, " $ ", RESET_COLOR);
 	minis()->ms->promp = ft_strdup(full_promp);
+	free(last);
+	free(last_home);
 	minis()->ms->line = readline(minis()->ms->promp);
-	verify_null(full_promp, last_home, last);
-	if (*(minis()->ms->line) != '\0')
-		add_history(minis()->ms->line);
-	return (free(full_promp), free(minis()->ms->promp),
-		free(last_home), free(last));
+	free(full_promp);
+	free(minis()->ms->promp);
+	verify_line();
 }
