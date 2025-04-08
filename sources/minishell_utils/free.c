@@ -1,4 +1,3 @@
-
 #include "minishell.h"
 
 void	free_pointer(void *str)
@@ -7,12 +6,6 @@ void	free_pointer(void *str)
 		return ;
 	free(str);
 	str = NULL;
-
-/* 	if (str)
-	{
-		free(str);
-		str = NULL;
-	} */
 }
 
 void	free_array(void **array)
@@ -25,22 +18,5 @@ void	free_array(void **array)
 	while (array[++i])
 		free_pointer(array[i]);
 	free(array);
-	//array = NULL;
-
-/* 	int	i;
-
-	if (array)
-	{
-		i = -1;
-		if (array[0])
-		{
-			while (array[++i])
-			{
-				free_pointer(array[i]);
-				array[i] = NULL;
-			}
-		}
-		free(array);
-		array = NULL;
-	} */
+	array = NULL;
 }

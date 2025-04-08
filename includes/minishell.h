@@ -1,4 +1,3 @@
-
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
@@ -19,7 +18,7 @@
 # include "pipex.h"
 # include "signals.h"
 
-typedef struct s_pipe t_pipe;
+typedef struct s_pipe	t_pipe;
 
 typedef struct s_minishell
 {
@@ -31,9 +30,6 @@ typedef struct s_global
 {
 	int			error_status;
 	int			signal;
-	/* int			stdin_back;
-	int			stdout_back; */
-	//int			parent_pid;
 	int			pipes;
 	t_pipe		*pipex;
 	t_input		*input;
@@ -46,22 +42,22 @@ typedef struct s_global
 /************************** clean **************************/
 
 // Exits the program in a clean way
-void	exit_minishell(void);
+void		exit_minishell(void);
 // Frees any char type array given
-void	free_array(void **array);
+void		free_array(void **array);
 // Frees any char type string given
-void	free_pointer(void *str);
+void		free_pointer(void *str);
 
 /*************************** env ***************************/
 
 // Calls other functions to initialize enviroment variables
-void	set_env(char **env);
+void		set_env(char **env);
 // Duplicates env variables and put them in a hash table
 t_hashmap	*hash_env(char **env);
 // Updates the shell level when entering a new session
-void	shlvl_update(void);
+void		shlvl_update(void);
 // Updates env variables during execution
-void	update_under(void);
+void		update_under(void);
 // Creates some env variables and put them in a hash table
 t_hashmap	*create_hash_env(void);
 
@@ -73,52 +69,52 @@ t_global	*minis(void);
 /************************ executer *************************/
 
 // Functions that calls if is builtin and execution
-void	execute(void);
+void		execute(void);
 // Function to call the builtins
-void	ft_exec_builtin(char *cmd, char **args, int fd, int exit_flag);
-
-int		handle_fd(t_input **input);
-
-int		is_builtin(char *cmd);
+void		ft_exec_builtin(char *cmd, char **args, int fd, int exit_flag);
+// Function to open all file descriptors
+int			handle_fd(t_input **input);
+// Function to verify if the command given is a builtin
+int			is_builtin(char *cmd);
 
 /************************* builtin *************************/
 
 // Function that replicates cd (change directory)
-void	ft_cd(char *path, int fd);
+void		ft_cd(char *path, int fd);
 // Function that replicates pwd (print working directory)
-void	ft_pwd(int fd);
+void		ft_pwd(int fd);
 // Function that replicates echo (prints to stdout the arguments given)
-void	ft_echo(char **args, int fd);
+void		ft_echo(char **args, int fd);
 // Function that replicates exit (responsible to exit clean)
-void	ft_exit(char **args);
+void		ft_exit(char **args);
 // Function that replicates unset (removes variables from env)
-void	ft_unset(char **args);
+void		ft_unset(char **args);
 // Function that replicates export (adds variables to env)
-int		ft_export(char **args, int fd);
+int			ft_export(char **args, int fd);
 // Function to validate and add to export or env
-int	add_var(char **args, int i);
+int			add_var(char **args, int i);
 // Function that creates a prompt, reads a line and add it to the history
-void	set_input(void);
+void		set_input(void);
 // Function that verifies if arguments are valid for env
-void	ft_verify_env(char **args, int fd);
+void		ft_verify_env(char **args, int fd);
 // Function that verifies if arguments are valid for cd
-void	ft_verify_cd(char **path, int fd);
+void		ft_verify_cd(char **path, int fd);
 // Function that updates the env with the new PWD and OLDPWD
-void	update_env_cd(char *pwd);
+void		update_env_cd(char *pwd);
 // Puts env and session vars hashmaps into an array
-char	**hashmap_quotes_array_and_non_value_vars(void);
+char		**hashmap_quotes_array_and_non_value_vars(void);
 // Puts env variables into an array
-char	**hashmap_to_array(void);
+char		**hashmap_to_array(void);
 // Sorts an array in ascii oreder
-void	quick_sort(char **array, int left, int right);
+void		quick_sort(char **array, int left, int right);
 // Gives the length of the array
-int		array_len(char **array);
+int			array_len(char **array);
 // Takes a string and aplies that string to every position in the array
-void	ft_strjoin_to_array(char *str, char **array);
+void		ft_strjoin_to_array(char *str, char **array);
 // Prints any char type array given and prints it to any file discriptor
-void	print_array_fd(char **array, int fd);
+void		print_array_fd(char **array, int fd);
 // Splites the string given by the first occurence of 'c'
-char	**split_into2(char *arg, char c);
+char		**split_into2(char *arg, char c);
 
 /************************** error **************************/
 
@@ -132,6 +128,6 @@ char	**split_into2(char *arg, char c);
 # define INVALID_IDENTIFY "not a valid identifier"
 
 // Display error message in stderror
-void	error_mess(char *input, char *message, int status);
+void		error_mess(char *input, char *message, int status);
 
 #endif

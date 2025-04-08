@@ -1,4 +1,3 @@
-
 #ifndef PIPEX_H
 # define PIPEX_H
 
@@ -24,8 +23,6 @@ typedef struct s_pipe
 	int			*pids;
 	int			flag;
 	char		*last_path;
-//	int			fd_in;
-//	int			fd_out;
 	char		**env;
 	char		**cmd_paths;
 	char		**env_paths;
@@ -52,7 +49,7 @@ void	exec_one(t_pipe *pipex, t_input *input);
 void	execute_pipes(t_pipe *pipex, t_input *input);
 void	init_pipex(t_pipe *pipex);
 
-int	good_files(t_input *cmd);
+int		good_files(t_input *cmd);
 
 void	fd_update(t_input *input, t_pipe *pipex, int i);
 

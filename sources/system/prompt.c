@@ -1,5 +1,14 @@
-
 #include "minishell.h"
+
+static void	verify_null(char *full_promp, char *last_home, char *last)
+{
+	if ((minis()->ms->line) == NULL)
+	{
+		ft_printf("exit\n");
+		return (free(full_promp), free(minis()->ms->promp),
+			free(last_home), free(last), exit_minishell());
+	}
+}
 
 static char	*ft_get_last(char *path)
 {
@@ -13,7 +22,8 @@ static char	*ft_get_last(char *path)
 		return (last = ft_strdup("/"));
 	prompt = ft_split(path, '/');
 	i = -1;
-	while (prompt[++i]);
+	while (prompt[i])
+		++i;
 	last = ft_strdup(prompt[i - 1]);
 	free_array((void **)prompt);
 	return (last);
@@ -26,7 +36,7 @@ static char	*ft_getprompt(void)
 	char	*last;
 
 	cwd = getcwd(NULL, 0);
-	if(!cwd)
+	if (!cwd)
 		cwd = ft_strdup(hashmap_search(minis()->env, "PWD"));
 	if (!ft_strcmp(cwd, "/"))
 	{
@@ -41,30 +51,25 @@ static char	*ft_getprompt(void)
 void	set_input(void)
 {
 	char	*last;
-	char	*last_HOME;
+	char	*last_home;
 	char	*full_promp;
 
-	last_HOME = NULL;
+	last_home = NULL;
 	last = ft_getprompt();
 	if (hashmap_search(minis()->env, "HOME"))
-		last_HOME = ft_get_last(hashmap_search(minis()->env, "HOME"));
-	if (!ft_strcmp(last, last_HOME))
+		last_home = ft_get_last(hashmap_search(minis()->env, "HOME"));
+	if (!ft_strcmp(last, last_home))
 	{
 		free(last);
 		last = ft_strdup("~");
 	}
-	full_promp = ft_strjoin_var(5, BOLD_CYAN, last, BOLD_YELLOW, " $ ", RESET_COLOR);
+	full_promp = ft_strjoin_var(5, BOLD_CYAN, last,
+			BOLD_YELLOW, " $ ", RESET_COLOR);
 	minis()->ms->promp = ft_strdup(full_promp);
-	free(last);
-	free(last_HOME);
 	minis()->ms->line = readline(minis()->ms->promp);
-	free(full_promp);
-	free(minis()->ms->promp);
-	if ((minis()->ms->line) == NULL)
-	{
-		ft_printf("exit\n");
-		exit_minishell();
-	}
+	verify_null(full_promp, last_home, last);
 	if (*(minis()->ms->line) != '\0')
 		add_history(minis()->ms->line);
+	return (free(full_promp), free(minis()->ms->promp),
+		free(last_home), free(last));
 }

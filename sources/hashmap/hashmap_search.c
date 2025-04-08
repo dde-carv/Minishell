@@ -16,11 +16,12 @@ char	*hashmap_search(t_hashmap *table, char *key)
 	return (NULL);
 }
 
+//entry = (t_entry){.key = ft_strdup(entry.key), .value = ft_strdup(entry.value), .next = NULL};
 t_entry	*hash_action(t_hashmap *table, t_entry entry, t_action action)
 {
-	//entry = (t_entry){.key = ft_strdup(entry.key), .value = ft_strdup(entry.value), .next = NULL};
-	char	*value = NULL;
+	char	*value;
 
+	value = NULL;
 	if (!entry.key || (action != FIND && action != ENTER) || !table)
 		return (NULL);
 	if (action == ENTER)
