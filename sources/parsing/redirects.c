@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   redirects.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: luiribei <luiribei@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/08 10:25:34 by luiribei          #+#    #+#             */
+/*   Updated: 2025/04/08 10:29:00 by luiribei         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 static t_type	get_redirection_type(const char *str, int *i)
@@ -39,20 +51,19 @@ static void	handle_redirection(t_input *cmd, const char *s, int *i)
 	{
 		error_mess("minishell", "syntax error", 2);
 		*i = ft_strlen(s);
-		return;
+		return ;
 	}
 	if (s[*i] == '\'' || s[*i] == '"')
 	{
 		quote = s[*i];
-		(*i)++; // skip the starting quote
+		(*i)++;
 		start = *i;
 		while (s[*i] && s[*i] != quote)
 			(*i)++;
 		len = *i - start;
-		// extract including quotes so that remove_all_quotes works consistently
 		fname = ft_substr(s, start - 1, len + 2);
 		if (s[*i] == quote)
-			(*i)++; // consume the closing quote
+			(*i)++;
 	}
 	else
 	{
@@ -62,7 +73,6 @@ static void	handle_redirection(t_input *cmd, const char *s, int *i)
 		len = *i - start;
 		fname = ft_substr(s, start, len);
 	}
-	// For HEREDOC redirection, do not expand the delimiter.
 	if (type != HEREDOC)
 	{
 		expantions(&fname);
@@ -74,7 +84,6 @@ static void	handle_redirection(t_input *cmd, const char *s, int *i)
 	}
 	else
 	{
-		// Optionally, remove quotes if present for consistency.
 		tmp = remove_all_quotes(fname);
 		free(fname);
 		fname = tmp;
@@ -107,7 +116,7 @@ static char	*build_new_str(t_input *cmd, const char *s)
 			if (minis()->error_status != 0)
 			{
 				free(new_str);
-				return (ft_strdup("")); // abort building the string
+				return (ft_strdup(""));
 			}
 		}
 		else
@@ -140,7 +149,6 @@ void	parse_redirects(t_input **cmd)
 {
 	char	*combined_str;
 	char	*processed_str;
-	//char	*space_pos;
 	char	*trimmed;
 
 	combined_str = ft_strjoin_var(3, (*cmd)->cmd, " ", (*cmd)->arg);
@@ -149,7 +157,6 @@ void	parse_redirects(t_input **cmd)
 	trimmed = ft_strtrim(processed_str, " ");
 	free(processed_str);
 	processed_str = trimmed;
-	//space_pos = ft_strchr(processed_str, ' ');
 	update_cmd_args(cmd, processed_str);
 	free(processed_str);
 }

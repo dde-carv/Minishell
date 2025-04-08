@@ -1,7 +1,19 @@
-#ifndef FT_SIGNALS_H
-# define FT_SIGNALS_H
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   signals.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: luiribei <luiribei@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/08 10:17:06 by luiribei          #+#    #+#             */
+/*   Updated: 2025/04/08 10:17:08 by luiribei         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-#include "minishell.h"
+#ifndef SIGNALS_H
+# define SIGNALS_H
+
+# include "minishell.h"
 
 extern int			g_sig;
 

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: luiribei <luiribei@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/08 10:25:27 by luiribei          #+#    #+#             */
+/*   Updated: 2025/04/08 10:27:35 by luiribei         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 static void	cpy_input(t_entry *entry)
@@ -31,7 +43,7 @@ static char	*extract_arg(const char *str, int *i)
 	char	*arg;
 	int		start;
 
-	in_quotes = 0;	
+	in_quotes = 0;
 	while (str[*i] == ' ' || str[*i] == '\t')
 		(*i)++;
 	start = *i;
@@ -74,7 +86,6 @@ void	parse_input(void)
 	char	*cmd;
 	char	*arg;
 	t_entry	*entry;
-	/* t_input *current_input; */
 
 	i = 0;
 	while (minis()->ms->line[i])
@@ -93,12 +104,4 @@ void	parse_input(void)
 	}
 	if (minis()->ms->line[i - 1] == '|')
 		cpy_input(&(t_entry){"", "", NULL});
-
-	// Apply redirection parsing to each command segment
-/* 	current_input = minis()->input;
-	while (current_input)
-	{
-		parse_redirects(&current_input);
-		current_input = current_input->next;
-	} */
 }

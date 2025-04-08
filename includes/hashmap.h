@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   hashmap.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: luiribei <luiribei@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/08 10:17:21 by luiribei          #+#    #+#             */
+/*   Updated: 2025/04/08 10:17:23 by luiribei         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef HASHMAP_H
 # define HASHMAP_H
 
@@ -33,7 +45,8 @@ void			insert_in_table(char *key, char *value, t_hashmap *table);
 // Searches the key in the table and returns its value
 char			*hashmap_search(t_hashmap *table, char *key);
 // If collision is detected it creates a node in an index of the table
-void			handle_collision(t_hashmap *table, unsigned long index, t_entry *new_entry);
+void			handle_collision(t_hashmap *table, \
+	unsigned long index, t_entry *new_entry);
 // Searches the key in the table and deletes that key and value
 void			hashmap_delete(t_hashmap *table, char *key);
 // Frees individual keys, values and the nodes (the whole table)
@@ -43,6 +56,6 @@ void			free_table(t_hashmap *table);
 // Prints the table
 void			hashmap_print_table(t_hashmap *table);
 // Function that acts depending on the action provided
-t_entry	*hash_action(t_hashmap *table, t_entry entry, t_action action);
+t_entry			*hash_action(t_hashmap *table, t_entry entry, t_action action);
 
 #endif

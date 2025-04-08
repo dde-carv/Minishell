@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   signals.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: luiribei <luiribei@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/08 10:25:51 by luiribei          #+#    #+#             */
+/*   Updated: 2025/04/08 10:34:07 by luiribei         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-int			g_sig = 0;
+int		g_sig = 0;
 
 void	load_signals(void)
 {
@@ -34,7 +46,6 @@ void	sig_handler(int signum, siginfo_t *sig, void *s)
 	{
 		rl_replace_line("", 0);
 		printf("\n");
-		//write(STDOUT_FILENO, "\n", 1);
 		rl_on_new_line();
 		rl_redisplay();
 		minis()->signal = 1;

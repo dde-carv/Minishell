@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   hashmap_search.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: luiribei <luiribei@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/08 10:20:50 by luiribei          #+#    #+#             */
+/*   Updated: 2025/04/08 10:22:05 by luiribei         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 char	*hashmap_search(t_hashmap *table, char *key)
@@ -16,7 +28,6 @@ char	*hashmap_search(t_hashmap *table, char *key)
 	return (NULL);
 }
 
-//entry = (t_entry){.key = ft_strdup(entry.key), .value = ft_strdup(entry.value), .next = NULL};
 t_entry	*hash_action(t_hashmap *table, t_entry entry, t_action action)
 {
 	char	*value;
@@ -37,14 +48,3 @@ t_entry	*hash_action(t_hashmap *table, t_entry entry, t_action action)
 	}
 	return (NULL);
 }
-
-/* t_entry	*hash_action(t_hashmap *table, t_entry entry, t_action action)
-{
-	if (!entry.key || (action != FIND && action != ENTER) || !table)
-		return (NULL);
-	if (action == ENTER)
-		return (insert_in_table(entry.key, entry.value, table));
-	if (action == FIND)
-		return (hash_search(table->entries[hash(entry.key, table->size)], entry));
-	return (NULL);
-} */

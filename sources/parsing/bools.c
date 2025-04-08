@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   bools.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: luiribei <luiribei@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/08 10:25:01 by luiribei          #+#    #+#             */
+/*   Updated: 2025/04/08 10:33:42 by luiribei         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 void	update_quote_state(char c, char *in_quotes)
@@ -21,10 +33,7 @@ bool	is_valid(void)
 			return (0);
 		}
 		if (!lst->cmd || !*lst->cmd)
-		{
-			//error_mess(lst->cmd, NOT_FOUND, 127);
 			return (0);
-		}
 		lst = lst->next;
 	}
 	return (1);
@@ -41,8 +50,6 @@ bool	closed_quotes(char *str)
 		return (1);
 	while (str[++i])
 		update_quote_state(str[i], &in_quotes);
-	/* if (in_quotes)
-		ft_putendl_fd("error open quotes", 2); */
 	return (in_quotes == 0);
 }
 

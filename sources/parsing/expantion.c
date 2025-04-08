@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   expantion.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: luiribei <luiribei@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/08 10:25:19 by luiribei          #+#    #+#             */
+/*   Updated: 2025/04/08 10:32:52 by luiribei         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 void	expantions(char **s)
@@ -14,17 +26,14 @@ void	expantions(char **s)
 	while (str[++i])
 	{
 		update_quote_state(str[i], &in_quotes);
-		// Check that there is a next character before testing it.
-		if (str[i] == '$' && str[i + 1] &&
-			(str[i + 1] == '\'' || str[i + 1] == '"'))
-		{
-			//ft_memmove(&str[i], &str[i + 1], ft_strlen(&str[i + 1]) + 1);
-			continue; // re-check current index after shifting
-		}
-		if (str[i] == '$' && str[i + 1] &&
-			(!in_quotes || in_quotes == '"') &&
-			(ft_isalnum(str[i + 1]) || str[i + 1] == '?' || str[i + 1] == '_'))
-			str[i] = 2; // marker for variable expansion
+		if (str[i] == '$' && str[i + 1]
+			&& (str[i + 1] == '\'' || str[i + 1] == '"'))
+			continue ;
+		if (str[i] == '$' && str[i + 1]
+			&& (!in_quotes || in_quotes == '"')
+			&& (ft_isalnum(str[i + 1]) || str[i + 1] == '?'
+				|| str[i + 1] == '_'))
+			str[i] = 2;
 	}
 }
 
@@ -58,6 +67,7 @@ static void	expand_value(char **sp, char *new, int *j, char *value)
 
 char	*sub_expantion(char *str, char *value)
 {
+	char	quote;
 	char	*new;
 	char	*s;
 	int		j;
@@ -76,10 +86,8 @@ char	*sub_expantion(char *str, char *value)
 		s++;
 		if (*s == '\'' || *s == '"')
 		{
-			// Preserve the original dollar sign
 			new[j++] = '$';
-			// Copy the quoted token as is
-			char quote = *s;
+			quote = *s;
 			new[j++] = quote;
 			s++;
 			while (*s && *s != quote)

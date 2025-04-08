@@ -1,15 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   clean_content.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: luiribei <luiribei@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/08 10:25:15 by luiribei          #+#    #+#             */
+/*   Updated: 2025/04/08 10:29:50 by luiribei         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
-
-/* static void	take_spaces(char **s)
-{
-	int	i;
-
-	i = ft_strlen(*s) - 1;
-	if (i == -1)
-		return ;
-	while (i && ((*s)[i] == ' ' || (*s)[i] == ' '))
-		(*s)[i--] = 0;
-} */
 
 static void	take_quotes(char **str)
 {
@@ -83,7 +84,6 @@ static void	take_expantions(t_input **lst)
 	while ((*lst)->args && (*lst)->args[i])
 	{
 		take_quotes(&(*lst)->args[i]);
-		//take_spaces(&(*lst)->args[i]);
 		i++;
 	}
 }
@@ -96,9 +96,7 @@ void	clean_content(void)
 	while (lst)
 	{
 		if (has_redirection(lst->cmd) || has_redirection(lst->arg))
-		{
 			parse_redirects(&lst);
-		}
 		expantions(&lst->cmd);
 		expantions(&lst->arg);
 		take_expantions(&lst);

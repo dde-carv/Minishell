@@ -1,7 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: luiribei <luiribei@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/08 10:17:15 by luiribei          #+#    #+#             */
+/*   Updated: 2025/04/08 10:19:21 by luiribei         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PARSING_H
 # define PARSING_H
 
-#include "minishell.h"
+# include "minishell.h"
 
 typedef enum s_type
 {
@@ -38,7 +50,8 @@ typedef struct s_input
 void	args(t_input **input);
 // Parses the raw input string and builds the input linked list.
 void	parse_input(void);
-// Scans the input for redirection operators and constructs the corresponding file descriptors.
+// Scans the input for redirection operators and constructs the
+// corresponding file descriptors.
 void	parse_redirects(t_input **cmd);
 // Updates the quote state.
 void	update_quote_state(char c, char *in_quotes);
@@ -59,9 +72,6 @@ char	*sub_expantion(char *str, char *value);
 char	*get_value(char *s);
 // Splits the input string into tokens based on specific delimiters.
 char	**split_value(char *str);
-
-
-
 // Verifies that all quotes in the string are properly closed.
 bool	closed_quotes(char *str);
 // Checks if the string contains an environment variable expansion.
@@ -96,15 +106,14 @@ void	ft_input_lstdelone(t_input **lst);
 // Frees the entire list.
 void	ft_input_lstclear(t_input **lst);
 
-/************************* Parsing file descriptor functions *************************/
+/********************* Parsing file descriptor functions *********************/
 
 // Adds a new file descriptor node to the end of the t_fd linked list.
 void	ft_fd_add_back(t_fd **lst, t_fd *n);
-// Creates and returns a new file descriptor node with the specified file name, file descriptor and type.
+// Creates and returns a new file descriptor node with the specified file name,
+// file descriptor and type.
 t_fd	*ft_fd_new(char *file_n, int fd, t_type type);
 // Function to delete fd nodes
 void	ft_fd_del(t_fd	**fd);
-
-void	change_cmd(t_input **cmd);
 
 #endif
