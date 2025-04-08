@@ -6,7 +6,7 @@
 /*   By: luiribei <luiribei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 10:17:15 by luiribei          #+#    #+#             */
-/*   Updated: 2025/04/08 10:19:21 by luiribei         ###   ########.fr       */
+/*   Updated: 2025/04/08 17:25:02 by luiribei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,14 @@ void	parse_input(void);
 void	parse_redirects(t_input **cmd);
 // Updates the quote state.
 void	update_quote_state(char c, char *in_quotes);
-//
+
 void	update_cmd_args(t_input **cmd, char *processed_str);
 
 char	*remove_all_quotes(char *s);
+
+t_type	get_redirection_type(const char *str, int *i);
+
+char	*extract_filename(const char *s, int *i);
 
 // Cleans leading/trailing spaces and other unwanted characters from the input.
 void	clean_content(void);
@@ -82,16 +86,6 @@ bool	is_valid(void);
 bool	needs_split(char *s); */
 // Determines if the string has any redirections.
 bool	has_redirection(char *s);
-
-/* char	*new_cut(char **s, int init, int end);
-void	change_input(t_input **cmd);
-void	create_args(t_input **input);
-void	expantion_mark(void);
-void	args_to_cmd(void);
-void	new_parse(void);
-void	redirects_parsing(void);
-void	trim_spaces(char **s);
-void	trim_front_spaces(char **s); */
 
 /************************* Parsing list functions *************************/
 

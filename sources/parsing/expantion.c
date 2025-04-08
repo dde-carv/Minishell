@@ -6,7 +6,7 @@
 /*   By: luiribei <luiribei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 10:25:19 by luiribei          #+#    #+#             */
-/*   Updated: 2025/04/08 10:32:52 by luiribei         ###   ########.fr       */
+/*   Updated: 2025/04/08 16:38:21 by luiribei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,29 @@ static void	expand_value(char **sp, char *new, int *j, char *value)
 		new[(*j)++] = *value++;
 }
 
-char	*sub_expantion(char *str, char *value)
+static void	process_exp_token(char **sp, char *new, int *j, char *value)
 {
 	char	quote;
+
+	if (**sp == '\'' || **sp == '"')
+	{
+		new[(*j)++] = '$';
+		quote = **sp;
+		new[(*j)++] = quote;
+		(*sp)++;
+		while (**sp && **sp != quote)
+			new[(*j)++] = *(*sp)++;
+		if (**sp == quote)
+			new[(*j)++] = *(*sp)++;
+	}
+	if (**sp == '?')
+		expand_error_status(sp, new, j);
+	else
+		expand_value(sp, new, j, value);
+}
+
+char	*sub_expantion(char *str, char *value)
+{
 	char	*new;
 	char	*s;
 	int		j;
@@ -84,21 +104,7 @@ char	*sub_expantion(char *str, char *value)
 	if (*s == 2)
 	{
 		s++;
-		if (*s == '\'' || *s == '"')
-		{
-			new[j++] = '$';
-			quote = *s;
-			new[j++] = quote;
-			s++;
-			while (*s && *s != quote)
-				new[j++] = *s++;
-			if (*s == quote)
-				new[j++] = *s++;
-		}
-		if (*s == '?')
-			expand_error_status(&s, new, &j);
-		else
-			expand_value(&s, new, &j, value);
+		process_exp_token(&s, new, &j, value);
 	}
 	while (*s)
 		new[j++] = *s++;

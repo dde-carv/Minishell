@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dde-carv <dde-carv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: luiribei <luiribei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 10:17:30 by dde-carv          #+#    #+#             */
-/*   Updated: 2025/04/08 10:17:31 by dde-carv         ###   ########.fr       */
+/*   Updated: 2025/04/08 17:45:22 by luiribei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,13 @@ typedef struct s_global
 	t_hashmap	*non_value_vars;
 	t_minishell	*ms;
 }				t_global;
+
+typedef struct s_help
+{
+	int		pos;
+	char	in_quotes;
+	char	*new_str;
+}	t_help;
 
 /************************** clean **************************/
 

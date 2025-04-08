@@ -6,73 +6,19 @@
 /*   By: luiribei <luiribei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 10:25:34 by luiribei          #+#    #+#             */
-/*   Updated: 2025/04/08 10:29:00 by luiribei         ###   ########.fr       */
+/*   Updated: 2025/04/08 17:45:38 by luiribei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static t_type	get_redirection_type(const char *str, int *i)
+static void	process_and_add_redirection(t_input *cmd,
+	const char *s, int *i, t_type type)
 {
-	t_type	type;
-
-	if (str[*i] == '>' && str[*i + 1] == '>')
-	{
-		type = APPEND;
-		(*i)++;
-	}
-	else if (str[*i] == '<' && str[*i + 1] == '<')
-	{
-		type = HEREDOC;
-		(*i)++;
-	}
-	else if (str[*i] == '>')
-		type = TRUNCATE;
-	else
-		type = REVERSE;
-	return (type);
-}
-
-static void	handle_redirection(t_input *cmd, const char *s, int *i)
-{
-	t_type	type;
 	char	*fname;
 	char	*tmp;
-	int		start;
-	int		len;
-	char	quote;
 
-	type = get_redirection_type(s, i);
-	if (s[*i] == '>' || s[*i] == '<')
-		(*i)++;
-	while (s[*i] && (s[*i] == ' ' || s[*i] == '\t'))
-		(*i)++;
-	if (!s[*i] || s[*i] == '<' || s[*i] == '>')
-	{
-		error_mess("minishell", "syntax error", 2);
-		*i = ft_strlen(s);
-		return ;
-	}
-	if (s[*i] == '\'' || s[*i] == '"')
-	{
-		quote = s[*i];
-		(*i)++;
-		start = *i;
-		while (s[*i] && s[*i] != quote)
-			(*i)++;
-		len = *i - start;
-		fname = ft_substr(s, start - 1, len + 2);
-		if (s[*i] == quote)
-			(*i)++;
-	}
-	else
-	{
-		start = *i;
-		while (s[*i] && s[*i] != ' ' && s[*i] != '<' && s[*i] != '>')
-			(*i)++;
-		len = *i - start;
-		fname = ft_substr(s, start, len);
-	}
+	fname = extract_filename(s, i);
 	if (type != HEREDOC)
 	{
 		expantions(&fname);
@@ -94,55 +40,62 @@ static void	handle_redirection(t_input *cmd, const char *s, int *i)
 	(*i)--;
 }
 
+static void	handle_redirection(t_input *cmd, const char *s, int *i)
+{
+	t_type	type;
+
+	type = get_redirection_type(s, i);
+	if (s[*i] == '>' || s[*i] == '<')
+		(*i)++;
+	while (s[*i] && (s[*i] == ' ' || s[*i] == '\t'))
+		(*i)++;
+	if (!s[*i] || s[*i] == '<' || s[*i] == '>')
+	{
+		error_mess("minishell", "syntax error", 2);
+		*i = ft_strlen(s);
+		return ;
+	}
+	process_and_add_redirection(cmd, s, i, type);
+}
+
+static int	process_char(t_input *cmd, const char *s, int *i, t_help *b)
+{
+	if ((s[*i] == '<' || s[*i] == '>') && !b->in_quotes)
+	{
+		handle_redirection(cmd, s, i);
+		if (minis()->error_status != 0)
+			return (1);
+	}
+	else
+	{
+		update_quote_state(s[*i], &b->in_quotes);
+		b->new_str[b->pos++] = s[*i];
+	}
+	return (0);
+}
+
 static char	*build_new_str(t_input *cmd, const char *s)
 {
 	int		i;
-	int		pos;
-	char	in_quotes;
-	char	*new_str;
+	t_help	b;
 
-	i = -1;
-	pos = 0;
-	in_quotes = 0;
-	new_str = ft_calloc(ft_strlen(s) + 1, sizeof(char));
-	if (!new_str)
-		exit(1);
-	while (s[++i])
+	i = 0;
+	b.pos = 0;
+	b.in_quotes = 0;
+	b.new_str = ft_calloc(ft_strlen(s) + 1, sizeof(char));
+	if (!b.new_str)
+		return (NULL);
+	while (s[i])
 	{
-		update_quote_state(s[i], &in_quotes);
-		if ((s[i] == '<' || s[i] == '>') && !in_quotes)
+		if (process_char(cmd, s, &i, &b))
 		{
-			handle_redirection(cmd, s, &i);
-			if (minis()->error_status != 0)
-			{
-				free(new_str);
-				return (ft_strdup(""));
-			}
+			free(b.new_str);
+			return (ft_strdup(""));
 		}
-		else
-		{
-			update_quote_state(s[i], &in_quotes);
-			new_str[pos++] = s[i];
-		}
+		i++;
 	}
-	new_str[pos] = '\0';
-	return (new_str);
-}
-
-void	parse_redirection(t_input **cmd, char **str)
-{
-	int		i;
-	char	*new_str;
-
-	new_str = build_new_str(*cmd, *str);
-	free(*str);
-	i = ft_strlen(new_str) - 1;
-	while (i > 0 && (new_str[i] == ' ' || new_str[i] == '\t'))
-	{
-		new_str[i] = 0;
-		i--;
-	}
-	*str = new_str;
+	b.new_str[b.pos] = '\0';
+	return (b.new_str);
 }
 
 void	parse_redirects(t_input **cmd)

@@ -6,7 +6,7 @@
 /*   By: luiribei <luiribei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 10:25:39 by luiribei          #+#    #+#             */
-/*   Updated: 2025/04/08 10:25:40 by luiribei         ###   ########.fr       */
+/*   Updated: 2025/04/08 18:08:42 by luiribei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,14 +68,12 @@ char	**split_value(char *str)
 	int		end;
 
 	words = words_count(str);
-	if (words == 0 && ft_strlen(str) > 0)
-		words = 1;
 	tokens = ft_calloc(words + 1, sizeof(char *));
 	if (!tokens)
 		return (NULL);
-	word_index = 0;
+	word_index = -1;
 	start = 0;
-	while (word_index < words)
+	while (++word_index < words)
 	{
 		while (str[start] == ' ' || str[start] == '\t')
 			start++;
@@ -84,9 +82,7 @@ char	**split_value(char *str)
 			tokens[word_index] = ft_strdup("");
 		else
 			tokens[word_index] = ft_substr(str, start, end - start);
-		word_index++;
 		start = end;
 	}
-	tokens[word_index] = NULL;
-	return (tokens);
+	return (tokens[word_index] = NULL, tokens);
 }
