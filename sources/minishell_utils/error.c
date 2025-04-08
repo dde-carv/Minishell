@@ -1,4 +1,3 @@
-
 #include "minishell.h"
 
 static void	clear_pipes(void)
@@ -42,12 +41,12 @@ void	error_mess(char *input, char *message, int status)
 	char	*error_out;
 
 	error_out = ft_strjoin_var(
-		7,
-		BOLD_RED,
-		"minishell: ",
-		RED, input,
-		": ", message,
-		RESET_COLOR);
+			7,
+			BOLD_RED,
+			"minishell: ",
+			RED, input,
+			": ", message,
+			RESET_COLOR);
 	ft_putendl_fd(error_out, 2);
 	minis()->error_status = status;
 	free(error_out);
