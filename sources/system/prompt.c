@@ -6,7 +6,7 @@
 /*   By: dde-carv <dde-carv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 10:20:55 by dde-carv          #+#    #+#             */
-/*   Updated: 2025/04/08 13:18:02 by dde-carv         ###   ########.fr       */
+/*   Updated: 2025/04/08 13:21:04 by dde-carv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static char	*ft_get_last(char *path)
 		return (last = ft_strdup("/"));
 	prompt = ft_split(path, '/');
 	i = 0;
-	while (prompt[++i])
+	while (prompt[i])
 		i++;
 	last = ft_strdup(prompt[i - 1]);
 	free_array((void **)prompt);
